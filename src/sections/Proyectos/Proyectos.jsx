@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import ProyectoCard from "../../components/ProyectoCard/ProyectoCard";
 import ProyectoModal from "../../components/ProyectoModal/ProyectoModal";
@@ -6,8 +6,24 @@ import SeccionAnimada from "../../components/SeccionAnimada/SeccionAnimada";
 import { proyectos } from "../../data/proyectos";
 import "./Proyectos.css";
 
+const ANCHO_SLOT_POR_DEFECTO = 560;
+const PASO_RATIO = 0.62;
+const ROTACION_MAXIMA = 32;
+const PROFUNDIDAD_PASO = 170;
+const ESCALA_PASO = 0.18;
+const OPACIDAD_PASO = 0.4;
+const UMBRAL_ARRASTRE_RATIO = 0.3;
+const UMBRAL_CLICK_PX = 5;
+
 function Proyectos() {
   const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
+  const [indiceActivo, setIndiceActivo] = useState(0);
+  const [arrastrando, setArrastrando] = useState(false);
+  const [arrastreX, setArrastreX] = useState(0);
+
+  const primerSlotRef = useRef(null);
+  const inicioXRef = useRef(0);
+  const arrastreSignificativoRef = useRef(false);
 
   function abrirModalProyecto(proyecto) {
     setProyectoSeleccionado(proyecto);
@@ -17,6 +33,62 @@ function Proyectos() {
     setProyectoSeleccionado(null);
   }
 
+  function irA(indice) {
+    setIndiceActivo(Math.min(Math.max(indice, 0), proyectos.length - 1));
+  }
+
+  function obtenerPasoPx() {
+    return (primerSlotRef.current?.offsetWidth || ANCHO_SLOT_POR_DEFECTO) * PASO_RATIO;
+  }
+
+  function manejarPointerDown(evento) {
+    if (evento.button !== 0) return;
+    try {
+      evento.currentTarget.setPointerCapture(evento.pointerId);
+    } catch {
+      // Algunos navegadores rechazan capturar punteros sintéticos o inactivos.
+    }
+    inicioXRef.current = evento.clientX;
+    arrastreSignificativoRef.current = false;
+    setArrastrando(true);
+    setArrastreX(0);
+  }
+
+  function manejarPointerMove(evento) {
+    if (!arrastrando) return;
+    const delta = evento.clientX - inicioXRef.current;
+    if (Math.abs(delta) > UMBRAL_CLICK_PX) {
+      arrastreSignificativoRef.current = true;
+    }
+    setArrastreX(delta);
+  }
+
+  function manejarPointerUp() {
+    if (!arrastrando) return;
+    const umbral = obtenerPasoPx() * UMBRAL_ARRASTRE_RATIO;
+
+    if (arrastreX < -umbral) {
+      irA(indiceActivo + 1);
+    } else if (arrastreX > umbral) {
+      irA(indiceActivo - 1);
+    }
+
+    setArrastrando(false);
+    setArrastreX(0);
+  }
+
+  function manejarClickSlot(indice) {
+    if (arrastreSignificativoRef.current) {
+      arrastreSignificativoRef.current = false;
+      return;
+    }
+    if (indice !== indiceActivo) {
+      irA(indice);
+    }
+  }
+
+  const paso = obtenerPasoPx();
+
   return (
     <SeccionAnimada id="proyectos" className="proyectos">
       <SectionTitle
@@ -25,12 +97,76 @@ function Proyectos() {
         descripcion="Una selección de proyectos académicos, personales y prácticos orientados a resolver problemas reales."
       />
 
-      <div className="proyectos__grid">
-        {proyectos.map((proyecto) => (
-          <ProyectoCard
+      <div className="proyectos__carrusel">
+        <button
+          type="button"
+          className="proyectos__flecha proyectos__flecha--prev"
+          onClick={() => irA(indiceActivo - 1)}
+          disabled={indiceActivo === 0}
+          aria-label="Proyecto anterior"
+        >
+          ‹
+        </button>
+
+        <div
+          className={`proyectos__viewport${arrastrando ? " proyectos__viewport--arrastrando" : ""}`}
+          onPointerDown={manejarPointerDown}
+          onPointerMove={manejarPointerMove}
+          onPointerUp={manejarPointerUp}
+          onPointerLeave={manejarPointerUp}
+          onPointerCancel={manejarPointerUp}
+        >
+          {proyectos.map((proyecto, indice) => {
+            const offset = indice - indiceActivo;
+            const offsetEfectivo = offset + (arrastrando ? arrastreX / paso : 0);
+            const absEfectivo = Math.abs(offsetEfectivo);
+            const esActivo = offset === 0;
+
+            const desplazamiento = offset * paso + (arrastrando ? arrastreX : 0);
+            const rotacion = offsetEfectivo * -ROTACION_MAXIMA;
+            const profundidad = -absEfectivo * PROFUNDIDAD_PASO;
+            const escala = Math.max(1 - absEfectivo * ESCALA_PASO, 0.5);
+            const opacidad = Math.max(1 - absEfectivo * OPACIDAD_PASO, 0);
+
+            return (
+              <div
+                key={proyecto.id}
+                ref={indice === 0 ? primerSlotRef : undefined}
+                className={`proyectos__slot${esActivo ? " proyectos__slot--activo" : ""}`}
+                style={{
+                  transform: `translate(-50%, -50%) translateX(${desplazamiento}px) translateZ(${profundidad}px) rotateY(${rotacion}deg) scale(${escala})`,
+                  opacity: opacidad,
+                  zIndex: 100 - Math.round(absEfectivo * 10),
+                  pointerEvents: Math.abs(offset) > 3 ? "none" : "auto",
+                }}
+                onClick={() => manejarClickSlot(indice)}
+              >
+                <ProyectoCard proyecto={proyecto} abrirModalProyecto={abrirModalProyecto} />
+              </div>
+            );
+          })}
+        </div>
+
+        <button
+          type="button"
+          className="proyectos__flecha proyectos__flecha--next"
+          onClick={() => irA(indiceActivo + 1)}
+          disabled={indiceActivo === proyectos.length - 1}
+          aria-label="Siguiente proyecto"
+        >
+          ›
+        </button>
+      </div>
+
+      <div className="proyectos__dots">
+        {proyectos.map((proyecto, indice) => (
+          <button
             key={proyecto.id}
-            proyecto={proyecto}
-            abrirModalProyecto={abrirModalProyecto}
+            type="button"
+            className={`proyectos__dot${indice === indiceActivo ? " proyectos__dot--activo" : ""}`}
+            onClick={() => irA(indice)}
+            aria-label={`Ir al proyecto ${indice + 1}: ${proyecto.titulo}`}
+            aria-current={indice === indiceActivo}
           />
         ))}
       </div>
