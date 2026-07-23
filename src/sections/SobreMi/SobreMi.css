@@ -1,5 +1,5 @@
 .sobre-mi {
-  padding: 72px 32px;
+  padding: clamp(48px, 7vw, 64px) 32px;
   border-bottom: 1px solid var(--border);
 }
 

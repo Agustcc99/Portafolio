@@ -6,7 +6,6 @@ function SobreMi() {
   return (
     <SeccionAnimada id="sobre-mi" className="sobre-mi">
       <SectionTitle
-        etiqueta="Sobre mí"
         titulo="Un perfil técnico con mirada práctica"
         descripcion="Me interesa desarrollar soluciones útiles, bien organizadas y pensadas para problemas reales."
       />

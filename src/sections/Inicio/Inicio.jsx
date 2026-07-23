@@ -1,8 +1,11 @@
+import InteractiveHeroGrid from "../../components/InteractiveHeroGrid/InteractiveHeroGrid";
 import "./Inicio.css";
 
 function Inicio() {
   return (
     <section id="inicio" className="inicio">
+      <InteractiveHeroGrid />
+
       <div className="inicio__contenido">
         <span className="inicio__badge">Desarrollador Web en formación</span>
 

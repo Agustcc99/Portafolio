@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import ProyectoCard from "../../components/ProyectoCard/ProyectoCard";
 import ProyectoModal from "../../components/ProyectoModal/ProyectoModal";
@@ -14,16 +14,38 @@ const ESCALA_PASO = 0.18;
 const OPACIDAD_PASO = 0.4;
 const UMBRAL_ARRASTRE_RATIO = 0.3;
 const UMBRAL_CLICK_PX = 5;
+const MARGEN_ALTURA_VIEWPORT = 40;
 
 function Proyectos() {
   const [proyectoSeleccionado, setProyectoSeleccionado] = useState(null);
   const [indiceActivo, setIndiceActivo] = useState(0);
   const [arrastrando, setArrastrando] = useState(false);
   const [arrastreX, setArrastreX] = useState(0);
+  const [alturaViewport, setAlturaViewport] = useState(null);
 
-  const primerSlotRef = useRef(null);
+  const slotRefs = useRef([]);
   const inicioXRef = useRef(0);
   const arrastreSignificativoRef = useRef(false);
+  const pointerIdRef = useRef(0);
+
+  // La altura del viewport se ajusta a la card activa (en vez de un valor fijo por
+  // breakpoint) porque la descripción de cada proyecto tiene distinto largo y en
+  // pantallas angostas una card podía quedar más alta que el contenedor y recortarse.
+  useLayoutEffect(() => {
+    const elementoActivo = slotRefs.current[indiceActivo];
+    if (!elementoActivo) return;
+
+    function actualizarAltura() {
+      setAlturaViewport(elementoActivo.offsetHeight + MARGEN_ALTURA_VIEWPORT);
+    }
+
+    actualizarAltura();
+
+    const observador = new ResizeObserver(actualizarAltura);
+    observador.observe(elementoActivo);
+
+    return () => observador.disconnect();
+  }, [indiceActivo]);
 
   function abrirModalProyecto(proyecto) {
     setProyectoSeleccionado(proyecto);
@@ -38,18 +60,14 @@ function Proyectos() {
   }
 
   function obtenerPasoPx() {
-    return (primerSlotRef.current?.offsetWidth || ANCHO_SLOT_POR_DEFECTO) * PASO_RATIO;
+    return (slotRefs.current[0]?.offsetWidth || ANCHO_SLOT_POR_DEFECTO) * PASO_RATIO;
   }
 
   function manejarPointerDown(evento) {
     if (evento.button !== 0) return;
-    try {
-      evento.currentTarget.setPointerCapture(evento.pointerId);
-    } catch {
-      // Algunos navegadores rechazan capturar punteros sintéticos o inactivos.
-    }
     inicioXRef.current = evento.clientX;
     arrastreSignificativoRef.current = false;
+    pointerIdRef.current = evento.pointerId;
     setArrastrando(true);
     setArrastreX(0);
   }
@@ -57,9 +75,19 @@ function Proyectos() {
   function manejarPointerMove(evento) {
     if (!arrastrando) return;
     const delta = evento.clientX - inicioXRef.current;
-    if (Math.abs(delta) > UMBRAL_CLICK_PX) {
+
+    // La captura del puntero se activa recién cuando el gesto es realmente un arrastre
+    // (no en el pointerdown): capturar antes rompe el click de los botones internos,
+    // porque el navegador redirige también el evento "click" al elemento capturado.
+    if (!arrastreSignificativoRef.current && Math.abs(delta) > UMBRAL_CLICK_PX) {
       arrastreSignificativoRef.current = true;
+      try {
+        evento.currentTarget.setPointerCapture(pointerIdRef.current);
+      } catch {
+        // Algunos navegadores rechazan capturar punteros sintéticos o inactivos.
+      }
     }
+
     setArrastreX(delta);
   }
 
@@ -92,7 +120,6 @@ function Proyectos() {
   return (
     <SeccionAnimada id="proyectos" className="proyectos">
       <SectionTitle
-        etiqueta="Proyectos"
         titulo="Trabajos para mostrar mi evolución"
         descripcion="Una selección de proyectos académicos, personales y prácticos orientados a resolver problemas reales."
       />
@@ -110,6 +137,7 @@ function Proyectos() {
 
         <div
           className={`proyectos__viewport${arrastrando ? " proyectos__viewport--arrastrando" : ""}`}
+          style={{ height: alturaViewport ? `${alturaViewport}px` : undefined }}
           onPointerDown={manejarPointerDown}
           onPointerMove={manejarPointerMove}
           onPointerUp={manejarPointerUp}
@@ -131,7 +159,9 @@ function Proyectos() {
             return (
               <div
                 key={proyecto.id}
-                ref={indice === 0 ? primerSlotRef : undefined}
+                ref={(el) => {
+                  slotRefs.current[indice] = el;
+                }}
                 className={`proyectos__slot${esActivo ? " proyectos__slot--activo" : ""}`}
                 style={{
                   transform: `translate(-50%, -50%) translateX(${desplazamiento}px) translateZ(${profundidad}px) rotateY(${rotacion}deg) scale(${escala})`,

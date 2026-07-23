@@ -1,37 +1,470 @@
 .tecnologias {
-  padding: 72px 32px;
+  padding: clamp(48px, 7vw, 64px) 32px;
   border-bottom: 1px solid var(--border);
 }
 
-.tecnologias__lista {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  max-width: 760px;
-  margin: 0 auto;
+/* --------------------------------------------------------------------- */
+/* Introducción                                                          */
+/* --------------------------------------------------------------------- */
+
+.tecnologias__intro {
+  max-width: 640px;
+  margin: 0 auto clamp(28px, 4vw, 36px);
+  text-align: center;
 }
 
-.tecnologias__lista span {
-  padding: 10px 16px;
-  border: 1px solid var(--border);
+.tecnologias__intro h2 {
+  position: relative;
+  margin: 0 0 14px;
+  font-size: clamp(28px, 3vw, 38px);
+}
+
+.tecnologias__intro h2::after {
+  content: "";
+  display: block;
+  width: 92px;
+  height: 4px;
+  margin: 18px auto 0;
   border-radius: 999px;
-  background: var(--social-bg);
-  color: var(--text-h);
-  font-weight: 700;
+  background: linear-gradient(90deg, #18ff4f, #21d4fd, #ff4ecd);
+  box-shadow: 0 0 20px rgba(33, 212, 253, 0.45);
+}
+
+.tecnologias__descripcion {
+  margin-bottom: 14px;
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.tecnologias__resumen {
+  margin: 0;
+  color: var(--text);
+  font-size: 14.5px;
+  line-height: 1.6;
+  opacity: 0.82;
+}
+
+/* --------------------------------------------------------------------- */
+/* Mapa de arquitectura: grilla 2x2 con conectores en los espacios         */
+/* --------------------------------------------------------------------- */
+
+.tecnologias__mapa {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 64px 1fr;
+  grid-template-rows: auto 64px auto;
+  grid-template-areas:
+    "interfaz gapTop    logica"
+    ".        .         gapRight"
+    "entrega  gapBottom  datos";
+}
+
+.tecnologias__tarjeta {
+  position: relative;
+  padding: 26px 28px;
+
+  border: 1px solid var(--border);
+  border-radius: 22px;
+
+  background:
+    radial-gradient(circle at 14% 12%, var(--color-panel-brillo), transparent 40%),
+    rgba(255, 255, 255, 0.03);
+
+  opacity: 0;
+  transform: translateY(18px);
 
   transition:
-    transform 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    color 0.2s ease,
-    background 0.2s ease;
+    opacity 0.6s ease,
+    transform 0.35s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-.tecnologias__lista span:hover {
+.tecnologias--entrada .tecnologias__tarjeta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tecnologias__tarjeta:hover,
+.tecnologias__tarjeta:focus-within {
   transform: translateY(-4px);
-  border-color: rgba(34, 255, 102, 0.7);
-  box-shadow: 0 0 24px rgba(34, 255, 102, 0.18);
-  color: #ffffff;
-  background: rgba(34, 255, 102, 0.08);
+  border-color: var(--color-panel-borde);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28), 0 0 26px var(--color-panel-sombra);
+}
+
+.tecnologias__tarjeta--interfaz {
+  grid-area: interfaz;
+  transition-delay: 0ms;
+}
+
+.tecnologias__tarjeta--logica {
+  grid-area: logica;
+  transition-delay: 450ms;
+}
+
+.tecnologias__tarjeta--datos {
+  grid-area: datos;
+  transition-delay: 900ms;
+}
+
+.tecnologias__tarjeta--entrega {
+  grid-area: entrega;
+  transition-delay: 1350ms;
+}
+
+.tecnologias__tarjeta-numero {
+  display: inline-block;
+  margin-bottom: 10px;
+
+  color: var(--color-panel);
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.tecnologias__tarjeta h3 {
+  margin: 0 0 8px;
+  color: var(--text-h);
+  font-size: 19px;
+  letter-spacing: -0.3px;
+}
+
+.tecnologias__tarjeta p {
+  margin: 0 0 18px;
+  color: var(--text);
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.tecnologias__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tecnologias__chip {
+  padding: 6px 12px;
+
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.tecnologias__chip:hover,
+.tecnologias__chip:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--color-panel-borde);
+  background: var(--color-panel-fondo);
+  color: var(--text-h);
+}
+
+.tecnologias__chip:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 2px;
+}
+
+/* Variantes de color por categoría (reutiliza las variables de acento del sitio) */
+
+.tecnologias__tarjeta--verde {
+  --color-panel: var(--accent-2);
+  --color-panel-brillo: rgba(57, 255, 20, 0.16);
+  --color-panel-borde: var(--accent-2-border);
+  --color-panel-fondo: var(--accent-2-soft);
+  --color-panel-sombra: var(--accent-2-shadow);
+}
+
+.tecnologias__tarjeta--celeste {
+  --color-panel: var(--accent-4);
+  --color-panel-brillo: rgba(0, 217, 255, 0.16);
+  --color-panel-borde: rgba(0, 217, 255, 0.5);
+  --color-panel-fondo: rgba(0, 217, 255, 0.13);
+  --color-panel-sombra: rgba(0, 217, 255, 0.26);
+}
+
+.tecnologias__tarjeta--violeta {
+  --color-panel: var(--accent);
+  --color-panel-brillo: rgba(168, 85, 247, 0.16);
+  --color-panel-borde: var(--accent-border);
+  --color-panel-fondo: var(--accent-bg);
+  --color-panel-sombra: rgba(168, 85, 247, 0.26);
+}
+
+.tecnologias__tarjeta--magenta {
+  --color-panel: var(--accent-3);
+  --color-panel-brillo: rgba(255, 78, 205, 0.16);
+  --color-panel-borde: rgba(255, 78, 205, 0.5);
+  --color-panel-fondo: rgba(255, 78, 205, 0.13);
+  --color-panel-sombra: rgba(255, 78, 205, 0.26);
+}
+
+/* --------------------------------------------------------------------- */
+/* Conectores: viven detrás de las tarjetas, en el espacio entre ellas    */
+/* --------------------------------------------------------------------- */
+
+.tecnologias__conector {
+  position: relative;
+  z-index: 0;
+}
+
+.tecnologias__conector::before,
+.tecnologias__conector::after {
+  content: "";
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.5s ease, filter 0.3s ease, transform 0.5s ease;
+}
+
+.tecnologias--entrada .tecnologias__conector::before,
+.tecnologias--entrada .tecnologias__conector::after {
+  opacity: 0.3;
+}
+
+.tecnologias__conector--activo::before,
+.tecnologias__conector--activo::after {
+  opacity: 0.95 !important;
+  filter: drop-shadow(0 0 6px var(--color-a)) drop-shadow(0 0 6px var(--color-b));
+}
+
+/* Flecha hacia la derecha: Interfaz -> Lógica y servicios */
+
+.tecnologias__conector--top {
+  grid-area: gapTop;
+}
+
+.tecnologias__conector--top::before {
+  left: 4px;
+  right: 14px;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(to right, var(--color-a), var(--color-b));
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: left center;
+  transition-delay: 200ms;
+}
+
+.tecnologias--entrada .tecnologias__conector--top::before {
+  transform: translateY(-50%) scaleX(1);
+}
+
+.tecnologias__conector--top::after {
+  right: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-style: solid;
+  border-width: 6px 0 6px 9px;
+  border-color: transparent transparent transparent var(--color-b);
+  transition-delay: 200ms;
+}
+
+/* Flecha hacia abajo: Lógica y servicios -> Datos */
+
+.tecnologias__conector--right {
+  grid-area: gapRight;
+}
+
+.tecnologias__conector--right::before {
+  left: 50%;
+  top: 4px;
+  bottom: 14px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--color-a), var(--color-b));
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top center;
+  transition-delay: 650ms;
+}
+
+.tecnologias--entrada .tecnologias__conector--right::before {
+  transform: translateX(-50%) scaleY(1);
+}
+
+.tecnologias__conector--right::after {
+  left: 50%;
+  bottom: 4px;
+  transform: translateX(-50%);
+  border-style: solid;
+  border-width: 9px 6px 0 6px;
+  border-color: var(--color-b) transparent transparent transparent;
+  transition-delay: 650ms;
+}
+
+/* Flecha hacia la izquierda: Datos -> Herramientas y entrega */
+
+.tecnologias__conector--bottom {
+  grid-area: gapBottom;
+}
+
+.tecnologias__conector--bottom::before {
+  left: 14px;
+  right: 4px;
+  top: 50%;
+  height: 2px;
+  background: linear-gradient(to left, var(--color-a), var(--color-b));
+  transform: translateY(-50%) scaleX(0);
+  transform-origin: right center;
+  transition-delay: 1100ms;
+}
+
+.tecnologias--entrada .tecnologias__conector--bottom::before {
+  transform: translateY(-50%) scaleX(1);
+}
+
+.tecnologias__conector--bottom::after {
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-style: solid;
+  border-width: 6px 9px 6px 0;
+  border-color: transparent var(--color-b) transparent transparent;
+  transition-delay: 1100ms;
+}
+
+/* Pulso: un único recorrido luminoso por el circuito tras la entrada */
+
+@keyframes tecnologias-pulso-conector {
+  0%,
+  100% {
+    opacity: 0.3;
+    filter: none;
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 8px var(--color-a)) drop-shadow(0 0 8px var(--color-b));
+  }
+}
+
+.tecnologias--pulso .tecnologias__conector--top::before,
+.tecnologias--pulso .tecnologias__conector--top::after {
+  animation: tecnologias-pulso-conector 700ms ease-in-out;
+  animation-delay: 0ms;
+}
+
+.tecnologias--pulso .tecnologias__conector--right::before,
+.tecnologias--pulso .tecnologias__conector--right::after {
+  animation: tecnologias-pulso-conector 700ms ease-in-out;
+  animation-delay: 350ms;
+}
+
+.tecnologias--pulso .tecnologias__conector--bottom::before,
+.tecnologias--pulso .tecnologias__conector--bottom::after {
+  animation: tecnologias-pulso-conector 700ms ease-in-out;
+  animation-delay: 700ms;
+}
+
+/* --------------------------------------------------------------------- */
+/* Responsive                                                             */
+/* --------------------------------------------------------------------- */
+
+@media (max-width: 1024px) {
+  .tecnologias__mapa {
+    grid-template-columns: 1fr 44px 1fr;
+    grid-template-rows: auto 44px auto;
+  }
+
+  .tecnologias__tarjeta {
+    padding: 22px 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .tecnologias {
+    padding: 40px 20px;
+  }
+
+  .tecnologias__intro h2::after {
+    width: 76px;
+    height: 3px;
+    margin-top: 14px;
+  }
+}
+
+@media (max-width: 640px) {
+  .tecnologias__mapa {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 48px auto 48px auto 48px auto;
+    grid-template-areas:
+      "interfaz"
+      "gapTop"
+      "logica"
+      "gapRight"
+      "datos"
+      "gapBottom"
+      "entrega";
+  }
+
+  /* En una sola columna las tres flechas apuntan hacia abajo. */
+  .tecnologias__conector--top::before,
+  .tecnologias__conector--bottom::before {
+    left: 50%;
+    right: auto;
+    top: 4px;
+    bottom: 14px;
+    height: auto;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--color-a), var(--color-b));
+    transform: translateX(-50%) scaleY(0);
+    transform-origin: top center;
+  }
+
+  .tecnologias--entrada .tecnologias__conector--top::before,
+  .tecnologias--entrada .tecnologias__conector--bottom::before {
+    transform: translateX(-50%) scaleY(1);
+  }
+
+  .tecnologias__conector--top::after,
+  .tecnologias__conector--bottom::after {
+    left: 50%;
+    right: auto;
+    top: auto;
+    bottom: 4px;
+    transform: translateX(-50%);
+    border-width: 9px 6px 0 6px;
+    border-color: var(--color-b) transparent transparent transparent;
+  }
+}
+
+/* --------------------------------------------------------------------- */
+/* Accesibilidad: reduced motion                                          */
+/* --------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .tecnologias__tarjeta {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  /* La traslación de centrado se conserva: solo se apaga el "dibujado". */
+  .tecnologias__conector::before,
+  .tecnologias__conector::after {
+    transition: none !important;
+    animation: none !important;
+  }
+
+  .tecnologias--entrada .tecnologias__conector::before,
+  .tecnologias--entrada .tecnologias__conector::after {
+    opacity: 0.3 !important;
+  }
+
+  .tecnologias--entrada .tecnologias__conector--activo::before,
+  .tecnologias--entrada .tecnologias__conector--activo::after {
+    opacity: 0.95 !important;
+  }
 }

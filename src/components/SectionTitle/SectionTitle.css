@@ -1,6 +1,6 @@
 .section-title {
   max-width: 700px;
-  margin: 0 auto 40px;
+  margin: 0 auto clamp(28px, 4vw, 36px);
   text-align: center;
 }
 
