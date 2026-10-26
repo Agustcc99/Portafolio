@@ -6,6 +6,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
       "port": 5173
+    },
+    {
+      "name": "amor-v2-dev",
+      "runtimeExecutable": "D:\\Escritorio\\Proyectos\\Portafolio\\.claude\\run-amor-v2.cmd",
+      "runtimeArgs": [],
+      "port": 5183
     }
   ]
 }
