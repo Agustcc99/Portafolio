@@ -44,13 +44,12 @@ export const proyectos = [
     codigo: "https://github.com/Agustcc99/ConsulAli",
     imagen: "",
     imagenes: [
-      "/proyectos/Consul/c2.png",      
-      "/proyectos/Consul/c3.png",      
-      "/proyectos/Consul/c4.png",      
-      "/proyectos/Consul/c5.png",      
-      "/proyectos/Consul/c6.png",      
-      "/proyectos/Consul/c7.png", 
-      "/proyectos/Consul/c7.png", 
+      "/proyectos/consul/c2.png",      
+      "/proyectos/consul/c3.png",      
+      "/proyectos/consul/c4.png",      
+      "/proyectos/consul/c5.png",      
+      "/proyectos/consul/c6.png",      
+      "/proyectos/consul/c7.png",
 
     ]
   },
@@ -99,10 +98,10 @@ export const proyectos = [
       "https://github.com/Agustcc99/Vidrieria-Presupuestos/tree/main/backend",
     imagen: "",
     imagenes: [
-      "proyectos/Calculadora/v2.png",
-      "proyectos/Calculadora/v3.png",
-      "proyectos/Calculadora/v4.png",
-      "proyectos/Calculadora/v1.png",
+      "/proyectos/calculadora/v2.png",
+      "/proyectos/calculadora/v3.png",
+      "/proyectos/calculadora/v4.png",
+      "/proyectos/calculadora/v1.png",
     ]
   },
   {
@@ -204,10 +203,10 @@ export const proyectos = [
     codigo: "https://github.com/Agustcc99/TurnosPsq",
     imagen: "",
     imagenes: [
-      "/proyectos/Turnos/t2.png",
-      "/proyectos/Turnos/t3.png",
-      "/proyectos/Turnos/t4.png",
-      "/proyectos/Turnos/T1.png",
+      "/proyectos/turnos/t2.png",
+      "/proyectos/turnos/t3.png",
+      "/proyectos/turnos/t4.png",
+      "/proyectos/turnos/t1.png",
 
 
     ]
@@ -254,12 +253,12 @@ export const proyectos = [
     codigo: "https://github.com/Agustcc99/Vidrieria-Villaroel-LandingPage/tree/main",
     imagen: "",
     imagenes: [
-      "/proyectos/VidriosLanding/Vl4.png",
-      "/proyectos/VidriosLanding/VL1.png",
-      "/proyectos/VidriosLanding/VL2.png",
-      "/proyectos/VidriosLanding/VL3.png",
-      "/proyectos/VidriosLanding/VL5.png",
-      "/proyectos/VidriosLanding/VL6.png",
+      "/proyectos/vidrioslanding/vl4.png",
+      "/proyectos/vidrioslanding/vl1.png",
+      "/proyectos/vidrioslanding/vl2.png",
+      "/proyectos/vidrioslanding/vl3.png",
+      "/proyectos/vidrioslanding/vl5.png",
+      "/proyectos/vidrioslanding/vl6.png",
 
     ]
   },
@@ -309,10 +308,10 @@ export const proyectos = [
     codigo: "https://github.com/Agustcc99/Control-Cigarrillos",
     imagen: "",
     imagenes: [
-      "/proyectos/Habitos/h2.png",
-      "/proyectos/Habitos/h3.png",
-      "/proyectos/Habitos/h4.png",  
-      "/proyectos/Habitos/h1.png",
+      "/proyectos/habitos/h2.png",
+      "/proyectos/habitos/h3.png",
+      "/proyectos/habitos/h4.png",  
+      "/proyectos/habitos/h1.png",
     ]
   },
   {
@@ -349,9 +348,9 @@ export const proyectos = [
     codigo: "https://github.com/Agustcc99/Semishop",
     imagen: "",
     imagenes: [
-      "/proyectos/SS/SS1.png",
-      "/proyectos/SS/SS2.png",
-      "/proyectos/SS/SS3.png",
+      "/proyectos/ss/ss1.png",
+      "/proyectos/ss/ss2.png",
+      "/proyectos/ss/ss3.png",
     ]
   }
 ];
