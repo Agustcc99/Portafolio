@@ -3,7 +3,7 @@ import type { ProjectData } from './types'
 const project: ProjectData = {
   slug: 'landing-vidrieria',
   order: 5,
-  featured: false,
+  featured: true,
   category: 'fullstack',
   techs: ['react', 'javascript', 'bootstrap', 'nodejs', 'express', 'mongodb', 'mongoose'],
   links: { demo: null, code: 'https://github.com/Agustcc99/Vidrieria-Villaroel-LandingPage/tree/main' },

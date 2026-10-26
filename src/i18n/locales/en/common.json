@@ -38,7 +38,7 @@
     "back": "Back to home"
   },
   "projects": {
-    "indexTitle": "Projects",
+    "indexTitle": "All <em>projects</em>",
     "indexIntro": "A selection of academic, personal and practice projects aimed at solving real problems.",
     "viewCase": "View case",
     "viewAll": "View all projects ({{count}})",
@@ -55,7 +55,26 @@
     "gallery": "Gallery",
     "viewCode": "View code",
     "noCode": "Code not available",
-    "imageAlt": "Screenshot {{n}} of {{title}}"
+    "imageAlt": "Screenshot {{n}} of {{title}}",
+    "count_one": "{{count}} project",
+    "count_other": "{{count}} projects",
+    "filterByTech": "Filter by technology",
+    "clearFilters": "Clear filters",
+    "showMoreTech": "Show {{count}} more",
+    "showLessTech": "Show less",
+    "noResults": "No project matches these filters.",
+    "category": "Category",
+    "year": "Year",
+    "stack": "Stack",
+    "links": "Links",
+    "metaLabel": "Project details",
+    "projectNav": "More projects",
+    "openImage": "Enlarge screenshot {{n}}",
+    "lightboxLabel": "{{title}} gallery",
+    "closeLightbox": "Close gallery",
+    "previousImage": "Previous screenshot",
+    "nextImage": "Next screenshot",
+    "imageCounter": "{{n}} / {{total}}"
   },
   "tech": {
     "usedFor": "Used for",

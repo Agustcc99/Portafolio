@@ -1,0 +1,143 @@
+/*
+ * Carrusel 3D de proyectos. Vive en CSS (no en utilidades) porque depende de `perspective`,
+ * de la pose por slot que fija Motion en `transform` y de estados de arrastre. Usa los tokens
+ * de index.css, así que responde al tema sin cambios.
+ */
+.project-carousel {
+  outline-offset: 6px;
+}
+
+.project-carousel__viewport {
+  position: relative;
+  perspective: 1400px;
+  overflow: hidden;
+  /* Gestos horizontales para el arrastre; el vertical sigue siendo scroll de la página. */
+  touch-action: pan-y;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  /* Bordes que se disuelven: los slides laterales no terminan en corte seco. */
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+}
+
+.project-carousel__viewport[data-dragging] {
+  cursor: grabbing;
+}
+
+.project-carousel__slot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(560px, 86%);
+  transform-origin: center center;
+}
+
+.project-carousel__slot:not(.project-carousel__slot--active) {
+  cursor: pointer;
+}
+
+.project-carousel__controls {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas:
+    'dots dots'
+    'counter arrows';
+  align-items: center;
+  gap: 1rem 1.5rem;
+  margin-top: 0.5rem;
+}
+
+.project-carousel__controls > :nth-child(1) {
+  grid-area: counter;
+}
+.project-carousel__controls > :nth-child(2) {
+  grid-area: dots;
+}
+.project-carousel__controls > :nth-child(3) {
+  grid-area: arrows;
+}
+
+@media (min-width: 768px) {
+  .project-carousel__controls {
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: 'counter dots arrows';
+  }
+  .project-carousel__arrows {
+    justify-self: end;
+  }
+}
+
+.project-carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+/* Área táctil de 24 px con un punto de 8 px dentro. */
+.project-carousel__dot {
+  position: relative;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+  border-radius: 999px;
+}
+
+.project-carousel__dot::before {
+  content: '';
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: var(--line-strong);
+  transform: translate(-50%, -50%) scale(1);
+  transition:
+    transform var(--duration-base) var(--ease-out-expo),
+    background-color var(--duration-base) var(--ease-in-out-soft);
+}
+
+.project-carousel__dot:hover::before {
+  background: var(--muted);
+}
+
+.project-carousel__dot[aria-current='true']::before {
+  background: var(--accent-text);
+  transform: translate(-50%, -50%) scale(1.5);
+}
+
+.project-carousel__arrows {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.project-carousel__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  cursor: pointer;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--surface-1);
+  color: var(--text-strong);
+  transition:
+    border-color var(--duration-base) var(--ease-out-expo),
+    color var(--duration-base) var(--ease-out-expo),
+    opacity var(--duration-base) var(--ease-out-expo),
+    transform var(--duration-base) var(--ease-out-expo);
+}
+
+.project-carousel__arrow:hover:not([aria-disabled='true']) {
+  border-color: var(--accent-text);
+  color: var(--accent-text);
+}
+
+.project-carousel__arrow:active:not([aria-disabled='true']) {
+  transform: scale(0.95);
+}
+
+.project-carousel__arrow[aria-disabled='true'] {
+  opacity: 0.35;
+  cursor: default;
+}

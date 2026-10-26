@@ -38,7 +38,7 @@
     "back": "Volver al inicio"
   },
   "projects": {
-    "indexTitle": "Proyectos",
+    "indexTitle": "Todos los <em>proyectos</em>",
     "indexIntro": "Una selección de proyectos académicos, personales y prácticos orientados a resolver problemas reales.",
     "viewCase": "Ver caso",
     "viewAll": "Ver todos los proyectos ({{count}})",
@@ -55,7 +55,26 @@
     "gallery": "Galería",
     "viewCode": "Ver código",
     "noCode": "Código no disponible",
-    "imageAlt": "Captura {{n}} de {{title}}"
+    "imageAlt": "Captura {{n}} de {{title}}",
+    "count_one": "{{count}} proyecto",
+    "count_other": "{{count}} proyectos",
+    "filterByTech": "Filtrar por tecnología",
+    "clearFilters": "Limpiar filtros",
+    "showMoreTech": "Ver {{count}} más",
+    "showLessTech": "Ver menos",
+    "noResults": "Ningún proyecto coincide con estos filtros.",
+    "category": "Categoría",
+    "year": "Año",
+    "stack": "Stack",
+    "links": "Enlaces",
+    "metaLabel": "Datos del proyecto",
+    "projectNav": "Más proyectos",
+    "openImage": "Ampliar captura {{n}}",
+    "lightboxLabel": "Galería de {{title}}",
+    "closeLightbox": "Cerrar galería",
+    "previousImage": "Captura anterior",
+    "nextImage": "Captura siguiente",
+    "imageCounter": "{{n}} / {{total}}"
   },
   "tech": {
     "usedFor": "Utilizado para",

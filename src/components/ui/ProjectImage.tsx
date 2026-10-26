@@ -9,6 +9,8 @@ interface ProjectImageProps extends Omit<ImgHTMLAttributes<HTMLImageElement>, 's
   sizes?: string
   /** `true` para la imagen LCP: carga inmediata con prioridad alta. */
   priority?: boolean
+  /** Clases del `<picture>` envolvente (por defecto es inline; con `size-full` en la imagen hace falta `block size-full`). */
+  pictureClassName?: string
 }
 
 export function ProjectImage({
@@ -16,6 +18,7 @@ export function ProjectImage({
   alt,
   sizes = '(min-width: 1024px) 50vw, 100vw',
   priority = false,
+  pictureClassName,
   className,
   style,
   ...props
@@ -24,7 +27,7 @@ export function ProjectImage({
   if (!info) return null
 
   return (
-    <picture>
+    <picture className={pictureClassName}>
       <source type="image/avif" srcSet={info.srcSet('avif')} sizes={sizes} />
       <source type="image/webp" srcSet={info.srcSet('webp')} sizes={sizes} />
       <img

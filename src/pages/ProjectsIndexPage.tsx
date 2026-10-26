@@ -1,64 +1,98 @@
-import { useTranslation } from 'react-i18next'
-import { Link } from 'react-router'
-import { Chip } from '../components/ui/Chip'
+import { useMemo } from 'react'
+import { Trans, useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router'
+import { ProjectFilters, type FilterOption } from '../components/projects/ProjectFilters'
+import { ProjectGrid } from '../components/projects/ProjectGrid'
 import { Container } from '../components/ui/Container'
-import { ProjectImage } from '../components/ui/ProjectImage'
+import { Reveal } from '../components/ui/Reveal'
+import { SplitHeading } from '../components/ui/SplitHeading'
 import { projects } from '../content/projects'
-import { techLabels } from '../content/technologies'
-import { useContentText } from '../hooks/useContentText'
-import { paths, type Locale } from '../i18n/paths'
 
-/** Versión de datos crudos de la Fase 2: el índice con filtros llega en la Fase 7. */
+/** Cuenta cuántos proyectos hay por valor, de mayor a menor (desempate por orden de aparición). */
+function tally(values: string[]): FilterOption[] {
+  const counts = new Map<string, number>()
+  for (const value of values) counts.set(value, (counts.get(value) ?? 0) + 1)
+  return [...counts].map(([id, count]) => ({ id, count })).sort((a, b) => b.count - a.count)
+}
+
+/**
+ * Índice de proyectos con filtros por categoría y tecnología. El estado vive en la URL
+ * (`?cat=fullstack&tech=react`), así que se puede compartir y sobrevive al cambio de idioma.
+ */
 export default function ProjectsIndexPage() {
   const { t } = useTranslation()
-  const { t: tp } = useTranslation('projects')
   const { t: ts } = useTranslation('seo')
-  const { t: tc } = useTranslation('common')
-  const { project, locale } = useContentText()
+  const [params, setParams] = useSearchParams()
+
+  const categories = useMemo(() => tally(projects.map((p) => p.category)), [])
+  const techs = useMemo(() => tally(projects.flatMap((p) => p.techs)), [])
+
+  // Valores desconocidos en la URL se ignoran en vez de dejar la grilla vacía.
+  const rawCategory = params.get('cat')
+  const rawTech = params.get('tech')
+  const category = categories.some((c) => c.id === rawCategory) ? rawCategory : null
+  const tech = techs.some((o) => o.id === rawTech) ? rawTech : null
+
+  const visible = useMemo(
+    () =>
+      projects.filter(
+        (p) => (category === null || p.category === category) && (tech === null || p.techs.includes(tech)),
+      ),
+    [category, tech],
+  )
+
+  const update = (key: 'cat' | 'tech', value: string | null) => {
+    const next = new URLSearchParams(params)
+    if (value === null) next.delete(key)
+    else next.set(key, value)
+    setParams(next, { replace: true, preventScrollReset: true })
+  }
+
+  const accent = { em: <em className="font-serif font-normal text-accent-text" /> }
 
   return (
-    <Container as="main" className="py-24">
+    <Container as="main" className="pt-[clamp(8rem,16vw,12rem)] pb-[clamp(5rem,12vw,10rem)]">
       <title>{ts('projects.title')}</title>
       <meta name="description" content={ts('projects.description')} />
-      <h1 className="text-h2">{t('projects.indexTitle')}</h1>
-      <p className="mt-4 max-w-[60ch]">{t('projects.indexIntro')}</p>
 
-      <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {projects.map((p) => {
-          const text = project(p.slug)
-          const cover = p.images[0]
-          return (
-            <li key={p.slug} className="flex flex-col overflow-hidden rounded-lg border border-line bg-surface-1">
-              {cover && text && (
-                <ProjectImage
-                  image={cover}
-                  alt={tc('projects.imageAlt', { n: 1, title: text.title })}
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="aspect-video object-cover object-top"
-                />
-              )}
-              <div className="flex flex-1 flex-col gap-3 p-5">
-                <Chip className="self-start">{tp(`categories.${p.category}`)}</Chip>
-                <h2 className="text-h3">{text?.title ?? p.slug}</h2>
-                <p className="text-small">{text?.short}</p>
-                <ul className="flex flex-wrap gap-1.5">
-                  {p.techs.slice(0, 4).map((tech) => (
-                    <li key={tech}>
-                      <Chip>{techLabels[tech] ?? tech}</Chip>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to={paths.project(locale as Locale, p.slug)}
-                  className="mt-auto pt-2 text-small font-medium text-accent-text underline underline-offset-4"
-                >
-                  {t('projects.viewCase')}
-                </Link>
-              </div>
-            </li>
-          )
-        })}
-      </ul>
+      <header className="mb-10 max-w-[56rem] md:mb-14">
+        <Reveal
+          as="p"
+          className="mb-5 flex items-center gap-3 font-mono text-label uppercase tracking-[0.12em] text-accent-text"
+        >
+          <span>02</span>
+          <span aria-hidden className="h-px w-8 bg-accent-text/50" />
+          <span className="text-muted">{t('nav.projects')}</span>
+        </Reveal>
+        <SplitHeading as="h1" className="text-h2">
+          <Trans t={t} i18nKey="projects.indexTitle" components={accent} />
+        </SplitHeading>
+        <Reveal as="p" delay={0.15} className="mt-6 max-w-[62ch]">
+          {t('projects.indexIntro')}
+        </Reveal>
+      </header>
+
+      <Reveal className="mb-10">
+        <ProjectFilters
+          categories={categories}
+          techs={techs}
+          category={category}
+          tech={tech}
+          onCategory={(id) => update('cat', id)}
+          onTech={(id) => update('tech', id)}
+          onClear={() => setParams(new URLSearchParams(), { replace: true, preventScrollReset: true })}
+        />
+      </Reveal>
+
+      <p aria-live="polite" className="mb-6 font-mono text-label uppercase tracking-[0.12em] text-muted">
+        {t('projects.count', { count: visible.length })}
+      </p>
+
+      {visible.length > 0 ? (
+        <ProjectGrid projects={visible} />
+      ) : (
+        <p className="rounded-lg border border-line bg-surface-1 p-8 text-center">{t('projects.noResults')}</p>
+      )}
     </Container>
   )
 }

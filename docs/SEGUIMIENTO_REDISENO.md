@@ -1,7 +1,7 @@
 # Seguimiento del rediseño del portafolio
 
 > Documento vivo. **Al abrir una conversación nueva:** leé este archivo y luego `plan_actualizacion_portafolio.md` (§8 en adelante para la fase que toca). **Al cerrar una sesión:** actualizá §1, §3, §4 y §6.
-> Última actualización: 2026-10-26 (cierre de la sesión C).
+> Última actualización: 2026-10-26 (cierre de la sesión D).
 
 ---
 
@@ -16,25 +16,25 @@
 | 4 | Shell: navbar, footer, intro, transiciones | ✅ Completa · ⏳ falta revisión visual de Agustín | `fase 3-4` |
 | 5 | Hero | ✅ Completa · ⏳ falta aprobación visual y de copy de Agustín | `fase 5-6` |
 | 6 | Sobre mí (bento) | ✅ Completa · ⏳ faltan datos y textos de Agustín | `fase 5-6` |
-| 7 | Proyectos | ⬜ | — |
+| 7 | Proyectos | ✅ Completa · ⏳ falta revisión visual del movimiento de Agustín | `fase 7` |
 | 8 | Tecnologías | ⬜ | — |
 | 9 | Contacto | ⬜ | — |
 | 10 | Pulido de movimiento | ⬜ | — |
 | 11 | Rendimiento, SEO y accesibilidad | ⬜ | — |
 | 12 | Despliegue en Vercel + dominio | ⬜ | — |
 
-**Sesiones:** A (0–2) ✅ · B (3–4) ✅ · C (5–6) ✅ · **D (7) ← siguiente** · E (8–9) · F (10–12).
+**Sesiones:** A (0–2) ✅ · B (3–4) ✅ · C (5–6) ✅ · D (7) ✅ · **E (8–9) ← siguiente** · F (10–12).
 
-**Rama:** `rediseno` (5 commits sobre `main`, sin pushear). `main` sigue en `2dfd0df`.
+**Rama:** `rediseno` (6 commits sobre `main`, sin pushear). `main` sigue en `2dfd0df`.
 **No commitear nunca:** `.claude/launch.json` y `.claude/run-amor-v2.cmd` (son de otro proyecto).
 
 ---
 
-## 2. Cómo retomar (sesión D)
+## 2. Cómo retomar (sesión E)
 
 Prompt de arranque (del plan §11):
 
-> Lee `plan_actualizacion_portafolio.md` y `docs/SEGUIMIENTO_REDISENO.md` completos. Estamos en la **Fase 7**. Ejecutá solo las tareas de esas fases, en orden, siguiendo las convenciones de §8 y el sistema de diseño de §3. Al terminar, corré la verificación estándar, mostrame capturas (375/1280, ambos temas e idiomas), tildá las tareas completadas en el plan, hacé el commit de fase y detenete para mi aprobación antes de seguir.
+> Lee `plan_actualizacion_portafolio.md` y `docs/SEGUIMIENTO_REDISENO.md` completos. Estamos en la **Fase 8** (y 9). Ejecutá solo las tareas de esas fases, en orden, siguiendo las convenciones de §8 y el sistema de diseño de §3. Al terminar, corré la verificación estándar, mostrame capturas (375/1280, ambos temas e idiomas), tildá las tareas completadas en el plan, hacé el commit de fase y detenete para mi aprobación antes de seguir.
 
 Comandos:
 
@@ -63,12 +63,12 @@ src/
     projects/images.generated.json    generado por `npm run images`
     technologies.ts                   etiquetas, categorías, niveles, relaciones
     images.ts                         helper srcset/blur
-    legacy.ts                         ⚠ COMPAT TEMPORAL (ver §5)
+    legacy.ts                         ⚠ COMPAT TEMPORAL (ver §5); de proyectos solo queda {id, titulo}
   providers/ThemeProvider.tsx         tema oscuro/claro, persiste en localStorage('theme')
   hooks/useTheme.ts, useContentText.ts
   components/ui/                      Container, Button(+buttonClasses), Chip, ProjectImage
   components/layout/                  ThemeToggle, LangSwitch, LocaleLayout (barra flotante PROVISIONAL)
-  pages/                              HomePage (diseño viejo), ProjectsIndexPage / ProjectDetailPage (datos crudos), NotFoundPage, Styleguide (dev)
+  pages/                              HomePage, ProjectsIndexPage, ProjectDetailPage, NotFoundPage, Styleguide (dev)
   styles/index.css                    @theme con tokens; styles/legacy.css ⚠ temporal
 scripts/optimize-images.mjs, check-i18n.mjs
 assets-src/proyectos/**               PNG originales (fuente)
@@ -92,7 +92,15 @@ src/components/hero/InteractiveHeroGrid.tsx(+.css)   canvas tipado, colores desd
 src/sections/Hero/Hero.tsx, src/sections/About/About.tsx   (ids home / about)
 src/components/ui/SectionHeading.tsx, BentoTile.tsx
 src/lib/intro.ts    introDone / markIntroDone: las coreografías esperan a la intro
-src/pages/HomePage.tsx   <main> con Hero + About nuevos y Proyectos/Tecnologías/Contacto aún en legacy-shell
+src/pages/HomePage.tsx   <main> con Hero + About + Projects nuevos; Tecnologías/Contacto aún en legacy-shell
+```
+Fase 7 (nuevo):
+```
+src/components/projects/   ProjectCarousel3D(+.css, spring de Motion), ProjectCard, ProjectGrid, ProjectFilters, Gallery, Lightbox(<dialog>), ProjectNav, CoverPlaceholder
+src/sections/Projects/Projects.tsx   id projects: carrusel con featuredProjects + "Ver todos (N)"
+src/pages/ProjectsIndexPage.tsx (filtros ?cat=&tech=), ProjectDetailPage.tsx
+src/lib/sharedCover.ts   nombre de view-transition `project-cover` en una sola portada por página
+src/components/ui/chipClasses.ts   clases de chip (Chip y chips-botón de filtros)
 ```
 Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → BrowserRouter. Shell en `LocaleLayout`.
 
@@ -124,6 +132,18 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → BrowserRoute
 | Hero: luces del canvas | acento + violeta | **solo acento** (dos radios) | un solo acento (plan §3.1) |
 | Bento: ubicación | tesela «Disponibilidad / Ubicación» | solo disponibilidad (sin ubicación) | no hay dato real |
 | Stack tile | chips del stack | JavaScript, React, Node.js, Express, MongoDB, Git (de `techLabels`) | «principales» según el texto del sitio |
+| Proyectos: destacados | `featured` solo en algunos | **los 7 en `featured: true`** | el sitio original mostraba los 7 en el carrusel (el flag era solo un badge); el tope pasó a `MAX_FEATURED = 7` en `content/projects/index.ts` |
+| Carrusel: inercia | transición manual | `position` continuo con `useSpring` de Motion; arrastre con `jump`, al soltar se proyecta la velocidad (máx. 2 slides por gesto) y se hace snap | sin re-render por frame: la pose de cada slot sale de `useTransform` |
+| Carrusel: coste | solo slots cercanos | slots a más de 3 del activo no montan la tarjeta | máx. 7 slots, pero escala |
+| Carrusel: controles | flechas laterales + puntos | contador mono, puntos y flechas abajo; flechas con `aria-disabled` (no pierden el foco) | mobile: puntos arriba, contador y flechas abajo |
+| Carrusel: slides inactivos | `inert` | `inert` en el contenido y `aria-hidden` en el slot; el slot (no inert) recibe el clic que lo centra | |
+| Tarjeta | CTA "Ver caso" | enlace estirado sobre el título (un enlace por tarjeta, nombre accesible = título) | evita 7 enlaces "Ver caso" idénticos para lectores de pantalla |
+| Detalle: riel de metadatos | rol, año, stack, enlaces | categoría, año (si existe), stack, enlaces; **sin rol** | no hay dato de rol; el año tampoco existe aún (se oculta) |
+| Detalle: galería | — | muestra desde la 2ª captura (la portada ya está en el hero; clic en el hero abre el lightbox en la 1ª) | evita duplicar la imagen |
+| Proyecto sin capturas (`api-ecommerce`) | — | `CoverPlaceholder` (trama + categoría en serif) en tarjeta y hero; sin galería | no tenía imágenes |
+| Transición compartida | `view-transition-name` por proyecto | nombre único `project-cover` puesto solo en la portada que viaja (`lib/sharedCover.ts`) | los nombres deben ser únicos en cada captura; con 7 nombres las otras portadas se animarían solas |
+| `ScrollManager` | scroll a 0 al navegar a la misma ruta | si solo cambia la query (filtros) no mueve el scroll | filtrar no debe saltar al tope |
+| `ProjectImage` | — | prop `pictureClassName` | el `<picture>` es inline y rompía `size-full` |
 | Bug corregido | — | `cn()` usa `extendTailwindMerge` con `text-small/body/h2…` | twMerge descartaba `text-accent-ink` de los botones (texto gris sobre lima) |
 
 ---
@@ -132,9 +152,8 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → BrowserRoute
 
 - **`styles/legacy.css`, wrapper `.legacy-shell`, `content/legacy.ts`, variables `--lg-*` y los `.css` por componente viejo** → se borran sección a sección; todo desaparece al cerrar la **Fase 9**. Mientras tanto el home se ve igual que el original (dentro de una "isla" oscura).
 - **`.legacy-shell__inner`** ahora solo envuelve Proyectos, Tecnologías y Contacto (`padding-block: 2rem`); Hero y Sobre mí ya son del sistema nuevo.
-- **Archivos `.jsx` pendientes de pasar a TS:** `InteractiveHeroGrid` (F5), `Proyectos`/`ProyectoCard`/`ProyectoModal` (F7), `Tecnologias`/`TechnologyModal` (F8), `ContactPortal`/`PortalParticles` (F9), `SeccionAnimada` y `SectionTitle` (los usan las secciones viejas que quedan; se borran en F7–F9).
-- **Páginas `/proyectos` y detalle** con datos crudos → diseño real en **Fase 7**.
-- **Warnings de build** `INEFFECTIVE_DYNAMIC_IMPORT` (es/projects.json y es/tech.json) → los causa `legacy.ts`; se van con él.
+- **Archivos `.jsx` pendientes de pasar a TS:** `Tecnologias`/`TechnologyModal` (F8), `ContactPortal`/`PortalParticles` (F9), `SeccionAnimada` y `SectionTitle` (los usan las secciones viejas que quedan; se borran en F7–F9).
+- **Warnings de build** `INEFFECTIVE_DYNAMIC_IMPORT` (es/projects.json y es/tech.json) → los causa `legacy.ts` (lo usan `Tecnologias`/`TechnologyModal`); se van con él.
 - **Títulos `<title>`/meta** vía elementos hoisted de React 19; `hreflang`, canonical, OG y JSON-LD → **Fase 11**.
 - **Sin `vercel.json`**, sin `robots.txt`/sitemap/OG images → **Fase 11**.
 
@@ -146,7 +165,9 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → BrowserRoute
 |---|---|---|
 | **Aprobar styleguide** (tipografías + acento lima) en `/__styleguide` | 1 | ⏳ pendiente |
 | Revisar traducciones al inglés (`locales/en/*.json`, borrador de Claude) | 2, 5, 6 | ⏳ pendiente |
-| URLs reales de demo de los proyectos (hoy `demo: null` en los 7) | 7 | ⏳ pendiente |
+| URLs reales de demo de los proyectos (hoy `demo: null` en los 7; el botón de demo se oculta) | 7 | ⏳ pendiente |
+| **Revisar en un navegador real** carrusel (inercia, arrastre, rueda), filtros del índice, lightbox y la transición compartida portada ↔ detalle | 7 | ⏳ pendiente |
+| Años y rol de cada proyecto (hoy ocultos: no hay dato) | 7 | ⏳ opcional |
 | **Revisar en un navegador real y a la vista** intro, revelado circular de tema, indicador deslizante y View Transitions (el panel de vista previa corre a 1 fps y no las anima) | 3–4 | ⏳ pendiente |
 | Texto de disponibilidad ("Disponible para proyectos" / "Open to work") — hoy provisional en el chip del hero y en la tesela | 5–6 | ⏳ confirmar |
 | Revisar textos nuevos de footer/menú (`common.json`: tagline, "Animaciones · Sí/No") | 4 | ⏳ |
@@ -161,9 +182,9 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → BrowserRoute
 
 ## 7. Métricas de referencia
 
-| Métrica | Línea base (original) | Hoy (fin Fase 2) | Meta |
+| Métrica | Línea base (original) | Hoy (fin Fase 7) | Meta |
 |---|---|---|---|
-| JS inicial (gzip) | 77.1 KB | **171.4 KB** (+Motion core, Lenis, shell, hero y bento; GSAP 27 KB y features de Motion 29 KB son chunks lazy) | ≤ ~200 KB |
+| JS inicial (gzip) | 77.1 KB | **177.1 KB** (fin Fase 7; +Motion core, Lenis, shell, hero y bento; GSAP 27 KB y features de Motion 29 KB son chunks lazy) | ≤ ~200 KB |
 | CSS (gzip) | 9.2 KB | 16.3 KB | — |
 | `dist` | 6.2 MB | 4.1 MB | — |
 | Imágenes de proyectos | 5.8 MB PNG | 3.2 MB AVIF+WebP | — |
@@ -173,10 +194,12 @@ Lighthouse todavía no medido (Fase 11).
 
 ---
 
-## 8. Riesgos a vigilar en la sesión D
+## 8. Riesgos a vigilar en la sesión E
 
-- **Carrusel 3D:** conserva `perspective` y arrastre; mover las constantes de tuning (`ANCHO_SLOT_POR_DEFECTO`, `PASO_RATIO`…) tipadas; sin autoplay; solo slots cercanos con coste completo.
-- **Transición compartida** portada → detalle: `view-transition-name` por proyecto + `transitionRoute` (ya existe) con el nombre en la imagen de la tarjeta y la del hero; cuidar que no choque con `data-vt='route'` (anima `root`).
+- **TechnologyModal → proyectos relacionados:** en la Fase 8 enlazar a `paths.project(locale, slug)` y borrar `proyectos` de `content/legacy.ts`.
+- **Transición compartida:** verificada en Chrome headless (una sola `project-cover` en cada captura, ida y vuelta, sin errores) pero no observada a la vista; si la portada se ve "saltar", revisar `object-fit` de `::view-transition-old/new(project-cover)` en `effects.css`.
+- **Lightbox y Lenis:** el `<dialog>` usa `data-lenis-prevent` + `useScrollLock`; si en la Fase 8 `TechDialog` reutiliza el patrón, copiar ambos.
+- **Panel de vista previa (640×406 px, ~1 fps):** además de no animar, recorta las capturas con tamaños emulados grandes. Para verificar usé Chrome headless por CDP (script en el scratchpad de la sesión, fuera del repo) con capturas reales a 375/768/1280/1920.
 - **Pestañas en segundo plano / panel de vista previa a 1 fps:** las animaciones por frame no se pueden ver ahí; para validar movimiento usar un navegador real a la vista. Para chequear estados finales se puede acelerar GSAP con `gsap.globalTimeline.timeScale(50)` desde consola.
 - **LCP del hero:** el H1 queda oculto hasta que GSAP + SplitText cargan; medir en Fase 11 y, si pesa, precargar el chunk o mostrar el H1 antes de partirlo.
 - **Hash en el remount por idioma:** al cambiar de idioma el home se remonta y la coreografía del hero se repite (aceptable; revisar si molesta).
@@ -189,3 +212,4 @@ Lighthouse todavía no medido (Fase 11).
 | 2026-10-26 | A | Fases 0–2 completas. Plan maestro generado; limpieza, TS+Tailwind+tokens+temas+styleguide, rutas ES/EN, i18n, contenido separado, imágenes optimizadas, docs. |
 | 2026-10-26 | B | Fases 3–4 completas. Infraestructura de animación (Motion lazy, GSAP dinámico, Lenis), primitivas, laboratorio en styleguide; shell completo (navbar píldora, menú `<dialog>`, footer, skip-link, intro, transiciones de ruta/idioma/tema con View Transitions, fondo con grano). Corregido bug de `cn()` con twMerge. |
 | 2026-10-26 | C | Fases 5–6 completas. Hero a sangre completa con canvas refactorizado (CSS vars, tema, ResizeObserver, pausa, estático en reducido) y coreografía GSAP que espera a la intro; `SectionHeading`, `BentoTile` y Sobre mí en bento de 6 teselas; copy ES/EN en `home.json`. Medido: 0.44 ms/frame de JS en el canvas (móvil emulado). |
+| 2026-10-26 | D | Fase 7 completa. Carrusel 3D con spring (arrastre + inercia proyectada, teclado, rueda horizontal, snap, puntos/flechas, contador, ARIA, `inert`, lazy), `ProjectCard`, sección del home, índice filtrable con query string, detalle con galería + lightbox sobre `<dialog>` (teclado + swipe), navegación anterior/siguiente, transición compartida portada↔detalle. Eliminados `ProyectoModal`/`ProyectoCard`/`Proyectos.jsx`. Probado agregar/quitar un proyecto (5 pasos). `ScrollManager` ya no salta al tope al cambiar la query. |

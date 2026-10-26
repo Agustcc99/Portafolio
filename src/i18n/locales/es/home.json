@@ -45,11 +45,16 @@
     }
   },
   "projects": {
-    "title": "Trabajos para mostrar mi evolución",
+    "label": "Proyectos",
+    "title": "Trabajos para mostrar mi <em>evolución</em>",
     "description": "Una selección de proyectos académicos, personales y prácticos orientados a resolver problemas reales.",
     "previous": "Proyecto anterior",
     "next": "Siguiente proyecto",
-    "goTo": "Ir al proyecto {{n}}: {{title}}"
+    "goTo": "Ir al proyecto {{n}}: {{title}}",
+    "carouselLabel": "Carrusel de proyectos",
+    "slideLabel": "{{n}} de {{total}}",
+    "status": "Proyecto {{n}} de {{total}}: {{title}}",
+    "pagination": "Paginación del carrusel"
   },
   "tech": {
     "title": "Cómo construyo una aplicación completa",

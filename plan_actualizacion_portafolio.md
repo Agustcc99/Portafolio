@@ -499,15 +499,17 @@ Regla de escalado: el carrusel muestra hasta 7 destacados; el índice `/proyecto
 
 ### Fase 7 — Proyectos
 **Tareas**
-- [ ] `ProjectCarousel3D` (refinar el actual según §6.4: spring, teclado, ARIA, lazy).
-- [ ] `ProjectCard` nuevo; sección Proyectos del home con enlace al índice.
-- [ ] `ProjectsIndexPage` con filtros y query string.
-- [ ] `ProjectDetailPage` + `Gallery` + `Lightbox` (`<dialog>`) + navegación anterior/siguiente.
-- [ ] Transición compartida portada → detalle con fallback.
-- [ ] Eliminar `ProyectoModal` y su CSS (712 líneas).
-- [ ] Probar agregando un proyecto de prueba siguiendo `AGREGAR_PROYECTO.md` (y luego quitarlo).
+- [x] `ProjectCarousel3D` (refinar el actual según §6.4: spring, teclado, ARIA, lazy).
+- [x] `ProjectCard` nuevo; sección Proyectos del home con enlace al índice.
+- [x] `ProjectsIndexPage` con filtros y query string.
+- [x] `ProjectDetailPage` + `Gallery` + `Lightbox` (`<dialog>`) + navegación anterior/siguiente.
+- [x] Transición compartida portada → detalle con fallback.
+- [x] Eliminar `ProyectoModal` y su CSS (712 líneas).
+- [x] Probar agregando un proyecto de prueba siguiendo `AGREGAR_PROYECTO.md` (y luego quitarlo).
 
-**Criterio de salida:** los 7 proyectos navegables en ambos idiomas; carrusel usable con mouse, táctil y teclado; añadir un proyecto de prueba funciona con 5 pasos o menos.
+> **Hecho (2026-10-26):** `components/projects/` (`ProjectCarousel3D` +css, `ProjectCard`, `ProjectGrid`, `ProjectFilters`, `Gallery`, `Lightbox`, `ProjectNav`, `CoverPlaceholder`), `sections/Projects/Projects.tsx` (`id="projects"`), `pages/ProjectsIndexPage` y `ProjectDetailPage` rediseñadas, `lib/sharedCover.ts` (transición compartida con `transitionRoute`). Se borraron `ProyectoModal`, `ProyectoCard` y `sections/Proyectos`; `content/legacy.ts` conserva solo `proyectos = {id, titulo}` porque `TechnologyModal` (Fase 8) lo usa. Proyecto de prueba agregado y quitado siguiendo `AGREGAR_PROYECTO.md`: **5 pasos**, sin tocar componentes.
+
+**Criterio de salida:** los 7 proyectos navegables en ambos idiomas; carrusel usable con mouse, táctil y teclado; añadir un proyecto de prueba funciona con 5 pasos o menos. ✅ *(técnicamente; falta tu revisión visual del movimiento —carrusel, filtros, lightbox, transición compartida— en un navegador real)*
 
 ### Fase 8 — Tecnologías
 **Tareas**

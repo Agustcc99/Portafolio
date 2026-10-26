@@ -45,11 +45,16 @@
     }
   },
   "projects": {
-    "title": "Work that shows how I've grown",
+    "label": "Projects",
+    "title": "Work that shows how I've <em>grown</em>",
     "description": "A selection of academic, personal and practice projects aimed at solving real problems.",
     "previous": "Previous project",
     "next": "Next project",
-    "goTo": "Go to project {{n}}: {{title}}"
+    "goTo": "Go to project {{n}}: {{title}}",
+    "carouselLabel": "Projects carousel",
+    "slideLabel": "{{n}} of {{total}}",
+    "status": "Project {{n}} of {{total}}: {{title}}",
+    "pagination": "Carousel pagination"
   },
   "tech": {
     "title": "How I build a complete application",

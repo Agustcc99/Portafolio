@@ -33,11 +33,11 @@ import type { ProjectData } from './types'
 const project: ProjectData = {
   slug: 'mi-proyecto', // = nombre del archivo; es la URL: /es/proyectos/mi-proyecto
   order: 8, // posición en carrusel, índice y "anterior/siguiente"
-  featured: false, // true → aparece en el carrusel del home (máx. 7)
+  featured: false, // true → aparece en el carrusel del home (se muestran los primeros 7 por `order`)
   category: 'fullstack', // 'fullstack' | 'backend' | 'frontend'
   techs: ['react', 'nodejs', 'mongodb'], // slugs de src/content/technologies.ts (techLabels)
-  links: { demo: null, code: 'https://github.com/...' }, // null = el botón se oculta
-  images: ['miproyecto/m1', 'miproyecto/m2'], // carpeta/archivo sin extensión; la 1ª es la portada
+  links: { demo: null, code: 'https://github.com/...' }, // null = el botón se oculta (si ambos son null, no aparece el bloque de enlaces)
+  images: ['miproyecto/m1', 'miproyecto/m2'], // carpeta/archivo sin extensión; la 1ª es la portada (`[]` = portada tipográfica, sin galería)
 }
 
 export default project
@@ -70,7 +70,7 @@ npm run i18n:check && npm run typecheck && npm run build
 ```
 
 `i18n:check` falla si falta alguna clave en un idioma. Después abrí `/es/proyectos/mi-proyecto` y
-`/en/projects/mi-proyecto`.
+`/en/projects/mi-proyecto`: el proyecto ya está en el índice (con sus filtros de categoría y tecnología), en "anterior / siguiente" y, si es `featured`, en el carrusel del home.
 
 ---
 

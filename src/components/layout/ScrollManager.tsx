@@ -14,14 +14,16 @@ function isLocaleSwitch(from: string, to: string) {
 
 /**
  * Acomoda el scroll en cada navegación: ancla (`#about`) con scroll suave, página nueva arriba,
- * cambio de idioma conservando la posición, atrás/adelante a cargo del navegador.
+ * cambio de idioma conservando la posición, cambios de query sin mover el scroll, atrás/adelante
+ * a cargo del navegador.
  * Al terminar avisa a la view transition de ruta que la vista nueva ya está lista.
  */
 export function ScrollManager() {
-  const { pathname, hash, key } = useLocation()
+  const { pathname, search, hash, key } = useLocation()
   const navigationType = useNavigationType()
   const { scrollTo } = useSmoothScroll()
   const previousPath = useRef<string | null>(null)
+  const previousSearch = useRef(search)
   const lastScrollY = useRef(0)
 
   useEffect(() => {
@@ -34,15 +36,18 @@ export function ScrollManager() {
 
   useLayoutEffect(() => {
     const from = previousPath.current
+    const searchChanged = previousSearch.current !== search
     previousPath.current = pathname
+    previousSearch.current = search
 
     if (from === null) {
       if (hash) scrollTo(hash, { immediate: true })
     } else if (navigationType === 'POP') {
       if (hash) scrollTo(hash, { immediate: true })
     } else if (from === pathname) {
+      // Solo cambió la query (filtros del índice): la página sigue donde está.
       if (hash) scrollTo(hash)
-      else scrollTo(0)
+      else if (!searchChanged) scrollTo(0)
     } else if (isLocaleSwitch(from, pathname)) {
       scrollTo(lastScrollY.current, { immediate: true })
     } else if (hash) {

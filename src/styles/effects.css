@@ -170,3 +170,44 @@
   transition-duration: 0.01ms !important;
   scroll-behavior: auto !important;
 }
+
+/* ── Lightbox de proyectos (<dialog>): fundido de entrada y salida ─────── */
+.lightbox-dialog {
+  opacity: 0;
+  transition:
+    opacity var(--duration-base) var(--ease-out-expo),
+    overlay var(--duration-base) allow-discrete,
+    display var(--duration-base) allow-discrete;
+}
+
+.lightbox-dialog[open] {
+  opacity: 1;
+}
+
+@starting-style {
+  .lightbox-dialog[open] {
+    opacity: 0;
+  }
+}
+
+.lightbox-dialog::backdrop {
+  background: transparent;
+}
+
+/* ── Transición compartida de portada (portada de tarjeta ↔ hero del detalle) ─
+ * El nombre `project-cover` lo pone lib/sharedCover.ts en una sola portada por página.
+ * El grupo se mueve y escala con easing de salida; las imágenes se recortan en vez de deformarse.
+ */
+:root[data-vt='route']::view-transition-group(project-cover) {
+  animation-duration: 650ms;
+  animation-timing-function: var(--ease-out-expo);
+  z-index: 1;
+}
+:root[data-vt='route']::view-transition-old(project-cover),
+:root[data-vt='route']::view-transition-new(project-cover) {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  object-position: top;
+  overflow: clip;
+}
