@@ -9,10 +9,10 @@ import { SplitHeading } from '../../components/ui/SplitHeading'
 import { projects } from '../../content/projects'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
 import { useGsapContext } from '../../lib/gsap'
-import { introDone } from '../../lib/intro'
+import { introRevealing } from '../../lib/intro'
 
 /**
- * Hero a sangre completa. Coreografía de entrada (GSAP), una vez terminada la intro:
+ * Hero a sangre completa. Coreografía de entrada (GSAP), que arranca cuando la intro retira la cortina:
  * chip → H1 por palabras (SplitHeading) → párrafo → CTAs → datos → indicador de scroll,
  * mientras la grilla se "enciende" desde el centro. Con movimiento reducido todo aparece ya
  * dibujado. Si GSAP no carga, `onError` retira el estado oculto y se ve el hero completo.
@@ -35,13 +35,13 @@ export function Hero() {
       timeline
         .fromTo(item('status'), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.8 }, 0)
         .fromTo(grid, { '--reveal': 0 }, { '--reveal': 1, duration: 1.8, ease: 'power2.out' }, 0.1)
-        .fromTo(item('text'), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.9 }, 0.6)
-        .fromTo(item('cta'), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.9 }, 0.75)
-        .fromTo(item('stats'), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9 }, 0.9)
-        .fromTo(item('scroll'), { opacity: 0 }, { opacity: 1, duration: 1 }, 1.2)
+        .fromTo(item('text'), { y: 18 }, { y: 0, duration: 0.9 }, 0.2)
+        .fromTo(item('cta'), { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.9 }, 0.45)
+        .fromTo(item('stats'), { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.9 }, 0.55)
+        .fromTo(item('scroll'), { opacity: 0 }, { opacity: 1, duration: 1 }, 0.9)
 
       reveal() // los `fromTo` ya fijaron el estado inicial inline: se puede quitar el ocultado por CSS
-      void introDone.then(() => timeline.play())
+      void introRevealing.then(() => timeline.play())
     },
     [reduced],
     { scope: root, enabled: !reduced, onError: reveal },
@@ -72,7 +72,7 @@ export function Hero() {
           as="h1"
           trigger="mount"
           delay={0.15}
-          waitFor={introDone}
+          waitFor={introRevealing}
           className="mt-8 max-w-[14ch] text-display"
         >
           <Trans

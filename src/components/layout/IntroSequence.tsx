@@ -5,7 +5,7 @@ import { useReducedMotion } from '../../hooks/useReducedMotion'
 import { useScrollLock } from '../../hooks/useSmoothScroll'
 import { paths, type Locale } from '../../i18n/paths'
 import { loadGsap } from '../../lib/gsap'
-import { markIntroDone } from '../../lib/intro'
+import { markIntroDone, markIntroRevealing } from '../../lib/intro'
 import { Monogram } from './Monogram'
 import { normalizePath } from './navItems'
 
@@ -22,7 +22,8 @@ function notSeenYet() {
 /**
  * Intro de ≤ 1.1 s: monograma + cortina que se retira hacia arriba. Solo en la primera visita de
  * la sesión, sobre el home y sin movimiento reducido. Se salta con click o cualquier tecla.
- * Es un overlay: el contenido ya está pintado debajo, así que no retrasa el LCP.
+ * Es un overlay: el contenido ya está pintado debajo y las coreografías de entrada arrancan cuando
+ * la cortina empieza a subir (`introRevealing`), así que la intro no retrasa el LCP.
  */
 export function IntroSequence() {
   const { i18n } = useTranslation()
@@ -69,11 +70,8 @@ export function IntroSequence() {
             { opacity: 0, scale: 0.8, y: 10 },
             { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: 'expo.out' },
           )
-          .to(
-            overlay.current,
-            { clipPath: 'inset(0% 0% 100% 0%)', duration: 0.55, ease: 'expo.inOut' },
-            '+=0.12',
-          )
+          .add(markIntroRevealing, '+=0.12')
+          .to(overlay.current, { clipPath: 'inset(0% 0% 100% 0%)', duration: 0.55, ease: 'expo.inOut' }, '<')
         skip.current = () => {
           timeline.progress(1)
         }

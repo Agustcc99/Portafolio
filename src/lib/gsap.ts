@@ -12,12 +12,11 @@ type SplitTextPlugin = typeof import('gsap/SplitText').SplitText
 
 export interface GsapKit {
   gsap: GsapCore
-  ScrollTrigger: ScrollTriggerPlugin
   SplitText: SplitTextPlugin
 }
 
 let corePromise: Promise<GsapCore> | null = null
-let kitPromise: Promise<GsapKit> | null = null
+const kitPromises: { base: Promise<GsapKit> | null; scroll: Promise<GsapKit> | null } = { base: null, scroll: null }
 
 /** Solo el núcleo de GSAP (intro, timelines simples). */
 export function loadGsap(): Promise<GsapCore> {
@@ -26,22 +25,29 @@ export function loadGsap(): Promise<GsapCore> {
   return corePromise
 }
 
-/** Núcleo + ScrollTrigger + SplitText registrados, y enlazado con Lenis si está activo. */
-export function loadGsapKit(): Promise<GsapKit> {
-  kitPromise ??= Promise.all([
+/**
+ * Núcleo + SplitText registrados. Con `scroll` suma ScrollTrigger (y lo enlaza con Lenis si está activo):
+ * solo lo necesitan las animaciones disparadas por scroll, así que las páginas que no las usan no lo bajan.
+ */
+export function loadGsapKit({ scroll = false }: { scroll?: boolean } = {}): Promise<GsapKit> {
+  const key = scroll ? 'scroll' : 'base'
+  kitPromises[key] ??= Promise.all([
     import('gsap'),
-    import('gsap/ScrollTrigger'),
     import('gsap/SplitText'),
-  ]).then(([core, st, split]) => {
+    scroll ? import('gsap/ScrollTrigger') : null,
+  ]).then(([core, split, st]) => {
     const { gsap } = core
-    gsap.registerPlugin(st.ScrollTrigger, split.SplitText)
-    st.ScrollTrigger.config({ ignoreMobileResize: true })
-    kit = { gsap, ScrollTrigger: st.ScrollTrigger, SplitText: split.SplitText }
-    linkLenis()
-    return kit
+    gsap.registerPlugin(split.SplitText)
+    if (st) {
+      gsap.registerPlugin(st.ScrollTrigger)
+      st.ScrollTrigger.config({ ignoreMobileResize: true })
+      scrollTrigger = st.ScrollTrigger
+      linkLenis()
+    }
+    return { gsap, SplitText: split.SplitText }
   })
-  kitPromise.catch(() => (kitPromise = null))
-  return kitPromise
+  kitPromises[key].catch(() => (kitPromises[key] = null))
+  return kitPromises[key]
 }
 
 /* ── Enlace Lenis ↔ ScrollTrigger ─────────────────────────────────────
@@ -49,18 +55,16 @@ export function loadGsapKit(): Promise<GsapKit> {
  * en cada tick de scroll. El enlace se hace cuando coinciden ambos (GSAP puede cargar
  * antes o después que Lenis) y se deshace al destruir Lenis.
  */
-let kit: GsapKit | null = null
+let scrollTrigger: ScrollTriggerPlugin | null = null
 let lenisInstance: Lenis | null = null
 let unlink: (() => void) | null = null
 
 function linkLenis() {
   unlink?.()
   unlink = null
-  if (!kit || !lenisInstance) return
-  const { ScrollTrigger } = kit
-  const stop = lenisInstance.on('scroll', ScrollTrigger.update)
-  unlink = stop
-  ScrollTrigger.refresh()
+  if (!scrollTrigger || !lenisInstance) return
+  unlink = lenisInstance.on('scroll', scrollTrigger.update)
+  scrollTrigger.refresh()
 }
 
 export function attachLenis(lenis: Lenis | null) {
@@ -83,12 +87,14 @@ interface GsapContextOptions {
   enabled?: boolean
   /** Se llama si GSAP no pudo descargarse (red caída): mostrar el contenido tal cual. */
   onError?: () => void
+  /** Carga también ScrollTrigger (para animaciones disparadas por scroll). */
+  scroll?: boolean
 }
 
 export function useGsapContext(
   setup: (kit: GsapKit) => void | (() => void),
   deps: DependencyList,
-  { scope, enabled = true, onError }: GsapContextOptions = {},
+  { scope, enabled = true, onError, scroll = false }: GsapContextOptions = {},
 ) {
   useEffect(() => {
     if (!enabled) return
@@ -96,7 +102,7 @@ export function useGsapContext(
     let context: { revert: () => void } | null = null
     let cleanup: void | (() => void)
 
-    loadGsapKit()
+    loadGsapKit({ scroll })
       .then((loaded) => {
         if (cancelled) return
         context = loaded.gsap.context(() => {
@@ -114,5 +120,5 @@ export function useGsapContext(
     }
     // `setup`, `scope` y `onError` cambian en cada render; las dependencias reales las pasa el llamador.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [enabled, ...deps])
+  }, [enabled, scroll, ...deps])
 }

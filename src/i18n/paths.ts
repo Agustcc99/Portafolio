@@ -42,6 +42,8 @@ export function saveLocale(locale: Locale) {
   } catch {
     /* almacenamiento bloqueado */
   }
+  // Espejo en una cookie funcional: el redirect de `/` en vercel.json (servidor) no ve el localStorage.
+  document.cookie = `${LOCALE_STORAGE_KEY}=${locale}; path=/; max-age=31536000; SameSite=Lax`
 }
 
 /** Ruta equivalente en otro idioma, conservando slug de proyecto, query y hash. */

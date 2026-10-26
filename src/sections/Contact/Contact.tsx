@@ -10,54 +10,52 @@ import { site } from '../../config/site'
 const linkClass =
   'inline-flex min-h-11 items-center gap-1 rounded-pill px-3 text-small font-medium text-text pressable hover:text-accent-text'
 
-/** Contacto: portal hacia WhatsApp y, debajo, copiar el email y enlaces a GitHub (y LinkedIn si existe). */
+/** Contacto: portal hacia WhatsApp y, debajo, copiar el email y enlaces a GitHub (y LinkedIn si existe). El `<section>` lo da `DeferredSection`. */
 export function Contact() {
   const { t } = useTranslation('home')
   const accent = { em: <em className="font-serif font-normal text-accent-text" /> }
 
   return (
-    <section id="contact" className="py-[clamp(5rem,12vw,10rem)]">
-      <Container>
-        <SectionHeading
-          index="04"
-          label={t('contact.label')}
-          title={<Trans t={t} i18nKey="contact.title" components={accent} />}
-        />
+    <Container>
+      <SectionHeading
+        index="04"
+        label={t('contact.label')}
+        title={<Trans t={t} i18nKey="contact.title" components={accent} />}
+      />
 
-        <ContactPortal />
+      <ContactPortal />
 
-        <Reveal as="ul" className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
-          <li>
-            <CopyEmail />
-          </li>
+      <Reveal as="ul" className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+        <li>
+          <CopyEmail />
+        </li>
+        <li>
+          <a
+            href={site.github}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={t('contact.githubAria')}
+            className={linkClass}
+          >
+            GitHub
+            <ArrowUpRight size={14} aria-hidden />
+          </a>
+        </li>
+        {site.linkedin && (
           <li>
             <a
-              href={site.github}
+              href={site.linkedin}
               target="_blank"
               rel="noreferrer"
-              aria-label={t('contact.githubAria')}
+              aria-label={t('contact.linkedinAria')}
               className={linkClass}
             >
-              GitHub
+              LinkedIn
               <ArrowUpRight size={14} aria-hidden />
             </a>
           </li>
-          {site.linkedin && (
-            <li>
-              <a
-                href={site.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={t('contact.linkedinAria')}
-                className={linkClass}
-              >
-                LinkedIn
-                <ArrowUpRight size={14} aria-hidden />
-              </a>
-            </li>
-          )}
-        </Reveal>
-      </Container>
-    </section>
+        )}
+      </Reveal>
+    </Container>
   )
 }

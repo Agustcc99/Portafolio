@@ -11,7 +11,7 @@
     "statStack": "React · Node · MongoDB",
     "statsLabel": "Quick facts",
     "scroll": "Scroll",
-    "scrollTo": "Go to the About section"
+    "scrollTo": "Scroll: go to the About section"
   },
   "about": {
     "label": "About",
@@ -77,7 +77,7 @@
     "whatsappIdle": "Start a conversation",
     "whatsappOpen": "Open WhatsApp",
     "whatsappOpening": "Opening conversation…",
-    "whatsappAria": "Start a WhatsApp conversation with Agustín Tacconi (opens in a new tab)",
+    "whatsappAria": "Start a conversation on WhatsApp with Agustín Tacconi (opens in a new tab)",
     "support": "I'm open to opportunities, projects and collaborations where I can keep growing.",
     "actionsLabel": "Other ways to get in touch",
     "copyEmail": "Copy email",

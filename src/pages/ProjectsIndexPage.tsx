@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { Trans, useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
+import { Seo } from '../components/seo/Seo'
 import { ProjectFilters, type FilterOption } from '../components/projects/ProjectFilters'
 import { ProjectGrid } from '../components/projects/ProjectGrid'
 import { Container } from '../components/ui/Container'
@@ -21,7 +22,6 @@ function tally(values: string[]): FilterOption[] {
  */
 export default function ProjectsIndexPage() {
   const { t } = useTranslation()
-  const { t: ts } = useTranslation('seo')
   const [params, setParams] = useSearchParams()
 
   const categories = useMemo(() => tally(projects.map((p) => p.category)), [])
@@ -52,8 +52,7 @@ export default function ProjectsIndexPage() {
 
   return (
     <Container as="main" className="pt-[clamp(8rem,16vw,12rem)] pb-[clamp(5rem,12vw,10rem)]">
-      <title>{ts('projects.title')}</title>
-      <meta name="description" content={ts('projects.description')} />
+      <Seo kind="projects" />
 
       <header className="mb-10 max-w-[56rem] md:mb-14">
         <Reveal
@@ -64,7 +63,7 @@ export default function ProjectsIndexPage() {
           <span aria-hidden className="h-px w-8 bg-accent-text/50" />
           <span className="text-muted">{t('nav.projects')}</span>
         </Reveal>
-        <SplitHeading as="h1" className="text-h2">
+        <SplitHeading as="h1" trigger="mount" className="text-h2">
           <Trans t={t} i18nKey="projects.indexTitle" components={accent} />
         </SplitHeading>
         <Reveal as="p" delay={0.15} className="mt-6 max-w-[62ch]">

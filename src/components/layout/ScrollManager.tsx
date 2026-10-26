@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef } from 'react'
 import { useLocation, useNavigationType } from 'react-router'
 import { isLocale, switchLocalePath } from '../../i18n/paths'
 import { useSmoothScroll } from '../../hooks/useSmoothScroll'
+import { ensureSectionsMounted, hasPendingSections } from '../../lib/deferred'
 import { routeCommitted } from '../../lib/viewTransition'
 
 /** Misma página en otro idioma (`/es/proyectos/x` ↔ `/en/projects/x`). */
@@ -10,6 +11,27 @@ function isLocaleSwitch(from: string, to: string) {
   const [, toLocale] = to.split('/')
   if (!isLocale(fromLocale) || !isLocale(toLocale) || fromLocale === toLocale) return false
   return switchLocalePath(from, 'es') === switchLocalePath(to, 'es')
+}
+
+/**
+ * Enlace directo a una sección diferida (`/es#contact`): el navegador salta al ancla en cuanto existe, cuando
+ * la sección todavía es un espacio vacío, y al montarse el contenido todo se corre de lugar. Se oculta la
+ * página (`html[data-anchoring]`, ver effects.css) hasta que las secciones están montadas y el scroll en su sitio.
+ */
+function scrollToInitialAnchor(hash: string, scrollTo: (target: string, options: { immediate: boolean }) => void) {
+  const target = document.querySelector(hash)
+  if (!target || !hasPendingSections(target)) return scrollTo(hash, { immediate: true })
+
+  const root = document.documentElement
+  root.dataset.anchoring = ''
+  const release = () => requestAnimationFrame(() => delete root.dataset.anchoring)
+  // Red de seguridad: si algo no monta, la página no puede quedar oculta.
+  const timeout = window.setTimeout(release, 2500)
+  void ensureSectionsMounted(target).then(() => {
+    scrollTo(hash, { immediate: true })
+    window.clearTimeout(timeout)
+    release()
+  })
 }
 
 /**
@@ -41,7 +63,7 @@ export function ScrollManager() {
     previousSearch.current = search
 
     if (from === null) {
-      if (hash) scrollTo(hash, { immediate: true })
+      if (hash) scrollToInitialAnchor(hash, scrollTo)
     } else if (navigationType === 'POP') {
       if (hash) scrollTo(hash, { immediate: true })
     } else if (from === pathname) {

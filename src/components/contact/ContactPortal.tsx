@@ -389,10 +389,10 @@ export function ContactPortal() {
                 <span className="contact-portal__button-text contact-portal__button-text--idle">
                   {t('contact.whatsappIdle')}
                 </span>
-                <span className="contact-portal__button-text contact-portal__button-text--open">
+                <span aria-hidden className="contact-portal__button-text contact-portal__button-text--open">
                   {t('contact.whatsappOpen')}
                 </span>
-                <span className="contact-portal__button-text contact-portal__button-text--clicking">
+                <span aria-hidden className="contact-portal__button-text contact-portal__button-text--clicking">
                   {t('contact.whatsappOpening')}
                 </span>
               </span>

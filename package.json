@@ -3,13 +3,18 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "engines": {
+    "node": ">=22.22.0"
+  },
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && node scripts/prerender-meta.mjs",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
     "images": "node scripts/optimize-images.mjs",
+    "icons": "node scripts/generate-icons.mjs",
+    "og": "node scripts/generate-og.mjs",
     "i18n:check": "node scripts/check-i18n.mjs"
   },
   "dependencies": {

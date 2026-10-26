@@ -1,5 +1,6 @@
 import { ArrowLeft } from 'lucide-react'
 import { Trans, useTranslation } from 'react-i18next'
+import { Seo } from '../components/seo/Seo'
 import { SiteLink } from '../components/layout/SiteLink'
 import { buttonClasses } from '../components/ui/buttonClasses'
 import { Container } from '../components/ui/Container'
@@ -20,8 +21,7 @@ export default function NotFoundPage() {
       as="main"
       className="flex min-h-svh flex-col items-start justify-center py-[clamp(7rem,14vw,10rem)]"
     >
-      <title>{t('notFound.title')}</title>
-      <meta name="robots" content="noindex" />
+      <Seo kind="notFound" />
 
       <RevealGroup className="flex flex-col items-start gap-6">
         <Reveal

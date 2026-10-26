@@ -41,7 +41,6 @@ export function Footer() {
         <div className="flex flex-col items-start gap-5">
           <SiteLink
             to={sectionHref(locale, 'home')}
-            aria-label={t('a11y.goHome')}
             className="flex items-center gap-2.5 rounded-pill font-display text-h3 font-bold text-strong"
           >
             <Monogram className="size-10" />

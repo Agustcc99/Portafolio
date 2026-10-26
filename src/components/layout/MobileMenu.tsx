@@ -67,7 +67,6 @@ export function MobileMenu({ open, onOpenChange, current }: MobileMenuProps) {
           <SiteLink
             to={sectionHref(locale, 'home')}
             onClick={close}
-            aria-label={t('a11y.goHome')}
             className="flex items-center gap-2.5 rounded-pill font-display font-bold text-strong"
           >
             <Monogram />

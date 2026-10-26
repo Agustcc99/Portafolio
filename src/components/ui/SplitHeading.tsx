@@ -14,7 +14,7 @@ interface SplitHeadingProps {
   delay?: number
   /** Segundos entre palabras. */
   stagger?: number
-  /** Si se pasa, la animación espera a que esta promesa se resuelva (p. ej. `introDone`). */
+  /** Si se pasa, la animación espera a que esta promesa se resuelva (p. ej. `introRevealing`). */
   waitFor?: Promise<unknown>
 }
 
@@ -45,11 +45,16 @@ export function SplitHeading({
       const target = inner.current
       if (!heading || !target) return
 
+      // El título se lee entero: el nombre accesible va en el heading y las palabras partidas quedan ocultas
+      // (SplitText pondría `aria-label` en un <span> sin rol, que no es válido).
+      heading.setAttribute('aria-label', (target.textContent ?? '').replace(/\s+/g, ' ').trim())
+      target.setAttribute('aria-hidden', 'true')
+
       const split = SplitText.create(target, {
         type: 'lines,words',
         mask: 'lines',
         autoSplit: true,
-        aria: 'auto',
+        aria: 'none',
         onSplit: (self) => {
           const tween = gsap.from(self.words, {
             yPercent: 110,
@@ -69,12 +74,14 @@ export function SplitHeading({
 
       return () => {
         split.revert()
+        heading.removeAttribute('aria-label')
+        target.removeAttribute('aria-hidden')
         // Al volver a ocultar hasta el próximo corte evitamos ver el texto crudo un instante.
         heading.setAttribute('data-split', 'pending')
       }
     },
     [reduced, trigger, delay, stagger, waitFor, i18n.language],
-    { enabled: !reduced, onError: show },
+    { enabled: !reduced, onError: show, scroll: trigger === 'scroll' },
   )
 
   return (

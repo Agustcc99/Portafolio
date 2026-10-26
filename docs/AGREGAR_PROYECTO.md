@@ -13,6 +13,7 @@ assets-src/proyectos/miproyecto/m2.png
 - Carpeta y archivos **en minúsculas, sin espacios** (Vercel corre en Linux y distingue mayúsculas).
 - Formato PNG o JPG, ancho ideal ≥ 1600 px. No se agrandan: si es más chico se usa tal cual.
 - `assets-src/` es la fuente; **nunca** copies imágenes a mano a `public/`.
+- `vercel.json` sirve `/proyectos/*` con caché inmutable de un año: si reemplazás una captura, dale un **nombre nuevo** (`m1.png` → `m1b.png`) o los visitantes verán la anterior.
 
 ## 2. Generá las versiones optimizadas
 
@@ -22,6 +23,10 @@ npm run images
 
 Crea en `public/proyectos/miproyecto/` los `.avif` y `.webp` en 480 / 960 / 1600 px y actualiza
 `src/content/projects/images.generated.json` (dimensiones y placeholder blur). Se commitean ambos.
+
+Las imágenes para compartir el enlace (Open Graph, 1200×630 en `public/og/<idioma>/<slug>.jpg`) se generan
+**después de los pasos 3 y 4** (necesitan el archivo de datos y los textos) con `npm run og`; requiere Chrome o
+Edge instalado y también se commitean.
 
 ## 3. Creá el archivo de datos
 
@@ -66,8 +71,11 @@ dentro de `items`:
 ## 5. Verificá
 
 ```bash
-npm run i18n:check && npm run typecheck && npm run build
+npm run og && npm run i18n:check && npm run typecheck && npm run build
 ```
+
+El build (`scripts/prerender-meta.mjs`) genera solo el HTML de la ruta con su título, descripción, `hreflang`,
+Open Graph y datos estructurados, y suma el proyecto a `sitemap.xml`.
 
 `i18n:check` falla si falta alguna clave en un idioma. Después abrí `/es/proyectos/mi-proyecto` y
 `/en/projects/mi-proyecto`: el proyecto ya está en el índice (con sus filtros de categoría y tecnología), en "anterior / siguiente" y, si es `featured`, en el carrusel del home.
@@ -75,4 +83,4 @@ npm run i18n:check && npm run typecheck && npm run build
 ---
 
 **Para quitar un proyecto:** borrá su archivo `.ts`, su entrada en los dos `projects.json` y (si querés)
-su carpeta en `assets-src/` y `public/proyectos/`, y corré `npm run images` para regenerar el manifiesto.
+su carpeta en `assets-src/` y `public/proyectos/` y sus imágenes `public/og/*/<slug>.jpg`, y corré `npm run images` para regenerar el manifiesto.

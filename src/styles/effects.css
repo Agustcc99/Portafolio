@@ -35,12 +35,22 @@
   filter: invert(1);
 }
 
+/* Enlace directo a una sección diferida: oculta (sin contar para el CLS) hasta que el scroll está en su sitio. */
+html[data-anchoring] main,
+html[data-anchoring] footer {
+  visibility: hidden;
+}
+
 /* ── Hero: estado inicial de la coreografía (lo retira Hero.tsx al armar la timeline de GSAP) ── */
 [data-hero='pending'] .interactive-hero-grid {
   --reveal: 0;
 }
-[data-hero='pending'] [data-hero-item] {
+[data-hero='pending'] [data-hero-item]:not([data-hero-item='text']) {
   opacity: 0;
+}
+/* El párrafo (candidato a LCP) se ve desde el primer pintado: la coreografía solo lo desliza a su sitio. */
+[data-hero='pending'] [data-hero-item='text'] {
+  translate: 0 18px;
 }
 
 @keyframes scroll-hint {

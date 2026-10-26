@@ -33,7 +33,8 @@ export function LangSwitch({ className }: { className?: string }) {
   }
 
   return (
-    <nav
+    <div
+      role="group"
       aria-label={t('a11y.language')}
       className={cn(
         'inline-flex items-center rounded-pill border border-line-strong bg-surface-1 p-0.5',
@@ -49,7 +50,7 @@ export function LangSwitch({ className }: { className?: string }) {
             hrefLang={locale}
             lang={locale}
             aria-current={active ? 'true' : undefined}
-            aria-label={t(`lang.${locale}`)}
+            aria-label={`${locale.toUpperCase()} — ${t(`lang.${locale}`)}`}
             onClick={(event) => select(event, locale)}
             className={cn(
               'relative isolate inline-flex h-9 min-w-10 items-center justify-center rounded-pill px-2.5 font-mono text-label uppercase tracking-[0.12em] pressable',
@@ -67,6 +68,6 @@ export function LangSwitch({ className }: { className?: string }) {
           </Link>
         )
       })}
-    </nav>
+    </div>
   )
 }

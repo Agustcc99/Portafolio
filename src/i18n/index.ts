@@ -31,10 +31,25 @@ const loaders: Record<Locale, () => Promise<Record<Namespace, object>>> = {
 
 const loaded = new Map<Locale, Promise<void>>()
 
+/**
+ * `scripts/prerender-meta.mjs` incrusta en el HTML de cada ruta los textos de su idioma
+ * (`<script type="application/json" id="i18n-bootstrap">`): leerlos evita pedir los cinco chunks JSON.
+ */
+function readBootstrap(locale: Locale): Record<Namespace, object> | null {
+  const node = document.getElementById('i18n-bootstrap')
+  if (!node || node.dataset.locale !== locale) return null
+  try {
+    return JSON.parse(node.textContent ?? '') as Record<Namespace, object>
+  } catch {
+    return null
+  }
+}
+
 function loadLocale(locale: Locale) {
   let pending = loaded.get(locale)
   if (!pending) {
-    pending = loaders[locale]().then((bundles) => {
+    const bootstrap = readBootstrap(locale)
+    pending = (bootstrap ? Promise.resolve(bootstrap) : loaders[locale]()).then((bundles) => {
       for (const ns of namespaces) {
         i18n.addResourceBundle(locale, ns, bundles[ns], true, true)
       }

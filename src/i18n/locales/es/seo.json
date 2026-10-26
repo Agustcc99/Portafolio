@@ -13,5 +13,13 @@
   "notFound": {
     "title": "Página no encontrada — Agustín Tacconi",
     "description": "La página que buscás no existe."
+  },
+  "person": {
+    "jobTitle": "Desarrollador web full stack",
+    "description": "Desarrollador web full stack con foco en React, Node y MongoDB. Aplicaciones reales para negocios y servicios."
+  },
+  "og": {
+    "alt": "Agustín Tacconi — Desarrollador web full stack",
+    "projectAlt": "{{title}} — proyecto de Agustín Tacconi"
   }
 }

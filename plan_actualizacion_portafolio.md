@@ -543,13 +543,15 @@ Regla de escalado: el carrusel muestra hasta 7 destacados; el índice `/proyecto
 
 ### Fase 11 — Rendimiento, SEO y accesibilidad
 **Tareas**
-- [ ] `scripts/prerender-meta.mjs` + `sitemap.xml` + JSON-LD; OG images ES/EN y por proyecto.
-- [ ] `vercel.json` (redirects por idioma, rewrites, headers, caché).
-- [ ] Auditoría Lighthouse (mobile y desktop) de home, índice y detalle; corregir hasta cumplir §7.
-- [ ] Auditoría de accesibilidad (axe, teclado, lector de pantalla básico, contraste en ambos temas).
-- [ ] Revisar bundle (`vite build` + analizador) y dividir lo necesario.
+- [x] `scripts/prerender-meta.mjs` + `sitemap.xml` + JSON-LD; OG images ES/EN y por proyecto.
+- [x] `vercel.json` (redirects por idioma, rewrites, headers, caché).
+- [x] Auditoría Lighthouse (mobile y desktop) de home, índice y detalle; corregir hasta cumplir §7. *(parcial: ver nota)*
+- [x] Auditoría de accesibilidad (axe, teclado, lector de pantalla básico, contraste en ambos temas).
+- [x] Revisar bundle (`vite build` + analizador) y dividir lo necesario.
 
-**Criterio de salida:** metas de §7 cumplidas; previews de enlaces (WhatsApp/LinkedIn) correctos en ES y EN.
+> **Hecho (2026-10-26):** ver SEGUIMIENTO §4 (tabla «Fase 11») y §7 (métricas). Resumen: `src/lib/seo.ts` es la fuente única de metadatos (la usan `<Seo>` en el cliente y `scripts/prerender-meta.mjs` en el build, que genera 18 HTML por ruta con canonical, `hreflang`, OG/Twitter, JSON-LD `Person`+`WebSite`/`BreadcrumbList`, los textos del idioma incrustados, `sitemap.xml` y `robots.txt`); favicon/manifest/íconos (`npm run icons`) e imágenes OG por idioma y proyecto (`npm run og`, Chrome headless); `vercel.json` con redirects por cookie/`Accept-Language`, rewrite SPA, cabeceras de seguridad con CSP por hash y caché inmutable. Rendimiento: secciones del home bajo el pliegue diferidas (`DeferredSection`), páginas de proyectos y Lenis en chunks aparte, ScrollTrigger solo donde hay animaciones por scroll. Accesibilidad: axe sin violaciones en 7 rutas × 2 temas × 2 anchos, teclado y diálogos verificados. **Se corrigió un bug previo: Lenis no tenía `autoRaf` y la rueda del mouse no desplazaba la página.** Meta de Lighthouse mobile **cumplida solo en el home** (93–94); índice y detalle quedan en 86–88 (ver SEGUIMIENTO §7).
+
+**Criterio de salida:** metas de §7 cumplidas; previews de enlaces (WhatsApp/LinkedIn) correctos en ES y EN. ⚠️ *Parcial: desktop 99, a11y/BP/SEO 100 y CLS 0 en todas las páginas; mobile Performance 86–88 en índice/detalle y LCP simulado 2.8–3.9 s (< 2.0 s no alcanzable sin SSR). Previews OG verificadas en el HTML servido; falta probarlas con el dominio real (Fase 12).*
 
 ### Fase 12 — Despliegue en Vercel + dominio
 **Tareas**

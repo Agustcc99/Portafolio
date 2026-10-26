@@ -19,6 +19,10 @@ interface ProjectCardProps {
   project: ProjectData
   /** `sizes` de la portada según el ancho que ocupa la tarjeta en cada contexto. */
   sizes: string
+  /** Portada LCP de la página (índice): carga inmediata con prioridad alta. */
+  priority?: boolean
+  /** Nivel del título: `h3` bajo la sección del home, `h2` bajo el `h1` del índice. */
+  headingLevel?: 'h2' | 'h3'
   className?: string
 }
 
@@ -28,7 +32,7 @@ interface ProjectCardProps {
  * enlace del título, que se estira sobre ella. La portada lleva `view-transition-name` solo
  * cuando es la que se está abriendo (`lib/sharedCover`).
  */
-export function ProjectCard({ project, sizes, className }: ProjectCardProps) {
+export function ProjectCard({ project, sizes, priority, headingLevel: Heading = 'h3', className }: ProjectCardProps) {
   const { t } = useTranslation()
   const { t: tp } = useTranslation('projects')
   const { project: text, locale } = useContentText()
@@ -56,6 +60,7 @@ export function ProjectCard({ project, sizes, className }: ProjectCardProps) {
             image={image}
             alt=""
             sizes={sizes}
+            priority={priority}
             draggable={false}
             pictureClassName="block size-full"
             className="size-full object-cover object-top transition-transform duration-(--duration-slow) ease-out-expo group-hover:scale-[1.03]"
@@ -73,7 +78,7 @@ export function ProjectCard({ project, sizes, className }: ProjectCardProps) {
           </span>
         </div>
 
-        <h3 className="line-clamp-3 text-h3">
+        <Heading className="line-clamp-3 text-h3">
           <SiteLink
             to={paths.project(locale as Locale, project.slug)}
             onClick={() => nameCover(cover.current, project.slug)}
@@ -81,7 +86,7 @@ export function ProjectCard({ project, sizes, className }: ProjectCardProps) {
           >
             {title}
           </SiteLink>
-        </h3>
+        </Heading>
 
         <p className="line-clamp-3 text-small text-pretty">{content?.short}</p>
 

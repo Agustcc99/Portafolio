@@ -3,8 +3,7 @@ import { LocaleLayout } from './components/layout/LocaleLayout'
 import { detectLocale, locales, paths, segments } from './i18n/paths'
 import HomePage from './pages/HomePage'
 import NotFoundPage from './pages/NotFoundPage'
-import ProjectDetailPage from './pages/ProjectDetailPage'
-import ProjectsIndexPage from './pages/ProjectsIndexPage'
+import { ProjectDetailPage, ProjectsIndexPage } from './pages/lazyPages'
 
 /** `/` → idioma guardado o del navegador (en producción lo adelanta `vercel.json`, Fase 11). */
 function RootRedirect() {

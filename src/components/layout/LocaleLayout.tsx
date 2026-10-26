@@ -1,8 +1,9 @@
-import { useLayoutEffect, useState } from 'react'
+import { Suspense, useEffect, useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Outlet } from 'react-router'
 import { setLanguage } from '../../i18n'
 import type { Locale } from '../../i18n/paths'
+import { prefetchPages } from '../../pages/lazyPages'
 import { Footer } from './Footer'
 import { IntroSequence } from './IntroSequence'
 import { Navbar } from './Navbar'
@@ -31,6 +32,17 @@ export function LocaleLayout({ locale }: { locale: Locale }) {
     }
   }, [locale])
 
+  // Con el navegador libre se descargan las páginas de proyectos para que el primer clic no espere.
+  useEffect(() => {
+    const run = () => void prefetchPages()
+    if (typeof window.requestIdleCallback === 'function') {
+      const id = window.requestIdleCallback(run, { timeout: 4000 })
+      return () => window.cancelIdleCallback(id)
+    }
+    const id = window.setTimeout(run, 2000)
+    return () => window.clearTimeout(id)
+  }, [])
+
   if (!ready) return null
 
   return (
@@ -43,7 +55,9 @@ export function LocaleLayout({ locale }: { locale: Locale }) {
       <IntroSequence />
       <div id="main-content" tabIndex={-1} className="outline-none">
         <PageTransition>
-          <Outlet />
+          <Suspense fallback={<div aria-hidden className="min-h-svh" />}>
+            <Outlet />
+          </Suspense>
         </PageTransition>
       </div>
       <Footer />

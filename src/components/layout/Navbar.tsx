@@ -60,7 +60,6 @@ export function Navbar() {
         >
           <SiteLink
             to={paths.home(locale)}
-            aria-label={t('a11y.goHome')}
             className="flex items-center gap-2.5 rounded-pill pr-3 font-display font-bold text-strong"
           >
             <Monogram />

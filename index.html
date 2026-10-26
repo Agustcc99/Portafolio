@@ -2,10 +2,17 @@
 <html lang="es" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0a0a0c" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f6f5f0" media="(prefers-color-scheme: light)" />
+    <!-- Título y descripción por defecto; scripts/prerender-meta.mjs los reemplaza en el HTML de cada ruta. -->
     <title>Agustín Tacconi — Desarrollador web</title>
+    <meta name="description" content="Portafolio de Agustín Tacconi: desarrollador web con React, Node y MongoDB." />
     <script>
       // Anti-flash: resuelve tema y movimiento antes del primer pintado (ver ThemeProvider y MotionPrefsProvider).
       (function () {

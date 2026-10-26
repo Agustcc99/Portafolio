@@ -19,6 +19,8 @@ const firstSegment = window.location.pathname.split('/')[1]
 const initialLocale = isLocale(firstSegment) ? firstSegment : detectLocale()
 
 initI18n(initialLocale).then(() => {
+  // Los metadatos del HTML prerenderizado ya cumplieron con los rastreadores sin JS; <Seo> reemplaza a los de la página.
+  document.head.querySelectorAll('[data-prerender]').forEach((node) => node.remove())
   createRoot(root).render(
     <StrictMode>
       <ThemeProvider>

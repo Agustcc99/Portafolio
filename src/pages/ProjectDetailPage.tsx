@@ -6,6 +6,7 @@ import { SiteLink } from '../components/layout/SiteLink'
 import { CoverPlaceholder } from '../components/projects/CoverPlaceholder'
 import { Gallery } from '../components/projects/Gallery'
 import { Lightbox } from '../components/projects/Lightbox'
+import { Seo } from '../components/seo/Seo'
 import { ProjectNav } from '../components/projects/ProjectNav'
 import { ButtonLink } from '../components/ui/Button'
 import { buttonClasses } from '../components/ui/buttonClasses'
@@ -60,7 +61,6 @@ export default function ProjectDetailPage() {
   const { slug } = useParams()
   const { t } = useTranslation()
   const { t: tp } = useTranslation('projects')
-  const { t: ts } = useTranslation('seo')
   const { project, locale } = useContentText()
   const cover = useRef<HTMLDivElement>(null)
   const [lightbox, setLightbox] = useState({ open: false, index: 0 })
@@ -76,8 +76,7 @@ export default function ProjectDetailPage() {
 
   return (
     <Container as="main" className="pt-[clamp(7rem,14vw,10rem)] pb-[clamp(5rem,12vw,10rem)]">
-      <title>{ts('project.title', { title: text.title })}</title>
-      <meta name="description" content={text.short} />
+      <Seo kind="project" project={{ slug: data.slug, title: text.title, short: text.short }} />
 
       <SiteLink
         to={paths.projects(locale as Locale)}
@@ -98,7 +97,7 @@ export default function ProjectDetailPage() {
           <span aria-hidden className="h-px w-8 bg-accent-text/50" />
           <span className="text-muted">{tp(`categories.${data.category}`)}</span>
         </Reveal>
-        <SplitHeading as="h1" className="text-[length:clamp(1.9rem,1.1rem+2.9vw,3.5rem)] leading-[1.05] tracking-[-0.03em]">
+        <SplitHeading as="h1" trigger="mount" className="text-[length:clamp(1.9rem,1.1rem+2.9vw,3.5rem)] leading-[1.05] tracking-[-0.03em]">
           {text.title}
         </SplitHeading>
         <Reveal as="p" delay={0.15} className="mt-6 max-w-[62ch] text-pretty">

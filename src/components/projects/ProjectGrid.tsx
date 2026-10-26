@@ -21,7 +21,7 @@ export function ProjectGrid({ projects }: { projects: readonly ProjectData[] }) 
   return (
     <m.ul layout className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       <AnimatePresence initial={false} mode="popLayout">
-        {projects.map((project) => (
+        {projects.map((project, index) => (
           <m.li
             key={project.slug}
             layout={reduced ? false : 'position'}
@@ -32,7 +32,12 @@ export function ProjectGrid({ projects }: { projects: readonly ProjectData[] }) 
             viewport={{ once: true, margin: '0px 0px -10% 0px' }}
             transition={{ layout: spring.ui }}
           >
-            <ProjectCard project={project} sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" />
+            <ProjectCard
+              project={project}
+              priority={index === 0}
+              headingLevel="h2"
+              sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+            />
           </m.li>
         ))}
       </AnimatePresence>
