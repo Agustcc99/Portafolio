@@ -58,6 +58,20 @@ export async function initI18n(locale: Locale) {
   document.documentElement.lang = locale
 }
 
+/** Descarga el bundle de un idioma sin activarlo (para cambiarlo después de forma síncrona). */
+export function preloadLocale(locale: Locale) {
+  return loadLocale(locale)
+}
+
+/**
+ * Activa un idioma cuyo bundle ya está cargado (`preloadLocale`). Con los recursos en memoria
+ * i18next cambia de idioma en el acto, así el cambio de ruta y el de texto caen en el mismo render.
+ */
+export function activateLanguage(locale: Locale) {
+  if (i18n.language !== locale) void i18n.changeLanguage(locale)
+  document.documentElement.lang = locale
+}
+
 /** Carga el idioma si hace falta, lo activa y actualiza `<html lang>`. */
 export async function setLanguage(locale: Locale) {
   await loadLocale(locale)

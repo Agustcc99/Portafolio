@@ -4,7 +4,7 @@ import "./SobreMi.css";
 
 function SobreMi() {
   return (
-    <SeccionAnimada id="sobre-mi" className="sobre-mi">
+    <SeccionAnimada id="about" className="sobre-mi">
       <SectionTitle
         titulo="Un perfil técnico con mirada práctica"
         descripcion="Me interesa desarrollar soluciones útiles, bien organizadas y pensadas para problemas reales."

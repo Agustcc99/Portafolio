@@ -116,7 +116,7 @@ function Proyectos() {
   }
 
   return (
-    <SeccionAnimada id="proyectos" className="proyectos">
+    <SeccionAnimada id="projects" className="proyectos">
       <SectionTitle
         titulo="Trabajos para mostrar mi evolución"
         descripcion="Una selección de proyectos académicos, personales y prácticos orientados a resolver problemas reales."

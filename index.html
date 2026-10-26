@@ -7,7 +7,7 @@
     <meta name="color-scheme" content="dark light" />
     <title>Agustín Tacconi — Desarrollador web</title>
     <script>
-      // Anti-flash: resuelve el tema antes del primer pintado (ver ThemeProvider).
+      // Anti-flash: resuelve tema y movimiento antes del primer pintado (ver ThemeProvider y MotionPrefsProvider).
       (function () {
         try {
           var saved = localStorage.getItem('theme');
@@ -18,6 +18,11 @@
                 ? 'light'
                 : 'dark';
           document.documentElement.dataset.theme = theme;
+          var motion = localStorage.getItem('motion');
+          var reduce =
+            motion === 'reduce' ||
+            (motion !== 'full' && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+          document.documentElement.dataset.motion = reduce ? 'reduce' : 'full';
         } catch (e) {}
       })();
     </script>

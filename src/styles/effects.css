@@ -1,0 +1,155 @@
+/*
+ * Efectos globales: fondo (glow + grano), menú móvil y view transitions.
+ * Solo usa los tokens de index.css, así que responde al tema y al idioma sin cambios.
+ */
+
+/* ── Fondo: glow radial muy sutil del acento + grano estático ─────────── */
+.site-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      60% 45% at 50% -8%,
+      color-mix(in srgb, var(--accent-glow) 42%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      40% 35% at 100% 100%,
+      color-mix(in srgb, var(--accent-glow) 22%, transparent),
+      transparent 70%
+    );
+}
+
+.site-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+:root[data-theme='light'] .site-bg::after {
+  opacity: 0.05;
+  filter: invert(1);
+}
+
+/* ── Menú móvil (<dialog>): entrada y salida con transiciones discretas ─── */
+.menu-dialog {
+  opacity: 0;
+  transform: translateY(-14px);
+  transition:
+    opacity var(--duration-base) var(--ease-out-expo),
+    transform var(--duration-base) var(--ease-out-expo),
+    overlay var(--duration-base) allow-discrete,
+    display var(--duration-base) allow-discrete;
+}
+
+.menu-dialog[open] {
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  .menu-dialog[open] {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+}
+
+.menu-dialog::backdrop {
+  background: var(--bg);
+}
+
+.menu-link {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity var(--duration-slow) var(--ease-out-expo),
+    transform var(--duration-slow) var(--ease-out-expo),
+    color var(--duration-base);
+}
+
+.menu-dialog[open] .menu-link {
+  opacity: 1;
+  transform: none;
+  transition-delay: calc(var(--i, 0) * 60ms + 80ms), calc(var(--i, 0) * 60ms + 80ms), 0s;
+}
+
+@starting-style {
+  .menu-dialog[open] .menu-link {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+/* ── View Transitions ─────────────────────────────────────────────────
+ * Dos usos, marcados por lib/viewTransition.ts en <html data-vt>:
+ *   route → fade + leve desplazamiento del contenido
+ *   theme → revelado circular (el recorte se anima desde JS)
+ * Navbar y barra de progreso viajan en grupos propios para que no se desvanezcan con la página.
+ */
+[data-vt-name='nav'] {
+  view-transition-name: site-nav;
+}
+[data-vt-name='progress'] {
+  view-transition-name: site-progress;
+}
+:root[data-vt='theme'] [data-vt-name] {
+  view-transition-name: none;
+}
+
+/* Sin transiciones CSS propias mientras se captura: el snapshot nuevo debe salir con el estado final. */
+:root[data-vt] *,
+:root[data-vt] *::before,
+:root[data-vt] *::after {
+  transition: none !important;
+}
+
+:root[data-vt='theme']::view-transition-old(root),
+:root[data-vt='theme']::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+:root[data-vt='theme']::view-transition-old(root) {
+  z-index: 1;
+}
+:root[data-vt='theme']::view-transition-new(root) {
+  z-index: 2;
+}
+
+:root[data-vt='route']::view-transition {
+  background: var(--bg);
+}
+:root[data-vt='route']::view-transition-old(root) {
+  animation: vt-out 180ms var(--ease-in-out-soft) both;
+  mix-blend-mode: normal;
+}
+:root[data-vt='route']::view-transition-new(root) {
+  animation: vt-in 420ms var(--ease-out-expo) 120ms both;
+  mix-blend-mode: normal;
+}
+
+@keyframes vt-out {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+@keyframes vt-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+/* ── Movimiento reducido manual (el del sistema está en index.css) ───── */
+:root[data-motion='reduce'] *,
+:root[data-motion='reduce'] *::before,
+:root[data-motion='reduce'] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}

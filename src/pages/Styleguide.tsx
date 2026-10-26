@@ -3,6 +3,8 @@ import { Button, ButtonLink } from '../components/ui/Button'
 import { Chip } from '../components/ui/Chip'
 import { Container } from '../components/ui/Container'
 import { ThemeToggle } from '../components/layout/ThemeToggle'
+import { ScrollProgress } from '../components/ui/ScrollProgress'
+import { MotionLab } from './styleguide/MotionLab'
 import { useTheme } from '../hooks/useTheme'
 import { cn } from '../lib/cn'
 
@@ -153,11 +155,12 @@ export default function Styleguide() {
 
   return (
     <div className="min-h-svh bg-bg pb-24">
+      <ScrollProgress />
       <Container>
         <header className="flex items-center justify-between py-8">
           <div>
             <p className="font-mono text-label uppercase tracking-[0.12em] text-accent-text">
-              Fase 1 · solo desarrollo
+              Fases 1 y 3 · solo desarrollo
             </p>
             <h1 className="mt-2 text-h2">Styleguide</h1>
           </div>
@@ -331,6 +334,10 @@ export default function Styleguide() {
               rounded-pill
             </div>
           </div>
+        </Section>
+
+        <Section title="06 — Animación (Fase 3)">
+          <MotionLab />
         </Section>
       </Container>
     </div>

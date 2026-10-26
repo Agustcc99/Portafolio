@@ -1,9 +1,10 @@
 import InteractiveHeroGrid from "../../components/InteractiveHeroGrid/InteractiveHeroGrid";
+import { SiteLink } from "../../components/layout/SiteLink";
 import "./Inicio.css";
 
 function Inicio() {
   return (
-    <section id="inicio" className="inicio">
+    <section id="home" className="inicio">
       <InteractiveHeroGrid />
 
       <div className="inicio__contenido">
@@ -20,13 +21,13 @@ function Inicio() {
         </p>
 
         <div className="inicio__acciones">
-          <a href="#proyectos" className="boton boton--principal">
+          <SiteLink to="#projects" className="boton boton--principal">
             Ver proyectos
-          </a>
+          </SiteLink>
 
-          <a href="#contacto" className="boton boton--secundario">
+          <SiteLink to="#contact" className="boton boton--secundario">
             Contactarme
-          </a>
+          </SiteLink>
         </div>
       </div>
     </section>

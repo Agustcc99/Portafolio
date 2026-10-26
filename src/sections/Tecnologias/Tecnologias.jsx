@@ -117,7 +117,7 @@ function Tecnologias() {
     : null;
 
   return (
-    <section id="tecnologias" className={clasesSeccion} ref={seccionRef}>
+    <section id="tech" className={clasesSeccion} ref={seccionRef}>
       <div className="tecnologias__intro">
         <h2>Cómo construyo una aplicación completa</h2>
         <p className="tecnologias__descripcion">

@@ -1,20 +1,27 @@
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Link, Outlet } from 'react-router'
+import { Outlet } from 'react-router'
 import { setLanguage } from '../../i18n'
-import { paths, type Locale } from '../../i18n/paths'
-import { LangSwitch } from './LangSwitch'
-import { ThemeToggle } from './ThemeToggle'
+import type { Locale } from '../../i18n/paths'
+import { Footer } from './Footer'
+import { IntroSequence } from './IntroSequence'
+import { Navbar } from './Navbar'
+import { PageTransition } from './PageTransition'
+import { ScrollManager } from './ScrollManager'
+import { SiteBackground } from './SiteBackground'
+import { SkipLink } from './SkipLink'
+import { ScrollProgress } from '../ui/ScrollProgress'
 
 /**
- * Activa el idioma de la ruta (`/es/*`, `/en/*`) antes de mostrar el contenido.
- * La barra flotante es provisional: la navegación definitiva llega en la Fase 4.
+ * Shell de todas las rutas `/es/*` y `/en/*`: activa el idioma de la URL antes de mostrar nada y
+ * aporta navbar, pie, fondo, barra de progreso, intro y gestión del scroll.
  */
 export function LocaleLayout({ locale }: { locale: Locale }) {
-  const { t, i18n } = useTranslation()
+  const { i18n } = useTranslation()
   const [ready, setReady] = useState(i18n.language === locale)
 
-  useEffect(() => {
+  // Layout effect: si el idioma ya estaba cargado, el contenido aparece antes del primer pintado.
+  useLayoutEffect(() => {
     let cancelled = false
     setLanguage(locale).then(() => {
       if (!cancelled) setReady(true)
@@ -24,27 +31,22 @@ export function LocaleLayout({ locale }: { locale: Locale }) {
     }
   }, [locale])
 
-  if (!ready || i18n.language !== locale) return null
+  if (!ready) return null
 
   return (
     <>
-      <Outlet />
-      <div className="fixed right-3 bottom-3 z-50 flex items-center gap-2 rounded-pill border border-line-strong bg-surface-1 p-1.5 shadow-lg">
-        <Link
-          to={paths.home(locale)}
-          className="rounded-pill px-3 py-2 font-mono text-label uppercase tracking-[0.12em] text-text hover:text-strong"
-        >
-          {t('nav.home')}
-        </Link>
-        <Link
-          to={paths.projects(locale)}
-          className="rounded-pill px-3 py-2 font-mono text-label uppercase tracking-[0.12em] text-text hover:text-strong"
-        >
-          {t('nav.projects')}
-        </Link>
-        <LangSwitch />
-        <ThemeToggle className="size-9" />
+      <SkipLink />
+      <SiteBackground />
+      <ScrollProgress />
+      <Navbar />
+      <ScrollManager />
+      <IntroSequence />
+      <div id="main-content" tabIndex={-1} className="outline-none">
+        <PageTransition>
+          <Outlet />
+        </PageTransition>
       </div>
+      <Footer />
     </>
   )
 }

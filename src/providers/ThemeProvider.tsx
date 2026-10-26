@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
-import { ThemeContext, type Theme } from './theme-context'
+import { transitionTheme } from '../lib/viewTransition'
+import { ThemeContext, type Theme, type ThemeOrigin } from './theme-context'
 
 const STORAGE_KEY = 'theme'
 const query = '(prefers-color-scheme: light)'
@@ -34,8 +35,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     document.documentElement.dataset.theme = theme
   }, [theme])
 
-  const setTheme = useCallback((next: Theme) => {
-    setSaved(next)
+  const setTheme = useCallback((next: Theme, origin?: ThemeOrigin) => {
+    transitionTheme(() => {
+      // Se escribe en <html> en el acto: la view transition captura el DOM al terminar este callback.
+      document.documentElement.dataset.theme = next
+      setSaved(next)
+    }, origin)
     try {
       localStorage.setItem(STORAGE_KEY, next)
     } catch {
@@ -44,7 +49,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const toggleTheme = useCallback(
-    () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+    (origin?: ThemeOrigin) => setTheme(theme === 'dark' ? 'light' : 'dark', origin),
     [setTheme, theme],
   )
 

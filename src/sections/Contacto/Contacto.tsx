@@ -5,7 +5,7 @@ import "./Contacto.css";
 
 function Contacto() {
   return (
-    <SeccionAnimada id="contacto" className="contacto">
+    <SeccionAnimada id="contact" className="contacto">
       <SectionTitle titulo="¿Trabajamos juntos?" />
       <ContactPortal />
     </SeccionAnimada>

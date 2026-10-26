@@ -2,10 +2,13 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 import './styles/index.css'
+import './styles/effects.css'
 import './styles/legacy.css'
 import App from './App'
 import { initI18n } from './i18n'
 import { detectLocale, isLocale } from './i18n/paths'
+import { MotionPrefsProvider } from './providers/MotionPrefsProvider'
+import { SmoothScrollProvider } from './providers/SmoothScrollProvider'
 import { ThemeProvider } from './providers/ThemeProvider'
 
 const root = document.getElementById('root')
@@ -19,9 +22,13 @@ initI18n(initialLocale).then(() => {
   createRoot(root).render(
     <StrictMode>
       <ThemeProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <MotionPrefsProvider>
+          <SmoothScrollProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </SmoothScrollProvider>
+        </MotionPrefsProvider>
       </ThemeProvider>
     </StrictMode>,
   )

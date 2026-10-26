@@ -454,24 +454,28 @@ Regla de escalado: el carrusel muestra hasta 7 destacados; el índice `/proyecto
 
 ### Fase 3 — Infraestructura de animación
 **Tareas**
-- [ ] `MotionPrefsProvider` (OS + toggle manual persistido) y `useReducedMotion` único para toda la app.
-- [ ] `SmoothScrollProvider` (Lenis) con sincronización a `gsap.ticker`/ScrollTrigger; desactivado en táctil y movimiento reducido; `scrollTo` por ancla.
-- [ ] `lib/motion.ts` (tokens §3.4, variantes reutilizables) con `LazyMotion`.
-- [ ] `lib/gsap.ts` con carga dinámica y registro de ScrollTrigger/SplitText; helper con `gsap.context` y cleanup.
-- [ ] `Reveal`, `SplitHeading`, `ScrollProgress`, `MagneticButton`.
-- [ ] Sección de pruebas en `/__styleguide` para cada animación.
+- [x] `MotionPrefsProvider` (OS + toggle manual persistido) y `useReducedMotion` único para toda la app.
+- [x] `SmoothScrollProvider` (Lenis) con sincronización a `gsap.ticker`/ScrollTrigger; desactivado en táctil y movimiento reducido; `scrollTo` por ancla.
+- [x] `lib/motion.ts` (tokens §3.4, variantes reutilizables) con `LazyMotion`.
+- [x] `lib/gsap.ts` con carga dinámica y registro de ScrollTrigger/SplitText; helper con `gsap.context` y cleanup.
+- [x] `Reveal`, `SplitHeading`, `ScrollProgress`, `MagneticButton`.
+- [x] Sección de pruebas en `/__styleguide` para cada animación.
 
-**Criterio de salida:** todas las primitivas funcionan y se desactivan correctamente con movimiento reducido; sin fugas (verificar remount repetido); GSAP no entra al bundle inicial.
+> **Hecho (2026-10-26):** `MotionPrefsProvider` (también monta `LazyMotion` con `domMax` cargado aparte y `MotionConfig`), `SmoothScrollProvider` (Lenis + `lock/unlock` + `scrollTo`), `lib/motion.ts`, `lib/gsap.ts` (`loadGsap` núcleo / `loadGsapKit` con plugins, enlace Lenis↔ScrollTrigger, `useGsapContext`), `Reveal`/`RevealGroup`, `SplitHeading`, `ScrollProgress`, `MagneticButton`. Laboratorio en `/__styleguide` §06 con prueba de fugas (40 ciclos de montaje → 1 ScrollTrigger vivo, estable). Bundle inicial 165 KB gzip (GSAP 27 KB y features de Motion 29 KB son chunks aparte).
+
+**Criterio de salida:** todas las primitivas funcionan y se desactivan correctamente con movimiento reducido; sin fugas (verificar remount repetido); GSAP no entra al bundle inicial. ✅
 
 ### Fase 4 — Shell: Navbar, MobileMenu, Footer, Intro, transiciones
 **Tareas**
-- [ ] `Navbar` píldora + `useActiveSection` con IntersectionObserver + `MobileMenu` accesible.
-- [ ] `LangSwitch` y `ThemeToggle` definitivos (revelado circular con View Transitions).
-- [ ] `Footer` (§6.7), `SkipLink`.
-- [ ] `IntroSequence` (§5) y `PageTransition` de rutas.
-- [ ] Grano/glow de fondo (`effects.css`).
+- [x] `Navbar` píldora + `useActiveSection` con IntersectionObserver + `MobileMenu` accesible.
+- [x] `LangSwitch` y `ThemeToggle` definitivos (revelado circular con View Transitions).
+- [x] `Footer` (§6.7), `SkipLink`.
+- [x] `IntroSequence` (§5) y `PageTransition` de rutas.
+- [x] Grano/glow de fondo (`effects.css`).
 
-**Criterio de salida:** navegación completa por teclado y táctil; menú mobile sin fallos de scroll-lock; intro saltable y sin impacto en LCP.
+> **Hecho (2026-10-26):** shell en `LocaleLayout` (SkipLink, `SiteBackground`, `ScrollProgress`, `Navbar`, `ScrollManager`, `IntroSequence`, `PageTransition`, `Footer`); menú móvil sobre `<dialog>` nativo; `useActiveSection` con IntersectionObserver; ids de ancla neutros (`#home #about #projects #tech #contact`); transiciones de ruta, idioma y tema con View Transitions (`lib/viewTransition.ts`, reglas en `styles/effects.css`). Se eliminaron el `Navbar` y `Footer` viejos.
+
+**Criterio de salida:** navegación completa por teclado y táctil; menú mobile sin fallos de scroll-lock; intro saltable y sin impacto en LCP. ✅ *(las animaciones por frame —intro, revelado circular, indicador deslizante— no se pudieron observar en el panel de vista previa, que corre a 1 fps; ver SEGUIMIENTO §6.)*
 
 ### Fase 5 — Hero
 **Tareas**

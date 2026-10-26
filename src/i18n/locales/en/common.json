@@ -5,7 +5,10 @@
     "about": "About",
     "projects": "Projects",
     "tech": "Technologies",
-    "contact": "Contact"
+    "contact": "Contact",
+    "menu": "Menu",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
   },
   "a11y": {
     "skipToContent": "Skip to content",
@@ -20,7 +23,13 @@
     "en": "English"
   },
   "footer": {
-    "rights": "© {{year}} Agustín Tacconi."
+    "rights": "© {{year}} Agustín Tacconi.",
+    "tagline": "Full stack web developer: React, Node and MongoDB.",
+    "navTitle": "Navigation",
+    "navLabel": "Footer navigation",
+    "socialTitle": "Contact",
+    "backToTop": "Back to top",
+    "builtWith": "Built with React, Tailwind CSS and Motion."
   },
   "portfolioName": "This portfolio (Agustín.dev)",
   "notFound": {
@@ -53,5 +62,10 @@
     "features": "Features built",
     "projects": "Projects",
     "closeDetail": "Close technology details"
+  },
+  "motion": {
+    "label": "Animations",
+    "on": "On",
+    "off": "Off"
   }
 }
