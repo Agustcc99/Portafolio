@@ -555,13 +555,18 @@ Regla de escalado: el carrusel muestra hasta 7 destacados; el índice `/proyecto
 
 ### Fase 12 — Despliegue en Vercel + dominio
 **Tareas**
-- [ ] Subir el repo a GitHub (si no está), conectar a Vercel, framework "Vite".
-- [ ] Variables/ajustes: dominio canónico en `config/site.ts` y en el prerender.
-- [ ] Agregar el dominio propio en Vercel y configurar DNS (registro A/CNAME que indique Vercel); redirigir `www` ↔ apex; HTTPS.
-- [ ] Probar redirect por `Accept-Language`, rutas profundas (refresco en `/en/projects/<slug>`) y 404.
-- [ ] Decidir analítica (opcional).
-- [ ] Actualizar `README.md` (stack, comandos, cómo agregar proyectos) y regenerar `PROJECT_MAP.md` con `/save-context`.
-- [ ] Merge de `rediseno` a `main`.
+- [ ] Subir el repo a GitHub (si no está), conectar a Vercel, framework "Vite". *(a cargo de Agustín: `git push -u origin rediseno` + Import en Vercel; guía en `docs/DESPLIEGUE.md` §1)*
+- [x] Variables/ajustes: dominio canónico en `config/site.ts` y en el prerender. *(`https://agusdev.com.ar`, apex; `SITE_URL` sigue disponible para previews)*
+- [ ] Agregar el dominio propio en Vercel y configurar DNS (registro A/CNAME que indique Vercel); redirigir `www` ↔ apex; HTTPS. *(guía en `docs/DESPLIEGUE.md` §3; DNS en Cloudflare en modo «DNS only»)*
+- [ ] Probar redirect por cookie `lang` y `Accept-Language`, rutas profundas (refresco en `/en/projects/<slug>`), 404 y cabeceras/CSP. *(comandos en `docs/DESPLIEGUE.md` §4)*
+- [ ] Probar previews de enlaces (WhatsApp, LinkedIn, Facebook Debugger) en ES y EN; regenerar OG con `npm run og` si cambió el copy.
+- [ ] Decidir analítica (opcional). *(pasos y efecto en la CSP en `docs/DESPLIEGUE.md` §6)*
+- [ ] Lighthouse sobre la URL de producción (mobile y desktop: home, índice y detalle).
+- [x] Actualizar `README.md` (stack, comandos, cómo agregar proyectos, despliegue) y `docs/DESPLIEGUE.md`.
+- [ ] Regenerar `PROJECT_MAP.md` con `/save-context`.
+- [ ] Merge de `rediseno` a `main` (con confirmación previa de Agustín).
+
+> **Estado (2026-10-26):** preparación local hecha y verificada (lint, typecheck, build, i18n). Las tareas sin tildar dependen de que Agustín pushee y conecte Vercel/DNS; la sesión retoma con la URL de producción.
 
 **Criterio de salida:** sitio en producción en el dominio propio, ambos idiomas, Lighthouse de producción dentro de metas.
 
@@ -571,7 +576,7 @@ Regla de escalado: el carrusel muestra hasta 7 destacados; el índice `/proyecto
 
 | Dato | Se necesita en |
 |---|---|
-| Dominio propio (nombre exacto) | Fase 11–12 (se puede usar placeholder antes) |
+| Dominio propio (nombre exacto) | Fase 11–12 — **`agusdev.com.ar`** (confirmado, falta conectarlo en Vercel) |
 | Texto/estado de disponibilidad ("Disponible para proyectos", etc.) | Fase 5 |
 | Ubicación y datos para la tesela de disponibilidad | Fase 6 |
 | Texto del relato "Cocina → Código" | Fase 6 |

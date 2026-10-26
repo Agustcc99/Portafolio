@@ -1,7 +1,7 @@
 # Seguimiento del rediseño del portafolio
 
 > Documento vivo. **Al abrir una conversación nueva:** leé este archivo y luego `plan_actualizacion_portafolio.md` (§8 en adelante para la fase que toca). **Al cerrar una sesión:** actualizá §1, §3, §4 y §6.
-> Última actualización: 2026-10-26 (cierre de la Fase 11, sesión F).
+> Última actualización: 2026-10-26 (Fase 12 en curso, sesión F: preparación local hecha; falta push, Vercel y DNS de Agustín).
 
 ---
 
@@ -21,11 +21,11 @@
 | 9 | Contacto | ✅ Completa · ⏳ falta revisión visual y datos de Agustín | `fase 8-9` |
 | 10 | Pulido de movimiento | ✅ Completa · ⏳ falta revisión del «feel» de Agustín | `fase 10` |
 | 11 | Rendimiento, SEO y accesibilidad | ✅ Completa · ⚠️ mobile Performance 86–88 en índice/detalle (meta 90) · ⏳ falta dominio real para probar previews | `fase 11` |
-| 12 | Despliegue en Vercel + dominio | ⬜ | — |
+| 12 | Despliegue en Vercel + dominio | 🟡 En curso: dominio canónico `agusdev.com.ar`, README y `docs/DESPLIEGUE.md` hechos · ⏳ push, Vercel, DNS, pruebas de producción, Lighthouse y merge | `fase 12` (parcial) |
 
-**Sesiones:** A (0–2) ✅ · B (3–4) ✅ · C (5–6) ✅ · D (7) ✅ · E (8–9) ✅ · **F (10–12): Fases 10 y 11 hechas, ← siguiente: Fase 12 (despliegue)**.
+**Sesiones:** A (0–2) ✅ · B (3–4) ✅ · C (5–6) ✅ · D (7) ✅ · E (8–9) ✅ · **F (10–12): Fases 10 y 11 hechas, Fase 12 en curso (esperando push/Vercel/DNS de Agustín)**.
 
-**Rama:** `rediseno` (9 commits sobre `main`, sin pushear). `main` sigue en `2dfd0df`.
+**Rama:** `rediseno` (10 commits sobre `main`, sin pushear; el push lo hace Agustín). `main` sigue en `2dfd0df`.
 **No commitear nunca:** `.claude/launch.json` y `.claude/run-amor-v2.cmd` (son de otro proyecto).
 
 ---
@@ -76,7 +76,7 @@ src/
 scripts/optimize-images.mjs, check-i18n.mjs
 assets-src/proyectos/**               PNG originales (fuente)
 public/proyectos/**                   AVIF + WebP generados
-docs/AGREGAR_PROYECTO.md, docs/antes/ capturas del sitio original
+docs/AGREGAR_PROYECTO.md, docs/DESPLIEGUE.md, docs/antes/ capturas del sitio original
 ```
 
 Fases 3–4 (nuevo):
@@ -212,6 +212,9 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → Toast → Br
 | Fase 11: accesibilidad | — | `SplitHeading` pone `aria-label` en el heading (no en un `<span>`) y oculta las palabras partidas; nombres accesibles que contienen el texto visible (WCAG 2.5.3): marca sin `aria-label`, `ES — Español`, «Scroll: ir a la sección…», botón de WhatsApp; `LangSwitch` pasa de `<nav>` a `role="group"` (landmarks duplicados); títulos de tarjeta `h2` bajo el `h1` del índice (`headingLevel`) | axe sin violaciones |
 | Fase 11: bug corregido | — | **Lenis no tenía `autoRaf: true`**: sin bucle propio la rueda del mouse no desplazaba la página y los anclas animados no se movían (solo funcionaban los saltos `immediate`) | descubierto al probar los anclas con las secciones diferidas |
 | Fase 11: `engines` / build | — | `engines.node >= 22.22` y `buildCommand: npm run build` en `vercel.json` | el prerender usa type stripping de Node y la preset de Vite podría correr solo `vite build` |
+| Fase 12: dominio canónico | placeholder `agustintacconi.dev` | **`https://agusdev.com.ar`** (apex) en `config/site.ts`; `www` redirige al apex desde Vercel Domains | dominio que indicó Agustín; `SITE_URL` sigue sirviendo para previews |
+| Fase 12: DNS | A/CNAME que indique Vercel | A `@` → `76.76.21.21`, CNAME `www` → `cname.vercel-dns.com` en Cloudflare **sin proxy** (nube gris); usar los valores que muestre Vercel | con proxy Vercel no emite el certificado. Ojo: Cloudflare Registrar no vende `.ar`; el registro suele estar en nic.ar con los nameservers de Cloudflare (a confirmar) |
+| Fase 12: analítica | opcional | **sin decidir**; sin analítica por defecto. Vercel Web Analytics sirve desde el mismo origen, la CSP probablemente no cambia (`docs/DESPLIEGUE.md` §6) | decisión de Agustín |
 | `allowJs` | temporal | **eliminado de `tsconfig`** | no quedan `.js/.jsx` en `src` |
 | Bug corregido | — | `cn()` usa `extendTailwindMerge` con `text-small/body/h2…` | twMerge descartaba `text-accent-ink` de los botones (texto gris sobre lima) |
 
@@ -220,7 +223,7 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → Toast → Br
 ## 5. Deuda temporal
 
 - **El diseño legacy ya no existe:** se borraron `styles/legacy.css`, `.legacy-shell`, `content/legacy.ts`, `--lg-*`, `SeccionAnimada`, `SectionTitle` y los `.css`/`.jsx` de Tecnologías y Contacto. Ya no hay archivos `.jsx` ni warnings `INEFFECTIVE_DYNAMIC_IMPORT` en el build.
-- **Dominio placeholder** `agustintacconi.dev` en `config/site.ts` (lo usan canonical, sitemap, OG y JSON-LD; `SITE_URL=... npm run build` lo sobrescribe sin tocar el código). Al fijar el dominio real: cambiarlo, correr `npm run build` y revisar `vercel.json` (CSP) si se suma analítica.
+- **Dominio:** `config/site.ts` ya apunta a `https://agusdev.com.ar` (lo usan canonical, sitemap, OG y JSON-LD; `SITE_URL=... npm run build` lo sobrescribe para previews). Hasta que el dominio esté conectado en Vercel, los enlaces canónicos apuntan a un sitio que todavía no responde. Si se suma analítica, revisar la CSP de `vercel.json`.
 - **Lighthouse mobile** de índice y detalle 86–88 (meta 90): ver §7. Sin SSR no baja de ahí.
 
 ---
@@ -244,7 +247,8 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → Toast → Br
 | Relato "Cocina → Código" (hoy 2 líneas genéricas) | 6 | ⏳ borrador provisional |
 | Aprobar copy ES/EN del hero y de las 6 teselas (`home.json`) | 5–6 | ⏳ |
 | URL de LinkedIn (¿existe?) y CV (¿se incluye?) — sin LinkedIn el botón no aparece; el CV no se agregó | 9 | ⏳ pendiente |
-| Dominio propio (nombre exacto; hoy placeholder `agustintacconi.dev` en `config/site.ts`) | 12 (lo usan canonical, sitemap, OG y JSON-LD) | ⏳ |
+| Dominio propio: `agusdev.com.ar` ya fijado en `config/site.ts`; falta agregarlo en Vercel, apuntar el DNS (Cloudflare) y confirmar dónde está registrado | 12 | 🟡 |
+| **Push de `rediseno` y alta del proyecto en Vercel** (framework Vite; guía en `docs/DESPLIEGUE.md`) | 12 | ⏳ tuyo |
 | ¿Analítica (Vercel Analytics)? | 12 | ⏳ |
 | **Revisar el «feel» del hero/intro** tras el cambio de la Fase 11 (la coreografía arranca cuando la cortina sube; el párrafo ya se ve desde el primer pintado) | 11 | ⏳ pendiente |
 | Revisar las imágenes OG (`public/og/**`) y los textos nuevos de `seo.json` (`person.*`, `og.*`) y de accesibilidad (`home.json` → `hero.scrollTo`, `common.json`) | 11 | ⏳ |
@@ -310,3 +314,4 @@ Línea de partida (sin optimizar): mobile home 76, índice 82, detalle 86; LCP 3
 | 2026-10-26 | E | Fases 8–9 completas. `ui/Dialog` (primitivo `<dialog>`), `TechMap` con conectores SVG que se dibujan al entrar, ficha `TechDialog` con enlaces a proyectos; portal de contacto reescrito en TS sobre tokens con un solo rAF, `CopyEmail` + `Toast`, sección Contact. Eliminado todo el diseño legacy (isla oscura, `legacy.ts`/`legacy.css`, `SeccionAnimada`, `SectionTitle`). Íconos de marca descartados (ver §4). Corregido un overflow horizontal de 32 px del fondo del portal. |
 | 2026-10-26 | F | Fase 11 completa. Metadatos por ruta (`lib/seo.ts`, `<Seo>`, `prerender-meta.mjs`: 18 HTML, sitemap, robots, JSON-LD, textos incrustados, precarga de fuentes/página/portada), favicon real + manifest, 14 imágenes OG, `vercel.json` (redirects por cookie/Accept-Language, rewrite SPA, CSP por hash con guardia en el build, caché inmutable). Rendimiento: secciones del home diferidas, páginas de proyectos/Lenis/ScrollTrigger en chunks aparte, hero e intro reordenados para el LCP (mobile home 76 → 94, desktop 99). Accesibilidad: axe limpio, nombres accesibles, headings, landmarks, teclado y diálogos. **Corregido: Lenis sin `autoRaf` (la rueda del mouse no scrolleaba).** Pendiente: mobile 86–88 en índice/detalle y dominio real. |
 | 2026-10-26 | F | Fase 10 completa. Auditoría de movimiento: tokens de duración/easing en portal, mapa y view transitions; utilidad `pressable`; stagger único; fuera reveals anidados, `ping` duplicado y transición de `padding` del navbar; anillos del portal pausados fuera de pantalla; 404 rediseñada en el shell (también fuera de /es y /en); `allowJs` eliminado. Medido CLS 0 y 60 fps en el recorrido del home. |
+| 2026-10-26 | F | Fase 12 (parcial). Dominio canónico `agusdev.com.ar` en `config/site.ts` (prerender y sitemap verificados), `README.md` reescrito (stack, comandos, proyectos, despliegue), nueva `docs/DESPLIEGUE.md` (Vercel, DNS en Cloudflare, redirect www↔apex, pruebas con curl, previews, analítica, Lighthouse de producción, merge). Sin `gh` ni `vercel` CLI en la máquina y sin sesión: push, alta en Vercel y DNS quedan para Agustín. Pendiente al volver con la URL: pruebas de producción, previews, Lighthouse, `/save-context` y merge (con confirmación). |

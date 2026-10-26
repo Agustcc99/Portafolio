@@ -1,137 +1,83 @@
-# PROJECT_MAP — Portafolio (Agustín Tacconi)
+# PROJECT_MAP — Portafolio Agustín Tacconi
+SPA React 19 + TS 6 + Vite 8 + Tailwind 4, ES/EN, sin backend. Prod: https://agusdev.com.ar (Vercel). Rama de trabajo `rediseno`. Node >=22.22.
+Docs: `plan_actualizacion_portafolio.md` (roadmap §8), `docs/SEGUIMIENTO_REDISENO.md` (estado/decisiones/bitácora), `docs/AGREGAR_PROYECTO.md`, `docs/DESPLIEGUE.md`.
+NO commitear: `.claude/launch.json`, `.claude/run-amor-v2.cmd` (otro proyecto).
 
-Stack: React 19 + Vite 8, sin router (SPA de una sola página, secciones ancladas por id). CSS plano por módulo (sin CSS modules, sin Tailwind). Bootstrap como dep pero uso puntual. lucide-react para iconos.
-Scripts: `npm run dev` | `build` | `lint` | `preview`.
+## COMANDOS
+dev(:5173) | build = `vite build && scripts/prerender-meta.mjs` (falla si hash CSP != script inline de index.html) | lint | typecheck | i18n:check | images | og(Chrome) | icons | preview
 
-## Árbol
-
+## ARBOL
 ```
-src/
-  main.jsx                        bootstrap ReactDOM
-  App.jsx                         compone Navbar + secciones + Footer
-  App.css, index.css              estilos globales
-  data/
-    proyectos.js                  contenido de los 7 proyectos del carrusel
-    tecnologias.js                mapa de arquitectura técnica (stack por categoría)
-  components/
-    Navbar/Navbar.jsx
-    SeccionAnimada/SeccionAnimada.jsx
-    SectionTitle/SectionTitle.jsx
-    ProyectoCard/ProyectoCard.jsx
-    ProyectoModal/ProyectoModal.jsx
-    InteractiveHeroGrid/InteractiveHeroGrid.jsx   canvas grid interactivo (hero)
-    ContactPortal/
-      ContactPortal.jsx           portal animado sección contacto
-      CurvedPortalText.jsx        texto curvado SVG (título del portal)
-      PortalParticles.jsx         canvas de partículas del portal
-  sections/
-    Inicio/Inicio.jsx
-    SobreMi/SobreMi.jsx
-    Proyectos/Proyectos.jsx       carrusel 3D de proyectos
-    Tecnologias/
-      Tecnologias.jsx             mapa de categorías técnicas + modal
-      TechnologyModal.jsx         detalle de una tecnología
-    Contacto/Contacto.jsx
-    Footer/Footer.jsx
-public/proyectos/**                capturas de cada proyecto (Consul, Calculadora, Turnos, VidriosLanding, Habitos, SS)
+index.html                 script anti-flash de tema (hash en vercel.json CSP)
+vercel.json                redirects / (cookie lang > Accept-Language es* > /en, 307), rewrite SPA, headers+CSP, caché
+vite.config.ts eslint.config.js tsconfig.json
+assets-src/proyectos/<carpeta>/*.png   fuente imágenes (minúsculas)
+public/ proyectos/<carpeta>/*.{avif,webp}  og/<lang>.jpg og/<lang>/<slug>.jpg  favicon.* icon-*.png site.webmanifest
+scripts/ optimize-images.mjs generate-og.mjs generate-icons.mjs check-i18n.mjs prerender-meta.mjs lib/content.mjs
+src/ main.tsx App.tsx routes.tsx
+  config/site.ts  content/{technologies.ts,images.ts,projects/*}  i18n/  lib/  hooks/  providers/
+  components/{ui,layout,hero,projects,tech,contact,seo}  sections/{Hero,About,Projects,Technologies,Contact}
+  pages/  styles/{index.css,effects.css}
 ```
 
-## Componentes y funciones exportadas
+## CONFIG / CONTENIDO
+- `config/site.ts`: `site{name,brand,url='https://agusdev.com.ar',email,whatsapp,github,linkedin:null}`; `SITE_URL` env lo pisa en build
+- `content/projects/<slug>.ts`: default `ProjectData{slug,order,featured,category,techs[],links{demo,code},images[]}`; 7 proyectos (api-ecommerce sin imágenes)
+- `content/projects/index.ts`: `projects`, `MAX_FEATURED=7`, `featuredProjects`, `getProject(slug)->P|undef`, `getNeighbours(slug)->{prev,next}`; autoregistro `import.meta.glob`
+- `content/projects/images.generated.json` (generado por `npm run images`)
+- `content/technologies.ts`: `techLabels`, `techCategories`, `levelMarkers`, `techMeta{level,projects}`; `TechLevel`, `TechCategoryId`
+- `content/images.ts`: `getProjectImage(key)->ProjectImageInfo|null`
 
-### `App.jsx`
-- `App() -> JSX` — orquesta layout: Navbar, main (Inicio/SobreMi/Proyectos/Tecnologias/Contacto), Footer.
+## i18n / RUTAS
+- `i18n/paths.ts`: `locales`,`Locale`,`defaultLocale`,`segments`(projects/proyectos),`paths`,`isLocale(v)`,`detectLocale()->Locale`,`saveLocale(l)`(cookie lang+localStorage),`switchLocalePath(pathname,to,search,hash)`
+- `i18n/index.ts`: `namespaces[common,home,projects,tech,seo]`,`initI18n(l)`,`preloadLocale(l)`,`activateLanguage(l)`,`setLanguage(l)`; lee textos de `#i18n-bootstrap` (prerender)
+- `i18n/locales/{es,en}/*.json`: claves idénticas (check-i18n)
+- `routes.tsx`: `AppRoutes()` /es /en (+proyectos|projects/:slug), 404 también fuera de idioma
 
-### `data/proyectos.js`
-- `proyectos: Array` — 7 proyectos (id, titulo, categoria, color, descripciones, tecnologias[], funcionalidades[], aprendizajes[], demo, codigo, imagenes[]).
-- `categoriasProyectos: string[]` — ["Todos","Full Stack","Backend","Maquetación"] (nota: no se usa como filtro visible en Proyectos.jsx actualmente).
+## LIB
+- `cn(...ClassValue)->string` (twMerge con escala tipográfica propia)
+- `motion.ts`: `duration{fast,base,slow,hero}`,`ease`,`spring`,`stagger{base .07}`,`reveal`,`revealVariants(y)`,`groupVariants(gap,delay)`,`fadeVariants`
+- `gsap.ts`: `loadGsap()`,`loadGsapKit({scroll})->GsapKit`,`attachLenis(lenis|null)`,`useGsapContext(...)`
+- `intro.ts`: `introRevealing`,`introDone` (promesas),`markIntroRevealing()`,`markIntroDone()`
+- `deferred.ts`: `forceMountAll()`,`hasPendingSections(el?)`,`ensureSectionsMounted(el?,timeoutMs)`,`markLoaded/wasLoaded(id)`,`subscribeForced`
+- `viewTransition.ts`: `canViewTransition()`,`transitionRoute(update)`,`transitionTheme(apply,origin?)`,`routeCommitted()`
+- `sharedCover.ts`: `nameCover(el,slug)`,`coverTransitionName(slug)`,`COVER_TRANSITION_NAME`
+- `seo.ts`: fuente única de metadatos; `pageSeo(...)->SeoPage`,`buildHeadTags(page,siteUrl,jsonLd)->HeadTag[]`,`pageJsonLd(...)`,`absoluteUrl(siteUrl,path)`,`ogImagePath(locale,slug?)`
+- `motionFeatures.ts`: features `domMax` (chunk aparte)
 
-### `data/tecnologias.js`
-- `CATEGORIAS_TECNICAS: Array` — 4 categorías (interfaz/logica/datos/entrega) con id, numero, nombre, color, descripcion, tecnologias[] (slugs).
-- `NIVELES_TECNICOS: {principal, proyectos, aprendizaje}` — etiqueta + marcador por nivel.
-- `TECNOLOGIAS_INFO: {[slug]: {nombre, nivel, usadoPara[], funcionalidades[], proyectos[]}}` — ficha por tecnología; `proyectos` referencia ids de proyectos.js o "portfolio".
+## HOOKS / PROVIDERS
+- hooks: `useActiveSection(ids,enabled)`,`useContentText()->{project,tech}`,`useMediaQuery(q)`,`useMotionPrefs()`,`useReducedMotion()`,`useSmoothScroll()`,`useScrollLock(locked)`,`useTheme()`,`useToast()`
+- providers (orden en main.tsx): Theme(localStorage 'theme') -> MotionPrefs(LazyMotion+MotionConfig+data-motion) -> SmoothScroll(Lenis dinámico, autoRaf, scrollTo/lock) -> Toast -> BrowserRouter; contextos en `*-context.ts`
 
-### `components/Navbar/Navbar.jsx`
-- `Navbar() -> JSX` — nav fija con scroll-spy propio (calcula sección activa por `offsetTop` + scroll, sin IntersectionObserver).
+## COMPONENTES
+- ui: `Button/ButtonLink`,`buttonClasses`,`Chip`,`chipClasses`,`Container`,`Dialog({open,onClose,label})`(<dialog>+scroll lock),`MagneticButton`,`ProjectImage`(picture srcset),`Reveal/RevealGroup`,`ScrollProgress`,`SectionHeading`,`SplitHeading`(GSAP SplitText),`BentoTile`
+- layout: `LocaleLayout`(shell),`Navbar`,`MobileMenu`,`Footer`,`SkipLink`,`IntroSequence`,`PageTransition`,`ScrollManager`,`SiteBackground`,`SiteLink`,`LangSwitch`,`ThemeToggle`,`MotionToggle`,`Monogram`,`DeferredSection`(secciones bajo pliegue),`navItems`(sectionIds home/about/projects/tech/contact)
+- hero: `InteractiveHeroGrid` canvas (CSS vars, ResizeObserver, pausa offscreen)
+- projects: `ProjectCarousel3D`(spring Motion),`ProjectCard`,`ProjectGrid`,`ProjectFilters`(?cat=&tech=),`Gallery`,`Lightbox`,`ProjectNav`,`CoverPlaceholder`
+- tech: `TechMap`,`TechNode`,`TechConnector`(SVG pathLength),`TechDialog`
+- contact: `ContactPortal`(un rAF),`particleField.ts`(`createParticleField(canvas,count)`,`hexToRgb`),`CopyEmail`
+- seo: `Seo({kind,project})` (tags hoisted React 19)
+- sections: Hero, About(bento 6), Projects, Technologies, Contact
+- pages: HomePage, ProjectsIndexPage, ProjectDetailPage (lazy vía `lazyPages.ts` + `prefetchPages()`), NotFoundPage, Styleguide+MotionLab (solo dev `/__styleguide`)
 
-### `components/SeccionAnimada/SeccionAnimada.jsx`
-- `SeccionAnimada({children, className, id}) -> JSX` — wrapper `<section>` que agrega clase `--visible` al entrar en viewport (IntersectionObserver, threshold 0.15, dispara una sola vez).
-
-### `components/SectionTitle/SectionTitle.jsx`
-- `SectionTitle({etiqueta, titulo, descripcion}) -> JSX` — encabezado de sección reutilizable.
-
-### `components/ProyectoCard/ProyectoCard.jsx`
-- `ProyectoCard({proyecto, abrirModalProyecto}) -> JSX` — tarjeta de proyecto (usada dentro del carrusel).
-
-### `components/ProyectoModal/ProyectoModal.jsx`
-- `GaleriaProyecto({proyectoSeleccionado}) -> JSX` (interno) — carrusel de imágenes con miniaturas, flechas y contador.
-- `ProyectoModal({proyectoSeleccionado, cerrarModal}) -> JSX|null` — modal vía `createPortal`, cierra con Escape, bloquea scroll body, muestra descripción larga/objetivo/tecnologías/funcionalidades/aprendizajes.
-
-### `components/InteractiveHeroGrid/InteractiveHeroGrid.jsx`
-- `InteractiveHeroGrid() -> JSX` — canvas fullsize con grilla de puntos que reacciona al puntero (desktop) u ola ambiental (touch). Respeta `prefers-reduced-motion`, pausa con IntersectionObserver/visibilitychange.
-- Config centralizada en objeto `CONFIG` al tope del archivo (spacing, radios, colores, velocidades).
-- Internas: `falloff`, `drawLight`, `applyCursorForces`, `applyAmbientWave`, `buildGrid`, `drawFrame`.
-
-### `components/ContactPortal/ContactPortal.jsx`
-- `ContactPortal() -> JSX` — botón CTA "portal" animado que enlaza a WhatsApp; loop rAF propio, magnetismo del botón, halos SVG, integra `CurvedPortalText` y `PortalParticles`.
-- Enlaces hardcodeados: `WHATSAPP_URL`, `EMAIL_URL` (mailto), `GITHUB_URL`.
-- Config en `PORTAL_CONFIG` (radios, easing, duraciones).
-- Internas: `clamp`, `falloff`, `buildLineData`, `buildWordData`.
-
-### `components/ContactPortal/CurvedPortalText.jsx`
-- `CurvedPortalText({text, radius, position, fontSize, letterSpacing, className}) -> JSX` — texto sobre arco SVG (`textPath`), arriba o abajo.
-
-### `components/ContactPortal/PortalParticles.jsx`
-- `PortalParticles({interactionRef, isCoarsePointer, reducedMotion}) -> JSX` — canvas de partículas orbitando el portal, "tragadas" cuando `open` supera umbral; lee estado compartido vía `interactionRef` (sin re-renders de React).
-- Internas: `pickColor`, `createParticles`.
-
-### `sections/Inicio/Inicio.jsx`
-- `Inicio() -> JSX` — hero con `InteractiveHeroGrid` de fondo + copy + CTAs (#proyectos, #contacto).
-
-### `sections/SobreMi/SobreMi.jsx`
-- `SobreMi() -> JSX` — 3 cards estáticas (Quién soy / Qué busco / Cómo trabajo).
-
-### `sections/Proyectos/Proyectos.jsx`
-- `Proyectos() -> JSX` — carrusel 3D (transform perspective) de proyectos, arrastrable con Pointer Events.
-- `abrirModalProyecto`, `cerrarModalProyecto`, `irA(indice)`, `obtenerPasoPx()`, `manejarPointerDown/Move/Up(evento)`, `manejarClickSlot(indice)`.
-- Constantes de tuning al tope: `ANCHO_SLOT_POR_DEFECTO, PASO_RATIO, ROTACION_MAXIMA, PROFUNDIDAD_PASO, ESCALA_PASO, OPACIDAD_PASO, UMBRAL_ARRASTRE_RATIO, UMBRAL_CLICK_PX`.
-- Nota: pointer capture se activa solo tras superar `UMBRAL_CLICK_PX` para no romper el click de los botones internos de la card.
-
-### `sections/Tecnologias/Tecnologias.jsx`
-- `Tecnologias() -> JSX` — "mapa de arquitectura" con 4 tarjetas de categoría + conectores SVG entre ellas que se iluminan on hover; abre `TechnologyModal` al clickear un chip de tecnología.
-- `abrirTecnologia(slug, elementoDisparador)`, `solicitarCierreModal()`, `alTerminarCierreModal()`, `conectorActivo(idA, idB)`.
-- Orden de tarjetas distinto en desktop vs móvil (`ORDEN_TARJETAS_ESCRITORIO/MOVIL`), breakpoint 640px.
-- Animación de entrada + "pulso" único 2s después de entrar en viewport (`RETRASO_PULSO_MS`).
-
-### `sections/Tecnologias/TechnologyModal.jsx`
-- `TechnologyModal({slug, categoriaColor, abierto, reducedMotion, onCerrar, onCerradoCompleto}) -> JSX` — modal de detalle de una tecnología vía `createPortal`; focus trap manual (Tab/Shift+Tab), Escape cierra, compensa ancho de scrollbar al bloquear scroll.
-- `nombreDeProyecto(entrada)` — resuelve id de proyecto o "portfolio" a título legible.
-- Espera `DURACION_CIERRE_MS` (220ms) antes de desmontar tras pedir cierre (salvo reduced motion).
-
-### `sections/Contacto/Contacto.jsx`
-- `Contacto() -> JSX` — wrapper `SeccionAnimada` + `ContactPortal`.
-
-### `sections/Footer/Footer.jsx`
-- `Footer() -> JSX` — copyright con año dinámico (`new Date().getFullYear()`).
+## SCRIPTS
+- `prerender-meta.mjs`: dist/<ruta>/index.html x18, sitemap.xml, robots.txt, JSON-LD, i18n-bootstrap, preloads, guardia hash CSP
+- `generate-og.mjs`: OG JPG por idioma/proyecto (Chrome headless) | `optimize-images.mjs`: sharp AVIF/WebP | `generate-icons.mjs` | `check-i18n.mjs` | `lib/content.mjs`: `loadSite/loadProjects/loadLocale/loadImageIndex/importTs`
 
 ## DEPS CLAVE
-
-- `App.jsx` → todas las secciones + `Navbar`.
-- `sections/Proyectos` → `components/ProyectoCard`, `components/ProyectoModal`, `data/proyectos`.
-- `sections/Tecnologias` → `sections/Tecnologias/TechnologyModal`, `data/tecnologias`.
-- `sections/Tecnologias/TechnologyModal` → `data/proyectos` (cruza slug de tecnología con proyectos que la usan).
-- `sections/Inicio` → `components/InteractiveHeroGrid`.
-- `sections/Contacto` → `components/ContactPortal` → `CurvedPortalText` + `PortalParticles`.
-- Todas las secciones (salvo Inicio) se envuelven en `components/SeccionAnimada` para el fade-in on scroll.
-
-## Convenciones notadas
-
-- Nombres de funciones/variables en español; JSX y estructura en inglés/estándar React.
-- Cada componente/sección visual trae su propio `.css` homónimo (sin CSS-in-JS).
-- Animaciones custom vía canvas + rAF con guardas de `prefers-reduced-motion`, `IntersectionObserver` y `visibilitychange` (patrón repetido en InteractiveHeroGrid, ContactPortal, PortalParticles).
-- Constantes de tuning visual se agrupan en objetos `CONFIG`/`PORTAL_CONFIG` al tope de archivo, no dispersas.
+- `lib/seo.ts` <- `components/seo/Seo.tsx` + `scripts/prerender-meta.mjs` (importa `.ts` por type stripping; solo `i18n/paths.ts` como dependencia)
+- `config/site.ts` <- seo, ContactPortal/Contact, Footer, scripts/lib/content.mjs
+- `content/projects/index.ts` <- sections/Projects, pages Index/Detail, TechDialog, prerender
+- `SmoothScrollProvider` <- `ui/Dialog` (lock), `ScrollManager`, `DeferredSection`/`lib/deferred.ts`
+- `lib/intro.ts` <- IntroSequence, Hero (coreografía espera `introRevealing`)
+- `lib/gsap.ts` <- SplitHeading, Hero, SmoothScrollProvider (attachLenis)
+- `lib/viewTransition.ts` <- LangSwitch, ThemeToggle, PageTransition, ProjectCard/Detail (sharedCover)
+- `vercel.json` CSP hash == sha256 del script inline de `index.html`
 
 ## PENDIENTE
+- Código: sin TODO/FIXME en src/scripts
+- Fase 12 (ver SEGUIMIENTO): push + alta Vercel + DNS (Cloudflare, DNS only) de Agustín; pruebas prod, previews OG, Lighthouse prod, analítica (decisión), merge `rediseno`->`main` con confirmación
+- De Agustín: LinkedIn, URLs demo (`links.demo:null` x7), revisión copy/EN, «feel» hero/intro, aprobación visual
+- Opcional: Perf mobile >=90 en índice/detalle exige SSG del primer pantallazo (decisión de Agustín)
 
-- Ninguno detectado (sin TODO/FIXME/XXX en `src/`).
-
-## ULTIMO COMMIT MAPEADO: 50d35d3152c31d7e7a324dbd8b5e92f194809246
+## ULTIMO COMMIT MAPEADO: c17acf7106865c4bce37d6658169180e6b4293b0
