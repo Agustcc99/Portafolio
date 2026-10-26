@@ -32,14 +32,14 @@
 
 .tecnologias__descripcion {
   margin-bottom: 14px;
-  color: var(--text);
+  color: var(--lg-text);
   font-size: 16px;
   line-height: 1.65;
 }
 
 .tecnologias__resumen {
   margin: 0;
-  color: var(--text);
+  color: var(--lg-text);
   font-size: 14.5px;
   line-height: 1.6;
   opacity: 0.82;
@@ -133,7 +133,7 @@
 
 .tecnologias__tarjeta p {
   margin: 0 0 18px;
-  color: var(--text);
+  color: var(--lg-text);
   font-size: 14.5px;
   line-height: 1.55;
 }
@@ -154,7 +154,7 @@
   border: 1px solid var(--border);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.04);
-  color: var(--text);
+  color: var(--lg-text);
 
   font-family: inherit;
   font-size: 12.5px;
@@ -200,7 +200,7 @@
 }
 
 .tecnologias__tarjeta--violeta {
-  --color-panel: var(--accent);
+  --color-panel: var(--lg-accent);
   --color-panel-brillo: rgba(168, 85, 247, 0.16);
   --color-panel-borde: var(--accent-border);
   --color-panel-fondo: var(--accent-bg);

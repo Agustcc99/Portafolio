@@ -168,7 +168,7 @@
 .tech-modal__bloque li {
   position: relative;
   padding-left: 18px;
-  color: var(--text);
+  color: var(--lg-text);
   font-size: 14.5px;
   line-height: 1.55;
 }

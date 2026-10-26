@@ -1,0 +1,145 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/bricolage-grotesque/wght.css';
+@import '@fontsource-variable/geist/wght.css';
+@import '@fontsource-variable/geist-mono/wght.css';
+@import '@fontsource/instrument-serif/400.css';
+@import '@fontsource/instrument-serif/400-italic.css';
+
+/* El tema vive en <html data-theme="dark|light"> (script de index.html + ThemeProvider). */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* ── Tokens de color: valores por tema ─────────────────────────────── */
+:root,
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0a0a0c;
+  --surface-1: #101014;
+  --surface-2: #16161b;
+  --line: rgb(255 255 255 / 0.08);
+  --line-strong: rgb(255 255 255 / 0.16);
+  --text: #a4a4ae;
+  --text-strong: #f5f5f7;
+  --muted: #80808b; /* ajustado desde #6B6B76 para cumplir AA (4.5:1) */
+  --accent: #c4f542;
+  --accent-ink: #0c1203;
+  --accent-text: #c4f542;
+  --accent-glow: rgb(196 245 66 / 0.18);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f6f5f0;
+  --surface-1: #ffffff;
+  --surface-2: #efeee8;
+  --line: rgb(10 10 12 / 0.09);
+  --line-strong: rgb(10 10 12 / 0.18);
+  --text: #55555e;
+  --text-strong: #0e0e12;
+  --muted: #6a6a74; /* ajustado desde #8A8A94 para cumplir AA (4.5:1) */
+  --accent: #b5e32a;
+  --accent-ink: #0c1203;
+  --accent-text: #3f6212;
+  --accent-glow: rgb(63 98 18 / 0.12);
+}
+
+/* ── Tokens expuestos a Tailwind (utilidades bg-bg, text-strong, font-display…) ── */
+@theme inline {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-bg: var(--bg);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-text: var(--text);
+  --color-strong: var(--text-strong);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-text: var(--accent-text);
+  --color-accent-glow: var(--accent-glow);
+}
+
+@theme {
+  --font-display: 'Bricolage Grotesque Variable', 'Segoe UI', system-ui, sans-serif;
+  --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+  --font-sans: 'Geist Variable', system-ui, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono Variable', ui-monospace, Consolas, monospace;
+
+  --text-display: clamp(2.75rem, 1.2rem + 6.5vw, 7rem);
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.03em;
+  --text-h2: clamp(2rem, 1.2rem + 3.2vw, 4rem);
+  --text-h2--line-height: 1.02;
+  --text-h2--letter-spacing: -0.03em;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 1.2;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.12em;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-base: 300ms;
+  --duration-slow: 600ms;
+}
+
+/* ── Base ──────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-synthesis: none;
+  }
+
+  body {
+    min-height: 100svh;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    transition:
+      background-color var(--duration-base) var(--ease-in-out-soft),
+      color var(--duration-base) var(--ease-in-out-soft);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--text-strong);
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

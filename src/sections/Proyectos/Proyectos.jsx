@@ -22,6 +22,7 @@ function Proyectos() {
   const [arrastrando, setArrastrando] = useState(false);
   const [arrastreX, setArrastreX] = useState(0);
   const [alturaViewport, setAlturaViewport] = useState(null);
+  const [paso, setPaso] = useState(ANCHO_SLOT_POR_DEFECTO * PASO_RATIO);
 
   const slotRefs = useRef([]);
   const inicioXRef = useRef(0);
@@ -37,6 +38,9 @@ function Proyectos() {
 
     function actualizarAltura() {
       setAlturaViewport(elementoActivo.offsetHeight + MARGEN_ALTURA_VIEWPORT);
+      setPaso(
+        (slotRefs.current[0]?.offsetWidth || ANCHO_SLOT_POR_DEFECTO) * PASO_RATIO
+      );
     }
 
     actualizarAltura();
@@ -57,10 +61,6 @@ function Proyectos() {
 
   function irA(indice) {
     setIndiceActivo(Math.min(Math.max(indice, 0), proyectos.length - 1));
-  }
-
-  function obtenerPasoPx() {
-    return (slotRefs.current[0]?.offsetWidth || ANCHO_SLOT_POR_DEFECTO) * PASO_RATIO;
   }
 
   function manejarPointerDown(evento) {
@@ -93,7 +93,7 @@ function Proyectos() {
 
   function manejarPointerUp() {
     if (!arrastrando) return;
-    const umbral = obtenerPasoPx() * UMBRAL_ARRASTRE_RATIO;
+    const umbral = paso * UMBRAL_ARRASTRE_RATIO;
 
     if (arrastreX < -umbral) {
       irA(indiceActivo + 1);
@@ -114,8 +114,6 @@ function Proyectos() {
       irA(indice);
     }
   }
-
-  const paso = obtenerPasoPx();
 
   return (
     <SeccionAnimada id="proyectos" className="proyectos">

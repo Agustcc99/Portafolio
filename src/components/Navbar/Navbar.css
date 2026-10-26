@@ -132,7 +132,7 @@
   overflow: hidden;
   isolation: isolate;
 
-  color: var(--text);
+  color: var(--lg-text);
   text-decoration: none;
   font-size: 15px;
   font-weight: 800;

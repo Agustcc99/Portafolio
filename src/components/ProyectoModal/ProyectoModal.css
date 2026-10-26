@@ -295,7 +295,7 @@
   display: grid;
   place-items: center;
 
-  color: var(--text);
+  color: var(--lg-text);
   font-weight: 900;
   text-align: center;
   padding: 24px;
@@ -397,7 +397,7 @@
 
 .modal-proyecto__descripcion {
   margin-bottom: 28px;
-  color: var(--text);
+  color: var(--lg-text);
   font-size: 17px;
   line-height: 1.7;
 }
@@ -413,7 +413,7 @@
 }
 
 .modal-proyecto__bloque p {
-  color: var(--text);
+  color: var(--lg-text);
   line-height: 1.65;
 }
 
@@ -429,7 +429,7 @@
 .modal-proyecto__bloque li {
   position: relative;
   padding-left: 18px;
-  color: var(--text);
+  color: var(--lg-text);
   line-height: 1.55;
 }
 

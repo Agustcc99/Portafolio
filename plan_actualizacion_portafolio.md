@@ -427,15 +427,18 @@ Regla de escalado: el carrusel muestra hasta 7 destacados; el índice `/proyecto
 
 ### Fase 1 — Fundaciones: TypeScript + Tailwind + tokens + temas
 **Tareas**
-- [ ] Instalar `typescript`, `typescript-eslint`, tipos; `tsconfig` estricto; renombrar `.jsx/.js` → `.tsx/.ts` por lotes con `allowJs` temporal; scripts `typecheck`.
-- [ ] Instalar Tailwind v4 + `@tailwindcss/vite`; crear `styles/index.css` con `@theme` (colores §3.1, tipografía §3.2, radios, easings).
-- [ ] Temas: `data-theme` en `<html>`, script inline anti-flash en `index.html`, `ThemeProvider` + `useTheme`, `ThemeToggle` provisional.
-- [ ] Instalar y cargar fuentes `@fontsource`; base tipográfica y escala fluida.
-- [ ] `Container`, `Button`, `Chip`, `cn()`.
-- [ ] Página dev-only `/__styleguide`: paleta (ambos temas) con ratios de contraste, escala tipográfica, botones, chips, y **comparador de tipografías y de acento** para validar o ajustar las decisiones de §3.
-- [ ] Eliminar `#root` de 1180 px y los gradientes neón del `body`.
+- [x] Instalar `typescript`, `typescript-eslint`, tipos; `tsconfig` estricto; renombrar `.jsx/.js` → `.tsx/.ts` por lotes con `allowJs` temporal; scripts `typecheck`. *(Lote 1 hecho: infraestructura, `main`, `App`, `Navbar`, `SeccionAnimada`, `SectionTitle`, secciones simples. Los archivos grandes del diseño viejo —canvas, carrusel, portal, modales, `data/*.js`— siguen en `.jsx/.js` y se migran a TS al reescribirlos en las Fases 2, 5, 7, 8 y 9. Se usó **TypeScript 6.0.3** porque `typescript-eslint` 8.72 exige `<6.1`; TS 7 queda para cuando lo soporte.)*
+- [x] Instalar Tailwind v4 + `@tailwindcss/vite`; crear `styles/index.css` con `@theme` (colores §3.1, tipografía §3.2, radios, easings).
+- [x] Temas: `data-theme` en `<html>`, script inline anti-flash en `index.html`, `ThemeProvider` + `useTheme`, `ThemeToggle` provisional.
+- [x] Instalar y cargar fuentes `@fontsource`; base tipográfica y escala fluida.
+- [x] `Container`, `Button`, `Chip`, `cn()`.
+- [x] Página dev-only `/__styleguide`: paleta (ambos temas) con ratios de contraste, escala tipográfica, botones, chips, y **comparador de tipografías y de acento** para validar o ajustar las decisiones de §3.
+- [x] Eliminar `#root` de 1180 px y los gradientes neón del `body`. *(El diseño viejo queda aislado en `.legacy-shell` + `styles/legacy.css` con variables `--lg-*`; se retira sección a sección hasta la Fase 9.)*
 
-**Criterio de salida:** styleguide aprobado visualmente por Agustín (tipografía y acento confirmados), tema sin parpadeo al recargar, `typecheck` verde.
+> **Ajustes de accesibilidad hechos al validar contraste:** `--muted` oscuro `#6B6B76`→`#80808B` (3.4:1→4.6:1) y claro `#8A8A94`→`#6A6A74` (2.9:1→4.6:1). En tema claro el relleno lima tiene 1.38:1 contra el fondo, por eso foco, barra de progreso e indicadores usan `--accent-text`; el relleno solo va en botones con tinta oscura.
+> **Styleguide:** `npm run dev` → `/__styleguide` (solo desarrollo, no entra al build).
+
+**Criterio de salida:** styleguide aprobado visualmente por Agustín (tipografía y acento confirmados), tema sin parpadeo al recargar, `typecheck` verde. ⏳ *Pendiente solo la aprobación visual de Agustín (técnicamente verificado).*
 
 ### Fase 2 — i18n, rutas y modelo de contenido
 **Tareas**

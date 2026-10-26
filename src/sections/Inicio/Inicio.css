@@ -62,7 +62,7 @@
     var(--accent-2),
     var(--accent-4),
     var(--accent-3),
-    var(--accent)
+    var(--lg-accent)
   );
   -webkit-background-clip: text;
   background-clip: text;
@@ -74,7 +74,7 @@
   margin: 0 auto;
   font-size: 20px;
   line-height: 1.75;
-  color: var(--text);
+  color: var(--lg-text);
 }
 
 .inicio__acciones {

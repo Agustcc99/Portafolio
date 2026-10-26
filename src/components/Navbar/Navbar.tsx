@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import "./Navbar.css";
 
-function Navbar() {
-  const enlacesNavegacion = [
-    { id: "inicio", texto: "Inicio" },
-    { id: "sobre-mi", texto: "Sobre mí" },
-    { id: "proyectos", texto: "Proyectos" },
-    { id: "tecnologias", texto: "Tecnologías" },
-    { id: "contacto", texto: "Contacto" },
-  ];
+const enlacesNavegacion = [
+  { id: "inicio", texto: "Inicio" },
+  { id: "sobre-mi", texto: "Sobre mí" },
+  { id: "proyectos", texto: "Proyectos" },
+  { id: "tecnologias", texto: "Tecnologías" },
+  { id: "contacto", texto: "Contacto" },
+];
 
+function Navbar() {
   const [seccionActiva, setSeccionActiva] = useState("inicio");
 
   useEffect(() => {
