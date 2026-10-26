@@ -5,6 +5,7 @@ import { useReducedMotion } from '../../hooks/useReducedMotion'
 import { useScrollLock } from '../../hooks/useSmoothScroll'
 import { paths, type Locale } from '../../i18n/paths'
 import { loadGsap } from '../../lib/gsap'
+import { markIntroDone } from '../../lib/intro'
 import { Monogram } from './Monogram'
 import { normalizePath } from './navItems'
 
@@ -36,6 +37,10 @@ export function IntroSequence() {
   const skip = useRef<() => void>(() => setActive(false))
 
   useScrollLock(active)
+
+  useEffect(() => {
+    if (!active) markIntroDone()
+  }, [active])
 
   useEffect(() => {
     if (!active) return

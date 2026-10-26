@@ -35,6 +35,23 @@
   filter: invert(1);
 }
 
+/* ── Hero: estado inicial de la coreografía (lo retira Hero.tsx al armar la timeline de GSAP) ── */
+[data-hero='pending'] .interactive-hero-grid {
+  --reveal: 0;
+}
+[data-hero='pending'] [data-hero-item] {
+  opacity: 0;
+}
+
+@keyframes scroll-hint {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(200%);
+  }
+}
+
 /* ── Menú móvil (<dialog>): entrada y salida con transiciones discretas ─── */
 .menu-dialog {
   opacity: 0;

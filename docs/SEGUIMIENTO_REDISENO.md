@@ -1,7 +1,7 @@
 # Seguimiento del rediseño del portafolio
 
 > Documento vivo. **Al abrir una conversación nueva:** leé este archivo y luego `plan_actualizacion_portafolio.md` (§8 en adelante para la fase que toca). **Al cerrar una sesión:** actualizá §1, §3, §4 y §6.
-> Última actualización: 2026-10-26 (cierre de la sesión B).
+> Última actualización: 2026-10-26 (cierre de la sesión C).
 
 ---
 
@@ -14,8 +14,8 @@
 | 2 | i18n, rutas y modelo de contenido | ✅ Completa | `20b3712` |
 | 3 | Infraestructura de animación | ✅ Completa · ⏳ falta revisión visual de Agustín | `fase 3-4` |
 | 4 | Shell: navbar, footer, intro, transiciones | ✅ Completa · ⏳ falta revisión visual de Agustín | `fase 3-4` |
-| 5 | Hero | ⬜ | — |
-| 6 | Sobre mí (bento) | ⬜ | — |
+| 5 | Hero | ✅ Completa · ⏳ falta aprobación visual y de copy de Agustín | `fase 5-6` |
+| 6 | Sobre mí (bento) | ✅ Completa · ⏳ faltan datos y textos de Agustín | `fase 5-6` |
 | 7 | Proyectos | ⬜ | — |
 | 8 | Tecnologías | ⬜ | — |
 | 9 | Contacto | ⬜ | — |
@@ -23,18 +23,18 @@
 | 11 | Rendimiento, SEO y accesibilidad | ⬜ | — |
 | 12 | Despliegue en Vercel + dominio | ⬜ | — |
 
-**Sesiones:** A (0–2) ✅ · B (3–4) ✅ · **C (5–6) ← siguiente** · D (7) · E (8–9) · F (10–12).
+**Sesiones:** A (0–2) ✅ · B (3–4) ✅ · C (5–6) ✅ · **D (7) ← siguiente** · E (8–9) · F (10–12).
 
-**Rama:** `rediseno` (4 commits sobre `main`, sin pushear). `main` sigue en `2dfd0df`.
+**Rama:** `rediseno` (5 commits sobre `main`, sin pushear). `main` sigue en `2dfd0df`.
 **No commitear nunca:** `.claude/launch.json` y `.claude/run-amor-v2.cmd` (son de otro proyecto).
 
 ---
 
-## 2. Cómo retomar (sesión C)
+## 2. Cómo retomar (sesión D)
 
 Prompt de arranque (del plan §11):
 
-> Lee `plan_actualizacion_portafolio.md` y `docs/SEGUIMIENTO_REDISENO.md` completos. Estamos en la **Fase 5** (y 6). Ejecutá solo las tareas de esas fases, en orden, siguiendo las convenciones de §8 y el sistema de diseño de §3. Al terminar, corré la verificación estándar, mostrame capturas (375/1280, ambos temas e idiomas), tildá las tareas completadas en el plan, hacé el commit de fase y detenete para mi aprobación antes de seguir.
+> Lee `plan_actualizacion_portafolio.md` y `docs/SEGUIMIENTO_REDISENO.md` completos. Estamos en la **Fase 7**. Ejecutá solo las tareas de esas fases, en orden, siguiendo las convenciones de §8 y el sistema de diseño de §3. Al terminar, corré la verificación estándar, mostrame capturas (375/1280, ambos temas e idiomas), tildá las tareas completadas en el plan, hacé el commit de fase y detenete para mi aprobación antes de seguir.
 
 Comandos:
 
@@ -86,6 +86,14 @@ src/components/layout/  Navbar, MobileMenu(<dialog>), Footer, SkipLink, IntroSeq
 src/styles/effects.css  fondo, menú móvil, view transitions, movimiento reducido manual
 src/pages/styleguide/MotionLab.tsx   pruebas de animación (/__styleguide §06)
 ```
+Fases 5–6 (nuevo):
+```
+src/components/hero/InteractiveHeroGrid.tsx(+.css)   canvas tipado, colores desde CSS vars, máscara con --reveal
+src/sections/Hero/Hero.tsx, src/sections/About/About.tsx   (ids home / about)
+src/components/ui/SectionHeading.tsx, BentoTile.tsx
+src/lib/intro.ts    introDone / markIntroDone: las coreografías esperan a la intro
+src/pages/HomePage.tsx   <main> con Hero + About nuevos y Proyectos/Tecnologías/Contacto aún en legacy-shell
+```
 Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → BrowserRouter. Shell en `LocaleLayout`.
 
 ---
@@ -112,6 +120,10 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → BrowserRoute
 | Transición de ruta | `viewTransition` de React Router | **`document.startViewTransition` propio** (`transitionRoute`) | `BrowserRouter` declarativo no soporta `viewTransition`; fallback = fade con Motion |
 | Cambio de idioma | navegar y luego cambiar texto | precarga bundle → `activateLanguage` + `navigate` en el mismo render dentro de la view transition | evita parpadeo y conserva scroll |
 | Enlace Lenis↔GSAP | `gsap.ticker` | `lenis.on('scroll', ScrollTrigger.update)` (Lenis con su propio rAF) | más simple; GSAP puede cargar antes o después |
+| Hero: «se enciende desde el centro» | animar el canvas | se anima `--reveal` de la máscara CSS del contenedor (GSAP) | evita tocar el bucle de dibujo |
+| Hero: luces del canvas | acento + violeta | **solo acento** (dos radios) | un solo acento (plan §3.1) |
+| Bento: ubicación | tesela «Disponibilidad / Ubicación» | solo disponibilidad (sin ubicación) | no hay dato real |
+| Stack tile | chips del stack | JavaScript, React, Node.js, Express, MongoDB, Git (de `techLabels`) | «principales» según el texto del sitio |
 | Bug corregido | — | `cn()` usa `extendTailwindMerge` con `text-small/body/h2…` | twMerge descartaba `text-accent-ink` de los botones (texto gris sobre lima) |
 
 ---
@@ -119,9 +131,8 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → BrowserRoute
 ## 5. Deuda temporal (se paga en fases concretas)
 
 - **`styles/legacy.css`, wrapper `.legacy-shell`, `content/legacy.ts`, variables `--lg-*` y los `.css` por componente viejo** → se borran sección a sección; todo desaparece al cerrar la **Fase 9**. Mientras tanto el home se ve igual que el original (dentro de una "isla" oscura).
-- **`.legacy-shell__inner` lleva `padding-top: 5rem`** para librar el navbar flotante → se quita al rediseñar el hero (Fase 5).
-- **Hero viejo (`Inicio`)** usa `SiteLink to="#projects"` pero conserva el resto del diseño anterior.
-- **Archivos `.jsx` pendientes de pasar a TS:** `InteractiveHeroGrid` (F5), `Proyectos`/`ProyectoCard`/`ProyectoModal` (F7), `Tecnologias`/`TechnologyModal` (F8), `ContactPortal`/`PortalParticles` (F9), `Inicio`/`SobreMi`/`SeccionAnimada` (ya `.tsx`, se rehacen en F5–F6).
+- **`.legacy-shell__inner`** ahora solo envuelve Proyectos, Tecnologías y Contacto (`padding-block: 2rem`); Hero y Sobre mí ya son del sistema nuevo.
+- **Archivos `.jsx` pendientes de pasar a TS:** `InteractiveHeroGrid` (F5), `Proyectos`/`ProyectoCard`/`ProyectoModal` (F7), `Tecnologias`/`TechnologyModal` (F8), `ContactPortal`/`PortalParticles` (F9), `SeccionAnimada` y `SectionTitle` (los usan las secciones viejas que quedan; se borran en F7–F9).
 - **Páginas `/proyectos` y detalle** con datos crudos → diseño real en **Fase 7**.
 - **Warnings de build** `INEFFECTIVE_DYNAMIC_IMPORT` (es/projects.json y es/tech.json) → los causa `legacy.ts`; se van con él.
 - **Títulos `<title>`/meta** vía elementos hoisted de React 19; `hreflang`, canonical, OG y JSON-LD → **Fase 11**.
@@ -137,10 +148,11 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → BrowserRoute
 | Revisar traducciones al inglés (`locales/en/*.json`, borrador de Claude) | 2, 5, 6 | ⏳ pendiente |
 | URLs reales de demo de los proyectos (hoy `demo: null` en los 7) | 7 | ⏳ pendiente |
 | **Revisar en un navegador real y a la vista** intro, revelado circular de tema, indicador deslizante y View Transitions (el panel de vista previa corre a 1 fps y no las anima) | 3–4 | ⏳ pendiente |
-| Texto de disponibilidad ("Disponible para proyectos"…) | 5 | ⏳ |
+| Texto de disponibilidad ("Disponible para proyectos" / "Open to work") — hoy provisional en el chip del hero y en la tesela | 5–6 | ⏳ confirmar |
 | Revisar textos nuevos de footer/menú (`common.json`: tagline, "Animaciones · Sí/No") | 4 | ⏳ |
-| Ubicación y datos de la tesela de disponibilidad | 6 | ⏳ |
-| Relato "Cocina → Código" | 6 | ⏳ |
+| Ubicación (y si va como dato en la tesela) | 6 | ⏳ sin dato: no se muestra |
+| Relato "Cocina → Código" (hoy 2 líneas genéricas) | 6 | ⏳ borrador provisional |
+| Aprobar copy ES/EN del hero y de las 6 teselas (`home.json`) | 5–6 | ⏳ |
 | URL de LinkedIn (¿existe?) y CV (¿se incluye?) | 9 | ⏳ |
 | Dominio propio (nombre exacto; hoy placeholder `agustintacconi.dev` en `config/site.ts`) | 11–12 | ⏳ |
 | ¿Analítica (Vercel Analytics)? | 12 | ⏳ |
@@ -151,8 +163,8 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → BrowserRoute
 
 | Métrica | Línea base (original) | Hoy (fin Fase 2) | Meta |
 |---|---|---|---|
-| JS inicial (gzip) | 77.1 KB | **165.3 KB** (+Motion core, Lenis, shell; GSAP 27 KB y features de Motion 29 KB son chunks lazy) | ≤ ~200 KB |
-| CSS (gzip) | 9.2 KB | 16.1 KB | — |
+| JS inicial (gzip) | 77.1 KB | **171.4 KB** (+Motion core, Lenis, shell, hero y bento; GSAP 27 KB y features de Motion 29 KB son chunks lazy) | ≤ ~200 KB |
+| CSS (gzip) | 9.2 KB | 16.3 KB | — |
 | `dist` | 6.2 MB | 4.1 MB | — |
 | Imágenes de proyectos | 5.8 MB PNG | 3.2 MB AVIF+WebP | — |
 | Lint | 1 error + 2 warnings | 0 | 0 |
@@ -161,13 +173,14 @@ Lighthouse todavía no medido (Fase 11).
 
 ---
 
-## 8. Riesgos a vigilar en la sesión C
+## 8. Riesgos a vigilar en la sesión D
 
-- **LCP del hero:** `SplitHeading trigger="mount"` oculta el H1 (`visibility:hidden`) hasta que cargan GSAP y SplitText; medir LCP y, si pesa, precargar el chunk (`loadGsapKit()` al montar el layout) o mostrar el H1 con fade y animar solo después.
-- **Remount del home:** `Reveal`/`SplitHeading` ya están libres de fugas (prueba en `/__styleguide`); repetir la prueba con el hero real y el canvas.
-- **Canvas del hero:** debe leer colores de CSS vars, reaccionar al cambio de tema y a `useReducedMotion` (hoy lee `matchMedia` por su cuenta).
-- **Ids de ancla** ya son neutros; las secciones nuevas (`Hero/About/…`) deben conservar `id="home|about|projects|tech|contact"`.
-- **Isla `legacy-shell`**: sigue oscura en tema claro; el revelado circular de tema solo se verá completo cuando termine la Fase 9.
+- **Carrusel 3D:** conserva `perspective` y arrastre; mover las constantes de tuning (`ANCHO_SLOT_POR_DEFECTO`, `PASO_RATIO`…) tipadas; sin autoplay; solo slots cercanos con coste completo.
+- **Transición compartida** portada → detalle: `view-transition-name` por proyecto + `transitionRoute` (ya existe) con el nombre en la imagen de la tarjeta y la del hero; cuidar que no choque con `data-vt='route'` (anima `root`).
+- **Pestañas en segundo plano / panel de vista previa a 1 fps:** las animaciones por frame no se pueden ver ahí; para validar movimiento usar un navegador real a la vista. Para chequear estados finales se puede acelerar GSAP con `gsap.globalTimeline.timeScale(50)` desde consola.
+- **LCP del hero:** el H1 queda oculto hasta que GSAP + SplitText cargan; medir en Fase 11 y, si pesa, precargar el chunk o mostrar el H1 antes de partirlo.
+- **Hash en el remount por idioma:** al cambiar de idioma el home se remonta y la coreografía del hero se repite (aceptable; revisar si molesta).
+- **Isla `legacy-shell`**: sigue oscura en tema claro hasta la Fase 9.
 
 ## 9. Bitácora
 
@@ -175,3 +188,4 @@ Lighthouse todavía no medido (Fase 11).
 |---|---|---|
 | 2026-10-26 | A | Fases 0–2 completas. Plan maestro generado; limpieza, TS+Tailwind+tokens+temas+styleguide, rutas ES/EN, i18n, contenido separado, imágenes optimizadas, docs. |
 | 2026-10-26 | B | Fases 3–4 completas. Infraestructura de animación (Motion lazy, GSAP dinámico, Lenis), primitivas, laboratorio en styleguide; shell completo (navbar píldora, menú `<dialog>`, footer, skip-link, intro, transiciones de ruta/idioma/tema con View Transitions, fondo con grano). Corregido bug de `cn()` con twMerge. |
+| 2026-10-26 | C | Fases 5–6 completas. Hero a sangre completa con canvas refactorizado (CSS vars, tema, ResizeObserver, pausa, estático en reducido) y coreografía GSAP que espera a la intro; `SectionHeading`, `BentoTile` y Sobre mí en bento de 6 teselas; copy ES/EN en `home.json`. Medido: 0.44 ms/frame de JS en el canvas (móvil emulado). |

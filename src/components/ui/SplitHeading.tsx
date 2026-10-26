@@ -14,6 +14,8 @@ interface SplitHeadingProps {
   delay?: number
   /** Segundos entre palabras. */
   stagger?: number
+  /** Si se pasa, la animación espera a que esta promesa se resuelva (p. ej. `introDone`). */
+  waitFor?: Promise<unknown>
 }
 
 /**
@@ -28,6 +30,7 @@ export function SplitHeading({
   trigger = 'scroll',
   delay = 0,
   stagger = 0.06,
+  waitFor,
 }: SplitHeadingProps) {
   const { i18n } = useTranslation()
   const reduced = useReducedMotion()
@@ -54,10 +57,12 @@ export function SplitHeading({
             ease: 'expo.out',
             stagger,
             delay,
+            paused: Boolean(waitFor),
             scrollTrigger:
               trigger === 'scroll' ? { trigger: heading, start: 'top 88%', once: true } : undefined,
           })
           show()
+          void waitFor?.then(() => tween.play())
           return tween
         },
       })
@@ -68,7 +73,7 @@ export function SplitHeading({
         heading.setAttribute('data-split', 'pending')
       }
     },
-    [reduced, trigger, delay, stagger, i18n.language],
+    [reduced, trigger, delay, stagger, waitFor, i18n.language],
     { enabled: !reduced, onError: show },
   )
 

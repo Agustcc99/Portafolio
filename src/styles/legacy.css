@@ -57,8 +57,7 @@
   min-height: 100svh;
   display: flex;
   flex-direction: column;
-  /* deja libre la franja del navbar flotante (LocaleLayout) */
-  padding-top: 5rem;
+  padding-block: 2rem;
 }
 
 .legacy-shell main {

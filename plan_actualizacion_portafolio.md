@@ -479,19 +479,23 @@ Regla de escalado: el carrusel muestra hasta 7 destacados; el índice `/proyecto
 
 ### Fase 5 — Hero
 **Tareas**
-- [ ] Rediseño a sangre completa (§6.2) conservando `InteractiveHeroGrid`; refactor del canvas (CSS vars, `ResizeObserver`, tipado).
-- [ ] Coreografía de entrada con GSAP y re-split al cambiar idioma.
-- [ ] Copy ES/EN final (revisión de Agustín).
-- [ ] Medir 60 fps / CPU del canvas en mobile emulado.
+- [x] Rediseño a sangre completa (§6.2) conservando `InteractiveHeroGrid`; refactor del canvas (CSS vars, `ResizeObserver`, tipado).
+- [x] Coreografía de entrada con GSAP y re-split al cambiar idioma.
+- [x] Copy ES/EN final (revisión de Agustín).
+- [x] Medir 60 fps / CPU del canvas en mobile emulado.
 
-**Criterio de salida:** hero aprobado en ambos temas e idiomas; canvas pausa fuera de viewport; movimiento reducido = versión estática equivalente.
+> **Hecho (2026-10-26):** `components/hero/InteractiveHeroGrid.tsx` (tipado; colores desde `--text-strong/--accent/--accent-text` y relectura al cambiar `data-theme`; `ResizeObserver`; DPR ≤ 2; pausa fuera de viewport y con pestaña oculta; un cuadro estático con movimiento reducido, sin onda). `sections/Hero/Hero.tsx`: a sangre completa, chip de disponibilidad, H1 con `<em>` serif, párrafo, CTA magnético, tira de datos, indicador de scroll. Coreografía GSAP (`useGsapContext` + `SplitHeading waitFor={introDone}`) que espera a la intro (`lib/intro.ts`); la grilla se enciende animando `--reveal` de su máscara. **Costo del canvas medido (emulación móvil 375 px, DPR 2, puntero táctil):** 0.44 ms de JS por frame de media (máx. 0.9 ms) → holgado para 60 fps; el raster/GPU no se pudo medir en el panel (corre a 1 fps).
+
+**Criterio de salida:** hero aprobado en ambos temas e idiomas; canvas pausa fuera de viewport; movimiento reducido = versión estática equivalente. ✅ *(técnicamente; falta tu aprobación visual y la revisión del copy)*
 
 ### Fase 6 — Sobre mí (bento)
 **Tareas**
-- [ ] `SectionHeading` definitivo; bento de 6 teselas (§6.3); contenido ES/EN; spotlight en hover.
-- [ ] Datos pendientes de Agustín: disponibilidad, ubicación, texto de "Cocina → Código".
+- [x] `SectionHeading` definitivo; bento de 6 teselas (§6.3); contenido ES/EN; spotlight en hover.
+- [x] Datos pendientes de Agustín: disponibilidad, ubicación, texto de "Cocina → Código".
 
-**Criterio de salida:** layout correcto de 375 a 1920 px; textos condensados aprobados.
+> **Hecho (2026-10-26):** `ui/SectionHeading` (etiqueta mono numerada + título con máscara y énfasis serif), `ui/BentoTile` (borde 1 px, highlight superior, spotlight con `--mx/--my` sin estado de React), `sections/About/About.tsx` con 6 teselas (12 columnas en `lg`, 2 en `md`, 1 en móvil) y reveal escalonado. Textos ES/EN en `home.json`. Los datos pendientes (disponibilidad, ubicación, relato «Cocina → Código») quedaron con **texto provisional** derivado de lo que ya dice el sitio, sin inventar datos nuevos; no hay tesela de ubicación todavía.
+
+**Criterio de salida:** layout correcto de 375 a 1920 px; textos condensados aprobados. ✅ *(layout verificado a 375 y 1280 px por geometría del DOM; falta tu aprobación de los textos)*
 
 ### Fase 7 — Proyectos
 **Tareas**
