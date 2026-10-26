@@ -1,7 +1,7 @@
 # Seguimiento del rediseño del portafolio
 
 > Documento vivo. **Al abrir una conversación nueva:** leé este archivo y luego `plan_actualizacion_portafolio.md` (§8 en adelante para la fase que toca). **Al cerrar una sesión:** actualizá §1, §3, §4 y §6.
-> Última actualización: 2026-10-26 (cierre de la sesión E).
+> Última actualización: 2026-10-26 (cierre de la Fase 10, sesión F).
 
 ---
 
@@ -19,13 +19,13 @@
 | 7 | Proyectos | ✅ Completa · ⏳ falta revisión visual del movimiento de Agustín | `fase 7` |
 | 8 | Tecnologías | ✅ Completa · ⏳ falta revisión visual del movimiento de Agustín | `fase 8-9` |
 | 9 | Contacto | ✅ Completa · ⏳ falta revisión visual y datos de Agustín | `fase 8-9` |
-| 10 | Pulido de movimiento | ⬜ | — |
+| 10 | Pulido de movimiento | ✅ Completa · ⏳ falta revisión del «feel» de Agustín | `fase 10` |
 | 11 | Rendimiento, SEO y accesibilidad | ⬜ | — |
 | 12 | Despliegue en Vercel + dominio | ⬜ | — |
 
-**Sesiones:** A (0–2) ✅ · B (3–4) ✅ · C (5–6) ✅ · D (7) ✅ · E (8–9) ✅ · **F (10–12) ← siguiente**.
+**Sesiones:** A (0–2) ✅ · B (3–4) ✅ · C (5–6) ✅ · D (7) ✅ · E (8–9) ✅ · **F (10–12): Fase 10 hecha, ← siguiente: Fase 11**.
 
-**Rama:** `rediseno` (7 commits sobre `main`, sin pushear). `main` sigue en `2dfd0df`.
+**Rama:** `rediseno` (8 commits sobre `main`, sin pushear). `main` sigue en `2dfd0df`.
 **No commitear nunca:** `.claude/launch.json` y `.claude/run-amor-v2.cmd` (son de otro proyecto).
 
 ---
@@ -34,7 +34,7 @@
 
 Prompt de arranque (del plan §11):
 
-> Lee `plan_actualizacion_portafolio.md` y `docs/SEGUIMIENTO_REDISENO.md` completos. Estamos en la **Fase 10** (y 11, 12). Ejecutá solo las tareas de esas fases, en orden, siguiendo las convenciones de §8 y el sistema de diseño de §3. Al terminar, corré la verificación estándar, mostrame capturas (375/1280, ambos temas e idiomas), tildá las tareas completadas en el plan, hacé el commit de fase y detenete para mi aprobación antes de seguir.
+> Lee `plan_actualizacion_portafolio.md` y `docs/SEGUIMIENTO_REDISENO.md` completos. Estamos en la **Fase 11** (y 12). Ejecutá solo las tareas de esas fases, en orden, siguiendo las convenciones de §8 y el sistema de diseño de §3. Al terminar, corré la verificación estándar, mostrame capturas (375/1280, ambos temas e idiomas), tildá las tareas completadas en el plan, hacé el commit de fase y detenete para mi aprobación antes de seguir.
 
 Comandos:
 
@@ -110,6 +110,11 @@ src/components/contact/   ContactPortal(+.css, un solo rAF), particleField.ts (d
 src/providers/ToastProvider.tsx (+toast-context), src/hooks/useToast.ts
 src/sections/Contact/Contact.tsx   id contact (portal + copiar email + GitHub [+ LinkedIn si site.linkedin])
 ```
+Fase 10 (nuevo):
+```
+src/styles/index.css   --duration-hero y la utilidad `pressable` (única receta de micro-interacción: color + escala 0.97 al pulsar)
+src/pages/NotFoundPage.tsx   404 dentro del shell; routes.tsx la monta también en rutas fuera de /es y /en (DetectedLayout)
+```
 Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → Toast → BrowserRouter. Shell en `LocaleLayout`.
 
 ---
@@ -163,6 +168,15 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → Toast → Br
 | Portal: táctil | revisar interacción | se mantiene: tocar el escenario abre el portal un instante y el botón es un enlace directo a WhatsApp | un segundo toque obligatorio empeoraba el CTA |
 | Contacto: email | `CopyEmail` + toast | botón «Copiar email» (con la dirección visible desde `sm`), `Toast` de éxito/error, sin enlace `mailto:` en la sección | el `mailto:` sigue en el pie; se quitaron `emailUrl`, `emailSubject` y `emailBody` |
 | Contacto: acciones | email, GitHub, LinkedIn | email, GitHub y LinkedIn **solo si `site.linkedin` no es `null`** | no hay URL de LinkedIn |
+| Fase 10: duraciones y easings | valores sueltos | todo sale de tokens: portal (480 ms / 0.5 s / 0.3 s → `--duration-slow/base`), conectores (800 ms → `--duration-hero`), view transitions (salida `--duration-fast`, entrada `--duration-slow` con 100 ms de espera; shared element y revelado de tema 600 ms) | un solo ritmo en todo el sitio |
+| Fase 10: micro-interacciones | hover/foco/press en todo | utilidad `pressable` en píldoras, círculos y chips (navbar, menú, selectores, filtros, chips de tecnología, lightbox, ficha, copiar email, enlaces de contacto); texto corrido y tarjetas grandes solo cambian color/borde | el feedback de pulsación en texto corrido o tarjetas enormes se sentía raro |
+| Fase 10: stagger | 0.06–0.08 según sección | siempre `stagger.base` (0.07) | consistencia |
+| Fase 10: navbar compacto | `padding` animado al hacer scroll | solo borde, fondo y sombra | el `padding` es propiedad de layout (la regla §1.2 prohíbe animarlas); el cambio de 4 px de alto sin animar se ve como un salto |
+| Fase 10: reveals anidados | `Reveal` envolviendo piezas que ya coreografían su entrada | quitados en Tecnologías (`TechNode` ya revela) y Contacto (el portal ya coreografía la suya) | evitaba un doble fundido |
+| Fase 10: animaciones recortadas | `ping` infinito en el punto de la tesela de disponibilidad; anillos del portal girando siempre | el punto queda fijo (ya late en el chip del hero); los anillos giran solo con el portal en pantalla (`data-inview`) | dos pulsos iguales en la página no aportaban; no animar fuera de pantalla |
+| Fase 10: movimiento reducido manual | — | también anula esperas (`transition-delay`/`animation-delay`) | los conectores tenían retraso propio y aparecían tarde |
+| Color en transiciones | solo transform/opacity | además `color`, `background-color`, `border-color`, `box-shadow` en estados hover/foco (solo pintura, sin layout) | es el estándar de hover; lo que no se anima nunca son width/height/margin/padding/top/left |
+| `allowJs` | temporal | **eliminado de `tsconfig`** | no quedan `.js/.jsx` en `src` |
 | Bug corregido | — | `cn()` usa `extendTailwindMerge` con `text-small/body/h2…` | twMerge descartaba `text-accent-ink` de los botones (texto gris sobre lima) |
 
 ---
@@ -172,7 +186,6 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → Toast → Br
 - **El diseño legacy ya no existe:** se borraron `styles/legacy.css`, `.legacy-shell`, `content/legacy.ts`, `--lg-*`, `SeccionAnimada`, `SectionTitle` y los `.css`/`.jsx` de Tecnologías y Contacto. Ya no hay archivos `.jsx` ni warnings `INEFFECTIVE_DYNAMIC_IMPORT` en el build.
 - **Títulos `<title>`/meta** vía elementos hoisted de React 19; `hreflang`, canonical, OG y JSON-LD → **Fase 11**.
 - **Sin `vercel.json`**, sin `robots.txt`/sitemap/OG images → **Fase 11**.
-- **`allowJs`** en `tsconfig` ya no hace falta (no quedan `.js/.jsx` en `src`): se puede quitar en la Fase 10.
 
 ---
 
@@ -187,6 +200,7 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → Toast → Br
 | Años y rol de cada proyecto (hoy ocultos: no hay dato) | 7 | ⏳ opcional |
 | **Revisar en un navegador real y a la vista** intro, revelado circular de tema, indicador deslizante y View Transitions (el panel de vista previa corre a 1 fps y no las anima) | 3–4 | ⏳ pendiente |
 | Texto de disponibilidad ("Disponible para proyectos" / "Open to work") — hoy provisional en el chip del hero y en la tesela | 5–6 | ⏳ confirmar |
+| **Revisar el «feel» a la vista** (Fase 10): ritmo de reveals y transiciones de página, pulsación de botones, giro de los anillos del portal, 404 | 10 | ⏳ pendiente |
 | **Revisar en un navegador real** los conectores del mapa de tecnologías (dibujo, hover, pulso), la ficha y el portal de contacto (fluidez a 60 fps en un teléfono, enlace a WhatsApp) | 8–9 | ⏳ pendiente |
 | Revisar textos nuevos de contacto y tecnologías (`home.json`: `contact.*`, `tech.label/title`; `common.json`: `tech.level/openDetail`) | 8–9 | ⏳ |
 | Revisar textos nuevos de footer/menú (`common.json`: tagline, "Animaciones · Sí/No") | 4 | ⏳ |
@@ -201,21 +215,24 @@ Providers en `main.tsx`: Theme → MotionPrefs → SmoothScroll → Toast → Br
 
 ## 7. Métricas de referencia
 
-| Métrica | Línea base (original) | Hoy (fin Fase 9) | Meta |
+| Métrica | Línea base (original) | Hoy (fin Fase 10) | Meta |
 |---|---|---|---|
-| JS inicial (gzip) | 77.1 KB | **170.6 KB** (fin Fase 9; baja porque se fue todo el código legacy; GSAP 27 KB y features de Motion 29 KB son chunks lazy) | ≤ ~200 KB |
-| CSS (gzip) | 9.2 KB | 12.2 KB | — |
+| JS inicial (gzip) | 77.1 KB | **170.7 KB** (fin Fase 10; GSAP 27 KB y features de Motion 29 KB son chunks lazy) | ≤ ~200 KB |
+| CSS (gzip) | 9.2 KB | 12.3 KB | — |
 | `dist` | 6.2 MB | 4.4 MB | — |
 | Imágenes de proyectos | 5.8 MB PNG | 3.2 MB AVIF+WebP | — |
 | Lint | 1 error + 2 warnings | 0 | 0 |
 
 Lighthouse todavía no medido (Fase 11).
 
+**Movimiento (Fase 10, Chrome headless en modo dev, scroll completo del home a 1280 px):** CLS 0, sin tareas largas, 189 cuadros con mediana 16.7 ms y p95 16.8 ms. Un recorrido tarjeta → detalle → índice → filtro solo registró un desplazamiento al filtrar con un clic sintético (los clics reales con `hadRecentInput` no cuentan).
+
 ---
 
 ## 8. Riesgos a vigilar en la sesión F
 
-- **Fase 10 (pulido):** sumar al recorte el pulso de conectores de `TechMap` (¿demasiado largo?), la rotación continua de los anillos del portal y el fundido del lightbox/ficha; revisar que nada anime propiedades de layout (`stroke-dashoffset` de los conectores es de SVG, no de layout).
+- **Feel:** ritmo y tiempos se ajustaron por tokens pero no se pudieron ver a la vista; si algo se siente lento o brusco, el lugar para tocar es `lib/motion.ts` / `--duration-*` en `index.css` (cambia todo el sitio a la vez).
+- **Fase 11:** medir el costo de raster del portal y de los `mask-image`/`backdrop-blur` en un teléfono de gama baja (Lighthouse mobile).
 - **Portal en móvil real:** el costo medido es solo de JS; el raster del canvas + capas con `mask-image`/`color-mix` en un teléfono de gama baja no se pudo medir (Fase 11).
 - **Transición compartida:** verificada en Chrome headless (una sola `project-cover` en cada captura, ida y vuelta, sin errores) pero no observada a la vista; si la portada se ve "saltar", revisar `object-fit` de `::view-transition-old/new(project-cover)` en `effects.css`.
 - **Diálogos y Lenis:** `ui/Dialog` ya trae `data-lenis-prevent` + `useScrollLock`; cualquier diálogo nuevo debe usarlo.
@@ -233,3 +250,4 @@ Lighthouse todavía no medido (Fase 11).
 | 2026-10-26 | C | Fases 5–6 completas. Hero a sangre completa con canvas refactorizado (CSS vars, tema, ResizeObserver, pausa, estático en reducido) y coreografía GSAP que espera a la intro; `SectionHeading`, `BentoTile` y Sobre mí en bento de 6 teselas; copy ES/EN en `home.json`. Medido: 0.44 ms/frame de JS en el canvas (móvil emulado). |
 | 2026-10-26 | D | Fase 7 completa. Carrusel 3D con spring (arrastre + inercia proyectada, teclado, rueda horizontal, snap, puntos/flechas, contador, ARIA, `inert`, lazy), `ProjectCard`, sección del home, índice filtrable con query string, detalle con galería + lightbox sobre `<dialog>` (teclado + swipe), navegación anterior/siguiente, transición compartida portada↔detalle. Eliminados `ProyectoModal`/`ProyectoCard`/`Proyectos.jsx`. Probado agregar/quitar un proyecto (5 pasos). `ScrollManager` ya no salta al tope al cambiar la query. |
 | 2026-10-26 | E | Fases 8–9 completas. `ui/Dialog` (primitivo `<dialog>`), `TechMap` con conectores SVG que se dibujan al entrar, ficha `TechDialog` con enlaces a proyectos; portal de contacto reescrito en TS sobre tokens con un solo rAF, `CopyEmail` + `Toast`, sección Contact. Eliminado todo el diseño legacy (isla oscura, `legacy.ts`/`legacy.css`, `SeccionAnimada`, `SectionTitle`). Íconos de marca descartados (ver §4). Corregido un overflow horizontal de 32 px del fondo del portal. |
+| 2026-10-26 | F | Fase 10 completa. Auditoría de movimiento: tokens de duración/easing en portal, mapa y view transitions; utilidad `pressable`; stagger único; fuera reveals anidados, `ping` duplicado y transición de `padding` del navbar; anillos del portal pausados fuera de pantalla; 404 rediseñada en el shell (también fuera de /es y /en); `allowJs` eliminado. Medido CLS 0 y 60 fps en el recorrido del home. |

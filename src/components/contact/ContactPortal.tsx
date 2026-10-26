@@ -22,7 +22,7 @@ const PORTAL_CONFIG = {
   magneticStrength: 0.12,
   magneticMax: 10,
   magneticEase: 0.18,
-  clickTransitionDuration: 480,
+  clickTransitionDuration: 600,
   tapFadeDelay: 650,
   openLabelThreshold: 0.55,
   wordPullPx: 9,
@@ -95,6 +95,7 @@ export function ContactPortal() {
   const [isClicking, setIsClicking] = useState(false)
   const [clickWave, setClickWave] = useState(0)
   const [entered, setEntered] = useState(false)
+  const [inView, setInView] = useState(false)
 
   const rootRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
@@ -266,6 +267,7 @@ export function ContactPortal() {
     const intersectionObserver = new IntersectionObserver(
       ([entry]) => {
         visible = entry?.isIntersecting ?? true
+        setInView(visible)
         if (visible) {
           setEntered(true)
           if (!document.hidden) startLoop()
@@ -325,6 +327,7 @@ export function ContactPortal() {
       role="group"
       aria-label={t('contact.portalLabel')}
       data-reduced={reduced || undefined}
+      data-inview={inView || undefined}
       className={cn('contact-portal', (entered || reduced) && 'contact-portal--entered', isClicking && 'contact-portal--clicking')}
     >
       <div className="contact-portal__field" aria-hidden />

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { techCategories, type TechCategoryId } from '../../content/technologies'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { useReducedMotion } from '../../hooks/useReducedMotion'
+import { stagger } from '../../lib/motion'
 import { TechConnector, type ConnectorId } from './TechConnectors'
 import { TechDialog } from './TechDialog'
 import { TechNode } from './TechNode'
@@ -51,7 +52,7 @@ export function TechMap() {
           <TechNode
             key={category.id}
             category={category}
-            delay={index * 0.08}
+            delay={index * stagger.base}
             onHover={setHovered}
             onOpen={(slug) => setSelected({ slug, open: true })}
           />

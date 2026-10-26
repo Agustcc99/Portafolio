@@ -21,7 +21,7 @@ interface LightboxProps {
 }
 
 const circle =
-  'inline-flex size-11 cursor-pointer items-center justify-center rounded-pill border border-line-strong bg-surface-1 text-strong transition-colors duration-(--duration-base) hover:border-accent-text hover:text-accent-text aria-disabled:cursor-default aria-disabled:opacity-35 aria-disabled:hover:border-line-strong aria-disabled:hover:text-strong'
+  'inline-flex size-11 cursor-pointer items-center justify-center rounded-pill border border-line-strong bg-surface-1 text-strong pressable hover:border-accent-text hover:text-accent-text aria-disabled:cursor-default aria-disabled:opacity-35 aria-disabled:hover:border-line-strong aria-disabled:hover:text-strong'
 
 /**
  * Visor de capturas sobre un `<dialog>` modal nativo: trampa de foco, `Escape`, fondo inerte y

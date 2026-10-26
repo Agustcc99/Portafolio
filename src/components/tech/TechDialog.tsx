@@ -80,7 +80,7 @@ export function TechDialog({ slug, open, onClose }: TechDialogProps) {
             onClick={onClose}
             autoFocus
             aria-label={t('tech.closeDetail')}
-            className="absolute top-4 right-4 inline-flex size-10 cursor-pointer items-center justify-center rounded-pill border border-line-strong text-strong transition-colors duration-(--duration-base) hover:border-accent-text hover:text-accent-text"
+            className="absolute top-4 right-4 inline-flex size-10 cursor-pointer items-center justify-center rounded-pill border border-line-strong text-strong pressable hover:border-accent-text hover:text-accent-text"
           >
             <X size={18} aria-hidden />
           </button>

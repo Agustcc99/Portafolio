@@ -38,7 +38,7 @@ function FilterChip({
       onClick={onClick}
       className={chipClasses(
         pressed,
-        'min-h-8 cursor-pointer transition-colors duration-(--duration-base) hover:border-line-strong aria-pressed:hover:border-accent-text',
+        'pressable min-h-8 cursor-pointer hover:border-line-strong aria-pressed:hover:border-accent-text',
       )}
     >
       {children}

@@ -19,7 +19,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       aria-label={isDark ? t('a11y.switchToLight') : t('a11y.switchToDark')}
       className={cn(
         'inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-pill border border-line-strong bg-surface-1 text-strong',
-        'transition-colors duration-(--duration-base) hover:border-accent-text hover:text-accent-text',
+        'pressable hover:border-accent-text hover:text-accent-text',
         className,
       )}
     >

@@ -40,7 +40,7 @@ export function TechNode({ category, delay, onHover, onOpen }: TechNodeProps) {
                   onClick={() => onOpen(slug)}
                   className={chipClasses(
                     false,
-                    'min-h-8 cursor-pointer transition-colors duration-(--duration-base) hover:border-accent-text hover:text-accent-text',
+                    'pressable min-h-8 cursor-pointer hover:border-accent-text hover:text-accent-text',
                   )}
                 >
                   {techLabels[slug] ?? slug}

@@ -80,7 +80,7 @@ export function MobileMenu({ open, onOpenChange, current }: MobileMenuProps) {
             onClick={close}
             autoFocus
             aria-label={t('nav.closeMenu')}
-            className="inline-flex size-11 cursor-pointer items-center justify-center rounded-pill border border-line-strong bg-surface-1 text-strong transition-colors duration-(--duration-base) hover:border-accent-text hover:text-accent-text"
+            className="inline-flex size-11 cursor-pointer items-center justify-center rounded-pill border border-line-strong bg-surface-1 text-strong pressable hover:border-accent-text hover:text-accent-text"
           >
             <X size={20} aria-hidden />
           </button>

@@ -11,6 +11,11 @@ function RootRedirect() {
   return <Navigate to={paths.home(detectLocale())} replace />
 }
 
+/** Rutas fuera de `/es` y `/en` (p. ej. `/foo`): el 404 usa el shell del idioma guardado o del navegador. */
+function DetectedLayout() {
+  return <LocaleLayout locale={detectLocale()} />
+}
+
 export function AppRoutes() {
   return (
     <Routes>
@@ -23,7 +28,9 @@ export function AppRoutes() {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       ))}
-      <Route path="*" element={<NotFoundPage />} />
+      <Route element={<DetectedLayout />}>
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
     </Routes>
   )
 }

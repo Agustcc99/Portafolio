@@ -41,7 +41,7 @@
 }
 
 .contact-portal--clicking .contact-portal__field {
-  animation: contact-portal-field-contract 480ms ease-out;
+  animation: contact-portal-field-contract var(--duration-slow) var(--ease-out-expo);
 }
 
 /* ── Escenario circular: contiene el portal, las líneas, las palabras y las partículas ── */
@@ -119,11 +119,11 @@
   aspect-ratio: 1 / 1;
 
   transform: translate(-50%, -50%) scale(calc(1 + var(--cp-open, 0) * 0.14));
-  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition: transform var(--duration-slow) var(--ease-out-expo);
 }
 
 .contact-portal--clicking .contact-portal__portal {
-  animation: contact-portal-rings-expand 480ms ease-out;
+  animation: contact-portal-rings-expand var(--duration-slow) var(--ease-out-expo);
 }
 
 /* Halo: resplandor ambiental con radio acotado para no alcanzar a las palabras exteriores. */
@@ -142,7 +142,7 @@
   filter: blur(1px);
 
   opacity: calc(0.32 + var(--cp-open, 0) * 0.5);
-  transition: opacity 0.5s ease;
+  transition: opacity var(--duration-slow) var(--ease-in-out-soft);
 }
 
 .contact-portal__ring {
@@ -172,6 +172,7 @@
   border-right-color: color-mix(in srgb, var(--cp-accent-text) 65%, transparent);
   box-shadow: 0 0 28px color-mix(in srgb, var(--cp-accent) 14%, transparent);
   animation: contact-portal-spin 30s linear infinite;
+  animation-play-state: paused;
 }
 
 /* Anillo interior: con pequeños cortes, rota al revés. */
@@ -182,6 +183,13 @@
   border-left-color: color-mix(in srgb, var(--cp-accent-text) 70%, transparent);
   box-shadow: 0 0 22px color-mix(in srgb, var(--cp-accent) 18%, transparent);
   animation: contact-portal-spin-reverse 17s linear infinite;
+  animation-play-state: paused;
+}
+
+/* Los anillos solo giran mientras el portal está en pantalla (data-inview). */
+.contact-portal[data-inview] .contact-portal__ring--outer,
+.contact-portal[data-inview] .contact-portal__ring--inner {
+  animation-play-state: running;
 }
 
 /* Onda expansiva: solo visible durante el clic. */
@@ -195,7 +203,7 @@
 }
 
 .contact-portal--clicking .contact-portal__wave {
-  animation: contact-portal-wave 480ms ease-out;
+  animation: contact-portal-wave var(--duration-slow) var(--ease-out-expo);
 }
 
 /* Núcleo: profundidad con gradientes sobre las superficies del tema, nunca un botón plano. */
@@ -228,7 +236,7 @@
 }
 
 .contact-portal--clicking .contact-portal__core {
-  animation: contact-portal-core-compress 480ms ease-out;
+  animation: contact-portal-core-compress var(--duration-slow) var(--ease-out-expo);
 }
 
 .contact-portal__core::after {
@@ -240,7 +248,7 @@
   pointer-events: none;
 
   opacity: calc(var(--cp-open, 0) * 0.85);
-  transition: opacity 0.45s ease;
+  transition: opacity var(--duration-slow) var(--ease-in-out-soft);
 }
 
 /* Botón: contorno de acento en reposo; relleno lima cuando el portal se abre. */
@@ -267,10 +275,10 @@
   font-size: clamp(12.5px, 2.4vw, 14.5px);
 
   transition:
-    box-shadow 0.3s ease,
-    border-color 0.3s ease,
-    background-color 0.3s ease,
-    color 0.3s ease;
+    box-shadow var(--duration-base) var(--ease-in-out-soft),
+    border-color var(--duration-base) var(--ease-in-out-soft),
+    background-color var(--duration-base) var(--ease-in-out-soft),
+    color var(--duration-base) var(--ease-in-out-soft);
 }
 
 .contact-portal__button[data-state='open'],
@@ -290,7 +298,7 @@
   grid-area: 1 / 1;
   opacity: 0;
   white-space: nowrap;
-  transition: opacity 0.25s ease;
+  transition: opacity var(--duration-base) var(--ease-in-out-soft);
 }
 
 .contact-portal__button-text--idle {
@@ -318,8 +326,8 @@
   opacity: 0.6;
   transform: scale(0.9);
   transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
+    opacity var(--duration-base) var(--ease-in-out-soft),
+    transform var(--duration-base) var(--ease-in-out-soft);
 }
 
 .contact-portal__button[data-state='open'] .contact-portal__button-icon {
@@ -460,7 +468,7 @@
 }
 
 .contact-portal[data-reduced].contact-portal--clicking .contact-portal__wave {
-  animation: contact-portal-wave-reduced 300ms ease-out;
+  animation: contact-portal-wave-reduced var(--duration-base) ease-out;
 }
 
 @keyframes contact-portal-wave-reduced {

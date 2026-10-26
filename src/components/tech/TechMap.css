@@ -56,7 +56,7 @@
   stroke-width: 1.5;
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  transition: stroke-dashoffset 800ms var(--ease-out-expo) var(--delay, 0s);
+  transition: stroke-dashoffset var(--duration-hero) var(--ease-out-expo) var(--delay, 0s);
 }
 
 .tech-connector__line {
@@ -67,7 +67,7 @@
   stroke: var(--accent-text);
   opacity: 0;
   transition:
-    stroke-dashoffset 800ms var(--ease-out-expo) var(--delay, 0s),
+    stroke-dashoffset var(--duration-hero) var(--ease-out-expo) var(--delay, 0s),
     opacity var(--duration-base) var(--ease-in-out-soft);
 }
 
@@ -97,7 +97,7 @@
 
 /* Único pulso, poco después de dibujarse (lo dispara TechMap una vez por visita). */
 .tech-connector[data-pulse] .tech-connector__glow {
-  animation: tech-connector-pulse 1100ms var(--ease-in-out-soft) var(--delay, 0s) both;
+  animation: tech-connector-pulse var(--duration-hero) var(--ease-in-out-soft) var(--delay, 0s) both;
 }
 
 @keyframes tech-connector-pulse {

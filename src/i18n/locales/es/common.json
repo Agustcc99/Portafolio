@@ -33,9 +33,12 @@
   },
   "portfolioName": "Este portfolio (Agustín.dev)",
   "notFound": {
+    "label": "Página no encontrada",
     "title": "Página no encontrada",
+    "heading": "Esta página <em>se perdió</em> en el camino",
     "text": "La página que buscás no existe o cambió de lugar.",
-    "back": "Volver al inicio"
+    "back": "Volver al inicio",
+    "projects": "Ver proyectos"
   },
   "projects": {
     "indexTitle": "Todos los <em>proyectos</em>",

@@ -34,7 +34,7 @@ export function About() {
           description={t('about.description')}
         />
 
-        <RevealGroup className="grid gap-4 md:grid-cols-2 lg:grid-cols-12" gap={0.08}>
+        <RevealGroup className="grid gap-4 md:grid-cols-2 lg:grid-cols-12">
           <Reveal className="md:col-span-2 lg:col-span-7 lg:row-span-2">
             <BentoTile className="flex flex-col justify-center sm:p-10">
               <TileTitle>{t('about.who.title')}</TileTitle>
@@ -84,10 +84,7 @@ export function About() {
               <div>
                 <TileTitle>{t('about.availability.title')}</TileTitle>
                 <p className="mb-2 flex items-center gap-2.5 font-medium text-strong">
-                  <span aria-hidden className="relative flex size-2">
-                    <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent-text opacity-60" />
-                    <span className="relative inline-flex size-2 rounded-full bg-accent-text" />
-                  </span>
+                  <span aria-hidden className="size-2 rounded-full bg-accent-text" />
                   {t('about.availability.status')}
                 </p>
                 <p className="text-small">{t('about.availability.text')}</p>

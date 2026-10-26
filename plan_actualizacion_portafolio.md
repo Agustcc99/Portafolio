@@ -532,12 +532,14 @@ Regla de escalado: el carrusel muestra hasta 7 destacados; el índice `/proyecto
 
 ### Fase 10 — Pulido de movimiento
 **Tareas**
-- [ ] Revisión transversal: tiempos, easings, stagger y consistencia entre secciones.
-- [ ] Micro-interacciones (hover/focus/press) en todos los elementos interactivos.
-- [ ] Eliminar animaciones sobrantes que no aporten; confirmar que nada anima propiedades de layout.
-- [ ] Página 404 final.
+- [x] Revisión transversal: tiempos, easings, stagger y consistencia entre secciones.
+- [x] Micro-interacciones (hover/focus/press) en todos los elementos interactivos.
+- [x] Eliminar animaciones sobrantes que no aporten; confirmar que nada anima propiedades de layout.
+- [x] Página 404 final.
 
-**Criterio de salida:** recorrido completo sin saltos ni jank; revisión de Agustín del "feel".
+> **Hecho (2026-10-26):** ver SEGUIMIENTO §4 (tabla «Fase 10»). Resumen: todas las duraciones y easings salen de los tokens (`--duration-fast/base/slow/hero`, `--ease-out-expo`, `--ease-in-out-soft`; el portal, el mapa y las view transitions ya no usan valores sueltos); utilidad `pressable` (hover/foco por color + escala 0.97 al pulsar) en píldoras, círculos y chips; stagger único (`stagger.base`); se quitaron los reveals anidados de Tecnologías y Contacto, el `ping` duplicado de la tesela de disponibilidad y la transición de `padding` del navbar; los anillos del portal giran solo en pantalla. 404 rediseñada dentro del shell, con CTA al inicio y a proyectos, también para rutas fuera de `/es` y `/en`. Medido en Chrome headless recorriendo el home entero: **CLS 0, sin tareas largas, cuadros de 16.7 ms (p95 16.8 ms)**; ninguna transición ni keyframe anima propiedades de layout.
+
+**Criterio de salida:** recorrido completo sin saltos ni jank; revisión de Agustín del "feel". ✅ *(técnicamente; falta tu revisión del «feel» a la vista, en un navegador real)*
 
 ### Fase 11 — Rendimiento, SEO y accesibilidad
 **Tareas**

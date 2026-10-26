@@ -21,7 +21,7 @@ export function Gallery({ images, title, onOpen }: GalleryProps) {
   if (shots.length === 0) return null
 
   return (
-    <RevealGroup as="ul" className="grid gap-4 sm:grid-cols-2" gap={0.06}>
+    <RevealGroup as="ul" className="grid gap-4 sm:grid-cols-2">
       {shots.map((image, i) => {
         const index = i + 1
         return (
@@ -38,7 +38,7 @@ export function Gallery({ images, title, onOpen }: GalleryProps) {
                 alt={t('projects.imageAlt', { n: index + 1, title })}
                 sizes={shots.length % 2 === 1 && i === 0 ? '(min-width: 1280px) 1184px, 100vw' : '(min-width: 1280px) 580px, (min-width: 640px) 50vw, 100vw'}
                 pictureClassName="block"
-                className="aspect-[16/10] object-cover object-top transition-transform duration-(--duration-slow) ease-out-expo group-hover:scale-[1.02]"
+                className="aspect-[16/10] object-cover object-top transition-transform duration-(--duration-slow) ease-out-expo group-hover:scale-[1.03]"
               />
             </button>
           </Reveal>

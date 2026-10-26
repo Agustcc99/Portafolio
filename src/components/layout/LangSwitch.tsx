@@ -52,7 +52,7 @@ export function LangSwitch({ className }: { className?: string }) {
             aria-label={t(`lang.${locale}`)}
             onClick={(event) => select(event, locale)}
             className={cn(
-              'relative isolate inline-flex h-9 min-w-10 items-center justify-center rounded-pill px-2.5 font-mono text-label uppercase tracking-[0.12em] transition-colors duration-(--duration-base)',
+              'relative isolate inline-flex h-9 min-w-10 items-center justify-center rounded-pill px-2.5 font-mono text-label uppercase tracking-[0.12em] pressable',
               active ? 'text-accent-ink' : 'text-text hover:text-strong',
             )}
           >

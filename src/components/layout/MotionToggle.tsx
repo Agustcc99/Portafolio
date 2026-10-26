@@ -15,7 +15,7 @@ export function MotionToggle({ className }: { className?: string }) {
       onClick={toggleReduced}
       className={cn(
         'group inline-flex h-11 cursor-pointer items-center gap-3 rounded-pill border border-line-strong bg-surface-1 pr-4 pl-3 text-text',
-        'transition-colors duration-(--duration-base) hover:border-accent-text hover:text-strong',
+        'pressable hover:border-accent-text hover:text-strong',
         className,
       )}
     >

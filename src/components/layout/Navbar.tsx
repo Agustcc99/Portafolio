@@ -53,8 +53,8 @@ export function Navbar() {
           data-scrolled={scrolled}
           className={cn(
             'pointer-events-auto flex w-full max-w-[1100px] items-center justify-between gap-2 rounded-pill border border-line bg-surface-1/70 py-2 pr-2 pl-2 backdrop-blur-xl',
-            'transition-[transform,padding,background-color,border-color,box-shadow] duration-(--duration-slow) ease-out-expo',
-            'data-[scrolled=true]:border-line-strong data-[scrolled=true]:bg-surface-1/85 data-[scrolled=true]:py-1.5 data-[scrolled=true]:shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]',
+            'transition-[transform,background-color,border-color,box-shadow] duration-(--duration-slow) ease-out-expo',
+            'data-[scrolled=true]:border-line-strong data-[scrolled=true]:bg-surface-1/85 data-[scrolled=true]:shadow-[inset_0_1px_0_rgb(255_255_255/0.06)]',
             'max-lg:data-[hidden=true]:-translate-y-[150%] max-lg:focus-within:translate-y-0',
           )}
         >
@@ -78,7 +78,7 @@ export function Navbar() {
                   to={sectionHref(locale, id)}
                   aria-current={active ? 'location' : undefined}
                   className={cn(
-                    'relative isolate rounded-pill px-4 py-2 text-small transition-colors duration-(--duration-base)',
+                    'pressable relative isolate rounded-pill px-4 py-2 text-small',
                     active ? 'text-strong' : 'text-text hover:text-strong',
                   )}
                 >
@@ -109,7 +109,7 @@ export function Navbar() {
               aria-label={t('nav.openMenu')}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              className="inline-flex size-11 cursor-pointer items-center justify-center rounded-pill border border-line-strong bg-surface-1 text-strong transition-colors duration-(--duration-base) hover:border-accent-text hover:text-accent-text lg:hidden"
+              className="inline-flex size-11 cursor-pointer items-center justify-center rounded-pill border border-line-strong bg-surface-1 text-strong pressable hover:border-accent-text hover:text-accent-text lg:hidden"
             >
               <Menu size={20} aria-hidden />
             </button>

@@ -57,7 +57,7 @@ export function CopyEmail({ className }: { className?: string }) {
       title={site.email}
       className={cn(
         'inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-pill px-3 text-small font-medium text-text',
-        'transition-colors duration-(--duration-base) hover:text-accent-text',
+        'pressable hover:text-accent-text',
         className,
       )}
     >

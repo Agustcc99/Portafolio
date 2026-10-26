@@ -93,6 +93,19 @@
   --duration-fast: 150ms;
   --duration-base: 300ms;
   --duration-slow: 600ms;
+  --duration-hero: 1000ms;
+}
+
+/* Controles con forma de píldora o círculo: hover/foco por color y feedback de pulsación
+ * (escala 0.97). Es la única receta de micro-interacción: usarla en vez de repetir `transition-*`. */
+@utility pressable {
+  transition-property: color, background-color, border-color, opacity, box-shadow, transform;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out-expo);
+
+  &:where(:active):not(:disabled, [aria-disabled='true']) {
+    transform: scale(0.97);
+  }
 }
 
 /* ── Base ──────────────────────────────────────────────────────────── */

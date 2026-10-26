@@ -1,6 +1,5 @@
 import { Trans, useTranslation } from 'react-i18next'
 import { Container } from '../../components/ui/Container'
-import { Reveal } from '../../components/ui/Reveal'
 import { SectionHeading } from '../../components/ui/SectionHeading'
 import { TechMap } from '../../components/tech/TechMap'
 
@@ -25,11 +24,9 @@ export function Technologies() {
         <p id="tech-map-label" className="sr-only">
           {t('tech.mapLabel')}
         </p>
-        <Reveal>
-          <div role="group" aria-labelledby="tech-map-label">
-            <TechMap />
-          </div>
-        </Reveal>
+        <div role="group" aria-labelledby="tech-map-label">
+          <TechMap />
+        </div>
       </Container>
     </section>
   )

@@ -8,7 +8,7 @@ import { SectionHeading } from '../../components/ui/SectionHeading'
 import { site } from '../../config/site'
 
 const linkClass =
-  'inline-flex min-h-11 items-center gap-1 rounded-pill px-3 text-small font-medium text-text transition-colors duration-(--duration-base) hover:text-accent-text'
+  'inline-flex min-h-11 items-center gap-1 rounded-pill px-3 text-small font-medium text-text pressable hover:text-accent-text'
 
 /** Contacto: portal hacia WhatsApp y, debajo, copiar el email y enlaces a GitHub (y LinkedIn si existe). */
 export function Contact() {
@@ -24,9 +24,7 @@ export function Contact() {
           title={<Trans t={t} i18nKey="contact.title" components={accent} />}
         />
 
-        <Reveal>
-          <ContactPortal />
-        </Reveal>
+        <ContactPortal />
 
         <Reveal as="ul" className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
           <li>

@@ -140,11 +140,11 @@
   background: var(--bg);
 }
 :root[data-vt='route']::view-transition-old(root) {
-  animation: vt-out 180ms var(--ease-in-out-soft) both;
+  animation: vt-out var(--duration-fast) var(--ease-in-out-soft) both;
   mix-blend-mode: normal;
 }
 :root[data-vt='route']::view-transition-new(root) {
-  animation: vt-in 420ms var(--ease-out-expo) 120ms both;
+  animation: vt-in var(--duration-slow) var(--ease-out-expo) 100ms both;
   mix-blend-mode: normal;
 }
 
@@ -168,6 +168,8 @@
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
+  transition-delay: 0s !important;
+  animation-delay: 0s !important;
   scroll-behavior: auto !important;
 }
 
@@ -213,7 +215,7 @@
  * El grupo se mueve y escala con easing de salida; las imágenes se recortan en vez de deformarse.
  */
 :root[data-vt='route']::view-transition-group(project-cover) {
-  animation-duration: 650ms;
+  animation-duration: var(--duration-slow);
   animation-timing-function: var(--ease-out-expo);
   z-index: 1;
 }

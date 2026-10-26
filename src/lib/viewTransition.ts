@@ -73,7 +73,7 @@ export function transitionTheme(apply: () => void, origin?: { x: number; y: numb
     .then(() => {
       root().animate(
         { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${radius}px at ${x}px ${y}px)`] },
-        { duration: 650, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', pseudoElement: '::view-transition-new(root)' },
+        { duration: 600, easing: 'cubic-bezier(0.16, 1, 0.3, 1)', pseudoElement: '::view-transition-new(root)' },
       )
     })
     .catch(() => {
