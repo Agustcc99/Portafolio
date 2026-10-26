@@ -1,0 +1,57 @@
+{
+  "nav": {
+    "label": "Navegación principal",
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "projects": "Proyectos",
+    "tech": "Tecnologías",
+    "contact": "Contacto"
+  },
+  "a11y": {
+    "skipToContent": "Saltar al contenido",
+    "goHome": "Ir al inicio",
+    "close": "Cerrar",
+    "language": "Idioma",
+    "switchToLight": "Cambiar a tema claro",
+    "switchToDark": "Cambiar a tema oscuro"
+  },
+  "lang": {
+    "es": "Español",
+    "en": "English"
+  },
+  "footer": {
+    "rights": "© {{year}} Agustín Tacconi."
+  },
+  "portfolioName": "Este portfolio (Agustín.dev)",
+  "notFound": {
+    "title": "Página no encontrada",
+    "text": "La página que buscás no existe o cambió de lugar.",
+    "back": "Volver al inicio"
+  },
+  "projects": {
+    "indexTitle": "Proyectos",
+    "indexIntro": "Una selección de proyectos académicos, personales y prácticos orientados a resolver problemas reales.",
+    "viewCase": "Ver caso",
+    "viewAll": "Ver todos los proyectos ({{count}})",
+    "all": "Todos",
+    "filterByCategory": "Filtrar por categoría",
+    "backToProjects": "Volver a proyectos",
+    "previous": "Proyecto anterior",
+    "next": "Siguiente proyecto",
+    "objective": "Objetivo",
+    "description": "Descripción",
+    "technologies": "Tecnologías utilizadas",
+    "features": "Funcionalidades",
+    "learnings": "Aprendizajes",
+    "gallery": "Galería",
+    "viewCode": "Ver código",
+    "noCode": "Código no disponible",
+    "imageAlt": "Captura {{n}} de {{title}}"
+  },
+  "tech": {
+    "usedFor": "Utilizado para",
+    "features": "Funcionalidades desarrolladas",
+    "projects": "Proyectos",
+    "closeDetail": "Cerrar detalle de tecnología"
+  }
+}

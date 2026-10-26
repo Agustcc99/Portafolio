@@ -1,0 +1,107 @@
+{
+  "categories": {
+    "interface": {
+      "name": "Interface",
+      "description": "Responsive interfaces, reusable components, forms, routing and API consumption."
+    },
+    "logic": {
+      "name": "Logic and services",
+      "description": "REST APIs, authentication, validations, permissions and business logic."
+    },
+    "data": {
+      "name": "Data",
+      "description": "Modeling, relationships, queries and data persistence."
+    },
+    "delivery": {
+      "name": "Tools and delivery",
+      "description": "Version control, endpoint testing, containers and deployment."
+    }
+  },
+  "levels": {
+    "main": { "label": "Main tool" },
+    "projects": { "label": "Used in projects" },
+    "learning": { "label": "Learning" }
+  },
+  "items": {
+    "html": {
+      "usedFor": ["Semantic page structure"],
+      "features": ["Well-organized HTML structure", "Layout of commercial sections"]
+    },
+    "css": {
+      "usedFor": ["Visual styling, layout and responsive design"],
+      "features": ["Brand-oriented aesthetic design", "Handling colors, spacing and typography"]
+    },
+    "javascript": {
+      "usedFor": ["Interface logic", "API consumption", "Front-end validations"],
+      "features": ["User interaction", "State and event handling"]
+    },
+    "react": {
+      "usedFor": ["Component-based interfaces", "Routing and API consumption"],
+      "features": ["Reusable components", "Controlled forms"]
+    },
+    "vite": {
+      "usedFor": ["Development environment and build for React applications"],
+      "features": ["Fast development server", "Optimized production build"]
+    },
+    "bootstrap": {
+      "usedFor": ["Quick layout and UI components"],
+      "features": ["Responsive grids", "Form components"]
+    },
+    "nodejs": {
+      "usedFor": ["Backend runtime environment"],
+      "features": ["REST APIs", "Server processes"]
+    },
+    "express": {
+      "usedFor": ["Building REST APIs", "Routing and middlewares"],
+      "features": ["Routes and controllers", "Authentication and validation middlewares"]
+    },
+    "java": {
+      "usedFor": ["Object-oriented programming", "Android Studio app development (university)"],
+      "features": []
+    },
+    "springboot": {
+      "usedFor": ["Building APIs in Java"],
+      "features": ["Basic CRUD"]
+    },
+    "jwt": {
+      "usedFor": ["Authentication and stateless sessions"],
+      "features": ["User login", "Roles and permissions"]
+    },
+    "mysql": {
+      "usedFor": ["Relational databases (the basics)", "Currently used in a project in development"],
+      "features": []
+    },
+    "mongodb": {
+      "usedFor": ["Non-relational data persistence"],
+      "features": ["Modeling with Mongoose", "Queries and relationships between collections"]
+    },
+    "git": {
+      "usedFor": ["Version control"],
+      "features": ["Change history", "Working branches"]
+    },
+    "github": {
+      "usedFor": ["Repository hosting"],
+      "features": ["A public repository per project"]
+    },
+    "docker": {
+      "usedFor": ["Containers for reproducible environments"],
+      "features": []
+    },
+    "postman": {
+      "usedFor": ["Manual testing of REST endpoints in almost every project with an API"],
+      "features": ["Verifying API routes and responses"]
+    },
+    "jest": {
+      "usedFor": ["Automated testing of REST APIs"],
+      "features": ["Automated tests with Jest and Supertest"]
+    },
+    "junit": {
+      "usedFor": ["Unit testing in Java applications"],
+      "features": []
+    },
+    "aws": {
+      "usedFor": ["Course taken at university", "Able to design a basic infrastructure"],
+      "features": []
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "hero": {
+    "badge": "Web developer in training",
+    "title": "I build modern, functional interfaces designed for real projects.",
+    "text": "I'm Agustín Tacconi, a web developer and professional chef. I like building useful solutions to real problems, combining logic, design and an organized way of working.",
+    "ctaProjects": "View projects",
+    "ctaContact": "Get in touch"
+  },
+  "about": {
+    "title": "A technical profile with a practical eye",
+    "description": "I enjoy building useful, well-organized solutions designed for real problems.",
+    "who": {
+      "title": "Who I am",
+      "text": "I'm Agustín Tacconi, a web developer and professional chef. For 2 years I've been building projects with JavaScript, React, Node and MongoDB. I like building useful solutions to real problems, combining logic, design and a practical mindset."
+    },
+    "seek": {
+      "title": "What I'm looking for",
+      "text": "I'm looking to step into the professional world of web development, take part in real projects and keep growing as a developer. I don't limit myself to one area: I'm interested in front-end, back-end and continuing to learn tools like AWS. I'm motivated as much by simple tasks as by challenges that push me to improve."
+    },
+    "how": {
+      "title": "How I work",
+      "text": "I work in an organized, responsible, step-by-step way. First I make sure I understand the problem, break it into simple parts and keep a clear structure of folders, components and functions. When an error shows up, I investigate, try alternatives and ask for help when needed. I adapt equally to solo work and teamwork."
+    }
+  },
+  "projects": {
+    "title": "Work that shows how I've grown",
+    "description": "A selection of academic, personal and practice projects aimed at solving real problems.",
+    "previous": "Previous project",
+    "next": "Next project",
+    "goTo": "Go to project {{n}}: {{title}}"
+  },
+  "tech": {
+    "title": "How I build a complete application",
+    "description": "Tools and technologies I connect to build interfaces, APIs, databases and usable systems.",
+    "summary": "For 2 years I've combined these tools to build complete applications, from the interface to the database.",
+    "mapLabel": "Technical architecture map"
+  },
+  "contact": {
+    "title": "Shall we work together?",
+    "words": ["IDEA", "COLLABORATION", "OPPORTUNITY", "INQUIRY", "DEVELOPMENT"],
+    "emailSubject": "Contact from your portfolio",
+    "emailBody": "Hi Agustín, I saw your portfolio and wanted to get in touch."
+  }
+}

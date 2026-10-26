@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { CATEGORIAS_TECNICAS, TECNOLOGIAS_INFO } from "../../data/tecnologias";
+import { CATEGORIAS_TECNICAS, TECNOLOGIAS_INFO } from "../../content/legacy";
 import TechnologyModal from "./TechnologyModal";
 import "./Tecnologias.css";
 

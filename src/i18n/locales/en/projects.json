@@ -1,0 +1,184 @@
+{
+  "categories": {
+    "fullstack": "Full Stack",
+    "backend": "Backend",
+    "frontend": "Front-end markup"
+  },
+  "items": {
+    "consultorio-odontologico": {
+      "title": "Management System for a Dental Practice",
+      "short": "Web system to manage patients, treatments, payments, lab expenses and financial reports for a dental practice.",
+      "long": "Web system built so a dentist can manage her activity inside a shared practice. Its main goal is not scheduling appointments, but organizing the financial and operational information around patients, treatments, payments, lab expenses and outstanding balances. The application lets her add patients and attach treatments with their prices and the split percentages agreed between the dentist and the practice. It also records partial cash payments, shows remaining balances and links lab expenses to treatments. It includes monthly, weekly and pending-payment reports, showing the balances owed to the dentist, the practice and the lab. Payments are distributed in cascade: first they cover the lab, then the dentist's balance and finally the practice's balance.",
+      "objective": "Build an internal tool that improves the financial management of a dentist working inside a shared practice.",
+      "features": [
+        "System login",
+        "Patient management",
+        "Treatments linked to patients",
+        "Partial payment records",
+        "Outstanding balance calculation",
+        "Lab expenses linked to treatments",
+        "Monthly reports",
+        "Weekly reports",
+        "Pending payments report",
+        "Cascade payment distribution"
+      ],
+      "learnings": [
+        "Modeling real-world data",
+        "Applying business rules",
+        "Calculating balances and percentages",
+        "Building financial reports",
+        "Organizing a full stack application"
+      ],
+      "demoLabel": "See it working"
+    },
+    "presupuestos-vidrieria": {
+      "title": "Quoting System for a Glass Shop",
+      "short": "Web app to calculate, save and send glass quotes based on dimensions, thickness, glass type and surface area.",
+      "long": "Web system built for a glass shop, designed to automate quote calculation based on dimensions, thickness, glass type and surface area. Quotes can be saved to a list, reviewed later and sent over WhatsApp. The backend has a modular structure that separates controllers, routes, models and middlewares for more maintainable and scalable code. It also includes authentication with JWT and bcrypt to protect access to the system.",
+      "objective": "Automate quote calculation for a glass shop and make it easier to organize and communicate with customers.",
+      "features": [
+        "Quote calculation from dimensions",
+        "Thickness and glass type selection",
+        "Surface-based calculation",
+        "Saving quotes",
+        "List of saved quotes",
+        "Sending quotes over WhatsApp",
+        "User login",
+        "JWT authentication"
+      ],
+      "learnings": [
+        "Modular backend structure",
+        "Connecting React to a REST API",
+        "Using MongoDB for persistence",
+        "Implementing secure authentication",
+        "Building a solution for a real business"
+      ],
+      "demoLabel": "See it working"
+    },
+    "api-ecommerce": {
+      "title": "E-commerce Backend API",
+      "short": "REST API to manage users, products and orders in an e-commerce, with JWT authentication, roles, validations and automated tests.",
+      "long": "Backend system built to manage an e-commerce, handling users, products and orders through a REST API built with Node.js, Express and MongoDB. It includes sign-up and login, JWT authentication, password hashing with bcrypt and role-based authorization. Administrators can manage products, users and orders, while customers can place orders and check their history. The project is organized in layers, separating controllers, routes, models, middlewares, configuration and tests. It also has a separate testing database and 24 automated tests with Jest and Supertest.",
+      "objective": "Build a robust REST API for an e-commerce, applying secure authentication, role-based authorization, MongoDB persistence, validations, error handling and automated testing.",
+      "features": [
+        "User registration",
+        "Login with JWT",
+        "Password hashing with bcrypt",
+        "Role-based permission control",
+        "Product CRUD",
+        "Product soft delete",
+        "Order creation",
+        "Automatic stock deduction",
+        "Orders listed per user",
+        "Automated tests with Jest and Supertest"
+      ],
+      "learnings": [
+        "Designing REST APIs with Express",
+        "Layered backend architecture",
+        "Authentication and authorization with JWT",
+        "Request validation",
+        "Endpoint testing",
+        "Handling business rules such as stock and orders"
+      ],
+      "demoLabel": "See documentation"
+    },
+    "turnos-psiquiatria": {
+      "title": "Appointment System for a Psychiatry Practice",
+      "short": "Web system to create, search and manage medical appointments, with login, advanced filters and patient status tracking.",
+      "long": "Web system built to manage a psychiatrist's appointments, letting her add patients and organize visits from a simple, functional interface. Appointments are recorded with data such as patient name, ID number, claim number, date and time. A side list shows the loaded appointments and can be filtered by name, ID, claim number, exact date or date ranges. Each appointment changes status as it is followed up: to be notified, notified, attended or absent. Access is protected by login with JWT authentication and bcrypt-hashed passwords.",
+      "objective": "Create a secure, practical web tool to record, search and control medical appointments.",
+      "features": [
+        "User login",
+        "Medical appointment entry",
+        "Name, ID and claim number records",
+        "Date and time records",
+        "Side list of appointments",
+        "Filter by name",
+        "Filter by ID",
+        "Filter by claim number",
+        "Filter by exact date",
+        "Filter by date range",
+        "Appointment status changes"
+      ],
+      "learnings": [
+        "Building CRUD systems",
+        "Implementing login with JWT",
+        "Filtering by multiple criteria",
+        "Status management",
+        "Designing administrative interfaces"
+      ],
+      "demoLabel": "See it working"
+    },
+    "landing-vidrieria": {
+      "title": "Landing Page for Villarroel Glass Shop",
+      "short": "Commercial landing page for a glass shop, with an inquiry form and an admin panel to view quote requests.",
+      "long": "Website built for a glass shop, focused on presenting its services, capturing inquiries from potential customers and making quote requests easy from a modern, responsive landing page. The project includes a backend with Node.js, Express and MongoDB to store the inquiries sent from the form. It also has an admin section where the business can see the requests received and manage contact with customers more effectively.",
+      "objective": "Create a professional digital presence for a glass shop, showcasing its services, attracting interested customers and centralizing inquiries in an admin panel.",
+      "features": [
+        "Commercial landing page",
+        "Responsive design",
+        "Informational service sections",
+        "Quote request form",
+        "Inquiries stored in MongoDB",
+        "Admin panel to view inquiries",
+        "Modular architecture"
+      ],
+      "learnings": [
+        "Building landing pages with React",
+        "Using Bootstrap",
+        "Connecting forms to a REST API",
+        "Data persistence in MongoDB",
+        "Building simple admin panels"
+      ],
+      "demoLabel": "See demo"
+    },
+    "control-habitos": {
+      "title": "Habit Tracking App",
+      "short": "Web app to log personal consumption, with user login, notes, exact-time history and monthly reports.",
+      "long": "Web app built as a personal tool to log and track cigarette or tobacco consumption. Different users can sign in and keep their own separate records. The app has a main button to quickly add a record. When logging, the user can choose tobacco or cigarette, add notes, and the exact time is saved automatically. It also includes a reports section where the amount logged per month can be checked and the total reviewed by label or category.",
+      "objective": "Create a simple, functional app to log personal consumption, view the daily history and get monthly reports.",
+      "features": [
+        "User login",
+        "Data separated per user",
+        "Quick consumption logging",
+        "Choice between tobacco or cigarette",
+        "Notes per record",
+        "Exact time saved",
+        "Individual history",
+        "Monthly reports",
+        "Count by label or category"
+      ],
+      "learnings": [
+        "Building a functional personal app",
+        "Quick event logging",
+        "Handling exact dates and times",
+        "Classifying records by type",
+        "Creating monthly reports"
+      ],
+      "demoLabel": "See app"
+    },
+    "landing-semillas": {
+      "title": "Landing Page for a Seed Shop",
+      "short": "Aesthetic landing page mockup for a seed shop, built with basic HTML and CSS.",
+      "long": "Web mockup built as a landing page for a seed shop, focused mainly on aesthetics, visual identity and commercial presentation. The project was made with basic HTML and CSS, with no dynamic features or backend connection. Its main goal was to practice web layout, visual organization of content, typographic hierarchy, use of color, commercial sections and the overall composition of a presentation page.",
+      "objective": "Design a visually appealing landing page to practice web layout, HTML structure, CSS styling and the commercial presentation of a brand.",
+      "features": [
+        "Landing-style home page",
+        "Main presentation section",
+        "Visual blocks for products or categories",
+        "Brand-oriented aesthetic design",
+        "Well-organized HTML structure",
+        "Custom styles with CSS",
+        "Basic layout without frameworks"
+      ],
+      "learnings": [
+        "Semantic HTML structure",
+        "Using CSS for visual design",
+        "Organizing a landing page",
+        "Handling colors, spacing and typography",
+        "Practicing design without frameworks"
+      ],
+      "demoLabel": "See mockup"
+    }
+  }
+}

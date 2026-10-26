@@ -3,7 +3,7 @@ import SectionTitle from "../../components/SectionTitle/SectionTitle";
 import ProyectoCard from "../../components/ProyectoCard/ProyectoCard";
 import ProyectoModal from "../../components/ProyectoModal/ProyectoModal";
 import SeccionAnimada from "../../components/SeccionAnimada/SeccionAnimada";
-import { proyectos } from "../../data/proyectos";
+import { proyectos } from "../../content/legacy";
 import "./Proyectos.css";
 
 const ANCHO_SLOT_POR_DEFECTO = 560;

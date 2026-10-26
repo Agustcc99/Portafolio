@@ -1,13 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { MessageCircle, ArrowUpRight } from "lucide-react";
+import { site, emailUrl } from "../../config/site";
 import PortalParticles from "./PortalParticles";
 import "./ContactPortal.css";
 
-// Enlaces reales ya existentes en el portfolio (no se inventan datos nuevos).
-const WHATSAPP_URL = "https://wa.me/543516813599";
-const EMAIL_URL =
-  "mailto:Pupitacconi@gmail.com?subject=Contacto%20desde%20tu%20portafolio&body=Hola%20Agust%C3%ADn%2C%20vi%20tu%20portafolio%20y%20quer%C3%ADa%20contactarte.";
-const GITHUB_URL = "https://github.com/Agustcc99?tab=repositories";
+// Enlaces centralizados en config/site.ts.
+const WHATSAPP_URL = site.whatsapp;
+const EMAIL_URL = emailUrl(
+  "Contacto desde tu portafolio",
+  "Hola Agustín, vi tu portafolio y quería contactarte."
+);
+const GITHUB_URL = site.github;
 
 const WORDS = ["IDEA", "COLABORACIÓN", "OPORTUNIDAD", "CONSULTA", "DESARROLLO"];
 // Ángulos por palabra (mismo orden que WORDS). Se evita el tramo cercano a -90°

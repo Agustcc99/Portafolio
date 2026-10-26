@@ -1,0 +1,44 @@
+{
+  "hero": {
+    "badge": "Desarrollador Web en formación",
+    "title": "Creo interfaces modernas, funcionales y pensadas para proyectos reales.",
+    "text": "Soy Agustín Tacconi, desarrollador web y gastronómico profesional. Me interesa crear soluciones útiles para problemas reales, combinando lógica, diseño y una forma de trabajo ordenada.",
+    "ctaProjects": "Ver proyectos",
+    "ctaContact": "Contactarme"
+  },
+  "about": {
+    "title": "Un perfil técnico con mirada práctica",
+    "description": "Me interesa desarrollar soluciones útiles, bien organizadas y pensadas para problemas reales.",
+    "who": {
+      "title": "Quién soy",
+      "text": "Soy Agustín Tacconi, desarrollador web y gastronómico profesional. Hace 2 años vengo creando proyectos con JavaScript, React, Node y MongoDB. Me interesa construir soluciones útiles para problemas reales, combinando lógica, diseño y una mirada práctica."
+    },
+    "seek": {
+      "title": "Qué busco",
+      "text": "Busco adentrarme en el mundo profesional del desarrollo web, participar en proyectos reales y seguir creciendo como desarrollador. No me cierro a una sola área: me interesa el frontend, el backend y seguir formándome en herramientas como AWS. Me motivan tanto las tareas simples como los desafíos que me obligan a mejorar."
+    },
+    "how": {
+      "title": "Cómo trabajo",
+      "text": "Trabajo de forma ordenada, responsable y paso a paso. Primero busco entender bien el problema, dividirlo en partes simples y mantener una estructura clara en carpetas, componentes y funciones. Cuando aparece un error, investigo, pruebo alternativas y pido ayuda si hace falta. Me adapto tanto al trabajo individual como al trabajo en equipo."
+    }
+  },
+  "projects": {
+    "title": "Trabajos para mostrar mi evolución",
+    "description": "Una selección de proyectos académicos, personales y prácticos orientados a resolver problemas reales.",
+    "previous": "Proyecto anterior",
+    "next": "Siguiente proyecto",
+    "goTo": "Ir al proyecto {{n}}: {{title}}"
+  },
+  "tech": {
+    "title": "Cómo construyo una aplicación completa",
+    "description": "Herramientas y tecnologías que conecto para desarrollar interfaces, APIs, bases de datos y sistemas utilizables.",
+    "summary": "Hace 2 años combino estas herramientas para construir aplicaciones completas, de la interfaz a la base de datos.",
+    "mapLabel": "Mapa de arquitectura técnica"
+  },
+  "contact": {
+    "title": "¿Trabajamos juntos?",
+    "words": ["IDEA", "COLABORACIÓN", "OPORTUNIDAD", "CONSULTA", "DESARROLLO"],
+    "emailSubject": "Contacto desde tu portafolio",
+    "emailBody": "Hola Agustín, vi tu portafolio y quería contactarte."
+  }
+}

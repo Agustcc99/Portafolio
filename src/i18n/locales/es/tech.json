@@ -1,0 +1,201 @@
+{
+  "categories": {
+    "interface": {
+      "name": "Interfaz",
+      "description": "Interfaces responsive, componentes reutilizables, formularios, rutas y consumo de APIs."
+    },
+    "logic": {
+      "name": "Lógica y servicios",
+      "description": "APIs REST, autenticación, validaciones, permisos y lógica de negocio."
+    },
+    "data": {
+      "name": "Datos",
+      "description": "Modelado, relaciones, consultas y persistencia de información."
+    },
+    "delivery": {
+      "name": "Herramientas y entrega",
+      "description": "Control de versiones, pruebas de endpoints, contenedores y despliegue."
+    }
+  },
+  "levels": {
+    "main": {
+      "label": "Uso principal"
+    },
+    "projects": {
+      "label": "Utilizado en proyectos"
+    },
+    "learning": {
+      "label": "En aprendizaje"
+    }
+  },
+  "items": {
+    "html": {
+      "usedFor": [
+        "Estructura semántica de páginas"
+      ],
+      "features": [
+        "Estructura HTML organizada",
+        "Maquetación de secciones comerciales"
+      ]
+    },
+    "css": {
+      "usedFor": [
+        "Estilos visuales, layout y responsive"
+      ],
+      "features": [
+        "Diseño estético orientado a marca",
+        "Manejo de colores, espaciados y tipografías"
+      ]
+    },
+    "javascript": {
+      "usedFor": [
+        "Lógica de interfaz",
+        "Consumo de APIs",
+        "Validaciones en frontend"
+      ],
+      "features": [
+        "Interacción de usuario",
+        "Manejo de estado y eventos"
+      ]
+    },
+    "react": {
+      "usedFor": [
+        "Interfaces basadas en componentes",
+        "Rutas y consumo de APIs"
+      ],
+      "features": [
+        "Componentes reutilizables",
+        "Formularios controlados"
+      ]
+    },
+    "vite": {
+      "usedFor": [
+        "Entorno de desarrollo y build de aplicaciones React"
+      ],
+      "features": [
+        "Servidor de desarrollo rápido",
+        "Build optimizado para producción"
+      ]
+    },
+    "bootstrap": {
+      "usedFor": [
+        "Maquetación rápida y componentes UI"
+      ],
+      "features": [
+        "Grillas responsive",
+        "Componentes de formulario"
+      ]
+    },
+    "nodejs": {
+      "usedFor": [
+        "Entorno de ejecución del backend"
+      ],
+      "features": [
+        "APIs REST",
+        "Procesos del servidor"
+      ]
+    },
+    "express": {
+      "usedFor": [
+        "Construcción de APIs REST",
+        "Ruteo y middlewares"
+      ],
+      "features": [
+        "Rutas y controladores",
+        "Middlewares de autenticación y validación"
+      ]
+    },
+    "java": {
+      "usedFor": [
+        "Programación orientada a objetos",
+        "Desarrollo de apps en Android Studio (facultad)"
+      ],
+      "features": []
+    },
+    "springboot": {
+      "usedFor": [
+        "Construcción de APIs en Java"
+      ],
+      "features": [
+        "CRUD básico"
+      ]
+    },
+    "jwt": {
+      "usedFor": [
+        "Autenticación y sesiones sin estado"
+      ],
+      "features": [
+        "Login de usuarios",
+        "Roles y permisos"
+      ]
+    },
+    "mysql": {
+      "usedFor": [
+        "Bases de datos relacionales (lo básico)",
+        "Actualmente en uso en un proyecto en desarrollo"
+      ],
+      "features": []
+    },
+    "mongodb": {
+      "usedFor": [
+        "Persistencia de datos no relacional"
+      ],
+      "features": [
+        "Modelado con Mongoose",
+        "Consultas y relaciones entre colecciones"
+      ]
+    },
+    "git": {
+      "usedFor": [
+        "Control de versiones"
+      ],
+      "features": [
+        "Historial de cambios",
+        "Ramas de trabajo"
+      ]
+    },
+    "github": {
+      "usedFor": [
+        "Alojamiento de repositorios"
+      ],
+      "features": [
+        "Repositorio público por proyecto"
+      ]
+    },
+    "docker": {
+      "usedFor": [
+        "Contenedores para entornos reproducibles"
+      ],
+      "features": []
+    },
+    "postman": {
+      "usedFor": [
+        "Pruebas manuales de endpoints REST en casi todos los proyectos con API"
+      ],
+      "features": [
+        "Verificación de rutas y respuestas de API"
+      ]
+    },
+    "jest": {
+      "usedFor": [
+        "Testing automatizado de APIs REST"
+      ],
+      "features": [
+        "Tests automatizados con Jest y Supertest"
+      ]
+    },
+    "junit": {
+      "usedFor": [
+        "Testing unitario en aplicaciones Java"
+      ],
+      "features": []
+    },
+    "aws": {
+      "usedFor": [
+        "Materia cursada en la facultad",
+        "Sabría diseñar una infraestructura básica"
+      ],
+      "features": []
+    }
+  }
+}

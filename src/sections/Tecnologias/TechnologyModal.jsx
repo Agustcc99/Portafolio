@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { NIVELES_TECNICOS, TECNOLOGIAS_INFO } from "../../data/tecnologias";
-import { proyectos } from "../../data/proyectos";
+import { NIVELES_TECNICOS, TECNOLOGIAS_INFO } from "../../content/legacy";
+import { proyectos } from "../../content/legacy";
 import "./TechnologyModal.css";
 
 const DURACION_CIERRE_MS = 220;

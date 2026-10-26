@@ -1,0 +1,17 @@
+{
+  "home": {
+    "title": "Agustín Tacconi — Desarrollador web full stack",
+    "description": "Portafolio de Agustín Tacconi: desarrollador web con React, Node y MongoDB. Proyectos reales, código y contacto."
+  },
+  "projects": {
+    "title": "Proyectos — Agustín Tacconi",
+    "description": "Proyectos de desarrollo web full stack, backend y maquetación de Agustín Tacconi."
+  },
+  "project": {
+    "title": "{{title}} — Agustín Tacconi"
+  },
+  "notFound": {
+    "title": "Página no encontrada — Agustín Tacconi",
+    "description": "La página que buscás no existe."
+  }
+}
