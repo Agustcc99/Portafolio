@@ -57,13 +57,15 @@
     "pagination": "Paginación del carrusel"
   },
   "tech": {
-    "title": "Cómo construyo una aplicación completa",
+    "label": "Tecnologías",
+    "title": "Cómo construyo una <em>aplicación completa</em>",
     "description": "Herramientas y tecnologías que conecto para desarrollar interfaces, APIs, bases de datos y sistemas utilizables.",
     "summary": "Hace 2 años combino estas herramientas para construir aplicaciones completas, de la interfaz a la base de datos.",
     "mapLabel": "Mapa de arquitectura técnica"
   },
   "contact": {
-    "title": "¿Trabajamos juntos?",
+    "label": "Contacto",
+    "title": "¿Trabajamos <em>juntos</em>?",
     "words": [
       "IDEA",
       "COLABORACIÓN",
@@ -71,7 +73,17 @@
       "CONSULTA",
       "DESARROLLO"
     ],
-    "emailSubject": "Contacto desde tu portafolio",
-    "emailBody": "Hola Agustín, vi tu portafolio y quería contactarte."
+    "portalLabel": "Portal de contacto",
+    "whatsappIdle": "Iniciar conversación",
+    "whatsappOpen": "Abrir WhatsApp",
+    "whatsappOpening": "Abriendo conversación…",
+    "whatsappAria": "Iniciar conversación por WhatsApp con Agustín Tacconi (se abre en una pestaña nueva)",
+    "support": "Estoy abierto a oportunidades, proyectos y colaboraciones donde pueda seguir creciendo.",
+    "actionsLabel": "Otras formas de contacto",
+    "copyEmail": "Copiar email",
+    "copied": "Email copiado",
+    "copyFailed": "No se pudo copiar el email",
+    "githubAria": "Ver el perfil de GitHub de Agustín Tacconi (se abre en una pestaña nueva)",
+    "linkedinAria": "Ver el perfil de LinkedIn de Agustín Tacconi (se abre en una pestaña nueva)"
   }
 }

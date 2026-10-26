@@ -171,8 +171,8 @@
   scroll-behavior: auto !important;
 }
 
-/* ── Lightbox de proyectos (<dialog>): fundido de entrada y salida ─────── */
-.lightbox-dialog {
+/* ── Diálogos (<dialog>, ui/Dialog): fundido de entrada y salida ─────── */
+.dialog-fade {
   opacity: 0;
   transition:
     opacity var(--duration-base) var(--ease-out-expo),
@@ -180,18 +180,32 @@
     display var(--duration-base) allow-discrete;
 }
 
-.lightbox-dialog[open] {
+.dialog-fade[open] {
   opacity: 1;
 }
 
 @starting-style {
-  .lightbox-dialog[open] {
+  .dialog-fade[open] {
     opacity: 0;
   }
 }
 
-.lightbox-dialog::backdrop {
+.dialog-fade::backdrop {
   background: transparent;
+}
+
+/* Panel que sube y se asienta dentro de un diálogo centrado (ficha de tecnología). */
+.dialog-panel {
+  transform: translateY(14px) scale(0.98);
+  transition: transform var(--duration-base) var(--ease-out-expo);
+}
+.dialog-fade[open] .dialog-panel {
+  transform: none;
+}
+@starting-style {
+  .dialog-fade[open] .dialog-panel {
+    transform: translateY(14px) scale(0.98);
+  }
 }
 
 /* ── Transición compartida de portada (portada de tarjeta ↔ hero del detalle) ─

@@ -1,15 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import { About } from '../sections/About/About'
-import Contacto from '../sections/Contacto/Contacto'
+import { Contact } from '../sections/Contact/Contact'
 import { Hero } from '../sections/Hero/Hero'
 import { Projects } from '../sections/Projects/Projects'
-import Tecnologias from '../sections/Tecnologias/Tecnologias'
+import { Technologies } from '../sections/Technologies/Technologies'
 
-/**
- * Navbar, pie, fondo y scroll viven en `LocaleLayout`. Hero, Sobre mí y Proyectos ya usan el sistema
- * nuevo (ES/EN); Tecnologías y Contacto siguen siendo el diseño anterior, en español, dentro
- * de `legacy-shell` hasta las Fases 8–9.
- */
+/** Navbar, pie, fondo y scroll viven en `LocaleLayout`; acá solo las cinco secciones del home. */
 export default function HomePage() {
   const { t } = useTranslation('seo')
 
@@ -20,12 +16,8 @@ export default function HomePage() {
       <Hero />
       <About />
       <Projects />
-      <div className="legacy-shell">
-        <div className="legacy-shell__inner">
-          <Tecnologias />
-          <Contacto />
-        </div>
-      </div>
+      <Technologies />
+      <Contact />
     </main>
   )
 }

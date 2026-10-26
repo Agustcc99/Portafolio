@@ -513,18 +513,22 @@ Regla de escalado: el carrusel muestra hasta 7 destacados; el índice `/proyecto
 
 ### Fase 8 — Tecnologías
 **Tareas**
-- [ ] `TechMap` con nodos/conectores del nuevo sistema; dibujo de conectores en scroll; orden mobile.
-- [ ] `TechDialog` sobre `<dialog>`; enlaces a proyectos.
-- [ ] Decidir y, si corresponde, integrar íconos de marca (tree-shaken).
+- [x] `TechMap` con nodos/conectores del nuevo sistema; dibujo de conectores en scroll; orden mobile.
+- [x] `TechDialog` sobre `<dialog>`; enlaces a proyectos.
+- [x] Decidir y, si corresponde, integrar íconos de marca (tree-shaken).
 
-**Criterio de salida:** todas las tecnologías abren su ficha con foco correcto y Escape; sin regresiones de datos respecto de `tecnologias.js`.
+> **Hecho (2026-10-26):** `components/tech/` (`TechMap` +css, `TechNode`, `TechConnectors`, `TechDialog`), `sections/Technologies/Technologies.tsx` (`id="tech"`, sección 03) y el primitivo `ui/Dialog` (`<dialog>` nativo + bloqueo de scroll con Lenis + fundido), que ahora también usa el `Lightbox`. Los conectores son SVG que se dibujan una vez al entrar en pantalla, se iluminan con hover/foco de cualquiera de sus dos categorías y reciben un único pulso a los 2 s. La ficha muestra nivel (marcador de 3 pasos), «utilizado para», funcionalidades y proyectos que enlazan a su detalle. **Íconos de marca: no se integran** (ver SEGUIMIENTO §4).
+
+**Criterio de salida:** todas las tecnologías abren su ficha con foco correcto y Escape; sin regresiones de datos respecto de `tecnologias.js`. ✅ *(técnicamente; falta tu revisión visual del movimiento de los conectores)*
 
 ### Fase 9 — Contacto
 **Tareas**
-- [ ] Refactor de `ContactPortal` (§6.6): tokens/tema, loop único, traducción del texto curvado, fallback de movimiento reducido.
-- [ ] `CopyEmail` + `Toast`; enlaces desde `config/site.ts`.
+- [x] Refactor de `ContactPortal` (§6.6): tokens/tema, loop único, traducción del texto curvado, fallback de movimiento reducido.
+- [x] `CopyEmail` + `Toast`; enlaces desde `config/site.ts`.
 
-**Criterio de salida:** CTA a WhatsApp funcional en mobile y desktop; portal fluido en mobile emulado; reduced-motion verificado.
+> **Hecho (2026-10-26):** `components/contact/` (`ContactPortal` +css, `particleField`, `CopyEmail`), `ToastProvider` + `useToast`, `sections/Contact/Contact.tsx` (`id="contact"`, sección 04). Un solo bucle `requestAnimationFrame` actualiza líneas, palabras, halo y partículas (pausado fuera de pantalla y con la pestaña oculta); los colores salen de los tokens (un solo acento) y las partículas releen `--accent-text` al cambiar de tema; partículas escaladas por dispositivo (28 / 12 táctil, ×0.6 en equipos modestos); con movimiento reducido (sistema o interruptor) queda una versión estática con el mismo botón. Textos y palabras en ES/EN. Se eliminó todo el diseño anterior (`styles/legacy.css`, `.legacy-shell`, `content/legacy.ts`, `SeccionAnimada`, `SectionTitle`).
+
+**Criterio de salida:** CTA a WhatsApp funcional en mobile y desktop; portal fluido en mobile emulado; reduced-motion verificado. ✅ *(técnicamente; la fluidez a 60 fps y el enlace real a WhatsApp conviene que los veas en un navegador y un teléfono)*
 
 ### Fase 10 — Pulido de movimiento
 **Tareas**

@@ -1,0 +1,473 @@
+/*
+ * Portal de contacto. Vive en CSS porque depende de variables que actualiza el bucle de
+ * ContactPortal (--cp-open / --cp-proximity), de capas apiladas y de animaciones continuas.
+ * Todos los colores salen de los tokens de index.css, así que responde al tema sin cambios.
+ * Un solo acento: halo, anillos, líneas y partículas son lima (--accent / --accent-text).
+ */
+.contact-portal {
+  --cp-accent: var(--accent);
+  --cp-accent-text: var(--accent-text);
+  position: relative;
+  padding-bottom: 1rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+  isolation: isolate;
+}
+
+/* Capa de fondo: resplandor ambiental sin bordes duros (máscara elíptica hacia los 4 lados). */
+.contact-portal__field {
+  position: absolute;
+  inset: -4rem 0 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(
+      circle at 28% 40%,
+      color-mix(in srgb, var(--cp-accent) calc((6 + var(--cp-proximity, 0) * 8) * 1%), transparent),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 50% 50%,
+      color-mix(in srgb, var(--cp-accent) calc((3 + var(--cp-open, 0) * 9) * 1%), transparent),
+      transparent 64%
+    );
+
+  mask-image: radial-gradient(ellipse 55% 60% at 50% 45%, black 25%, transparent 100%);
+}
+
+.contact-portal--clicking .contact-portal__field {
+  animation: contact-portal-field-contract 480ms ease-out;
+}
+
+/* ── Escenario circular: contiene el portal, las líneas, las palabras y las partículas ── */
+.contact-portal__stage {
+  position: relative;
+  z-index: 1;
+  width: min(88vw, 620px);
+  aspect-ratio: 1 / 1;
+  margin: 4px auto 8px;
+}
+
+/* Líneas de energía: apuntan al centro y convergen con la cercanía del puntero. */
+.contact-portal__lines {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.contact-portal__lines line {
+  stroke: var(--cp-accent-text);
+  stroke-width: 0.5;
+  stroke-linecap: round;
+}
+
+/* Palabras flotantes (traducidas): por encima del halo y los anillos para que no las tapen. */
+.contact-portal__words {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-in-out-soft);
+}
+
+.contact-portal--entered .contact-portal__words {
+  opacity: 1;
+  transition-delay: 620ms;
+}
+
+.contact-portal__word {
+  position: absolute;
+  transform: translate(-50%, -50%);
+
+  color: var(--text-strong);
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1.6vw, 12px);
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.contact-portal__particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.contact-portal__particles canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── El portal: núcleo, anillos y halo ── */
+.contact-portal__portal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  width: 60%;
+  aspect-ratio: 1 / 1;
+
+  transform: translate(-50%, -50%) scale(calc(1 + var(--cp-open, 0) * 0.14));
+  transition: transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.contact-portal--clicking .contact-portal__portal {
+  animation: contact-portal-rings-expand 480ms ease-out;
+}
+
+/* Halo: resplandor ambiental con radio acotado para no alcanzar a las palabras exteriores. */
+.contact-portal__halo {
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  pointer-events: none;
+
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--cp-accent) 26%, transparent),
+    color-mix(in srgb, var(--cp-accent) 10%, transparent) 45%,
+    transparent 72%
+  );
+  filter: blur(1px);
+
+  opacity: calc(0.32 + var(--cp-open, 0) * 0.5);
+  transition: opacity 0.5s ease;
+}
+
+.contact-portal__ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-in-out-soft);
+}
+
+.contact-portal--entered .contact-portal__ring--outer {
+  opacity: 1;
+  transition-delay: 240ms;
+}
+
+.contact-portal--entered .contact-portal__ring--inner {
+  opacity: 1;
+  transition-delay: 360ms;
+}
+
+/* Anillo exterior: rota lento, en sentido contrario al interior. */
+.contact-portal__ring--outer {
+  border: 1.5px solid color-mix(in srgb, var(--cp-accent-text) 30%, transparent);
+  border-top-color: color-mix(in srgb, var(--cp-accent-text) 6%, transparent);
+  border-right-color: color-mix(in srgb, var(--cp-accent-text) 65%, transparent);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--cp-accent) 14%, transparent);
+  animation: contact-portal-spin 30s linear infinite;
+}
+
+/* Anillo interior: con pequeños cortes, rota al revés. */
+.contact-portal__ring--inner {
+  inset: 12%;
+  border: 2px solid color-mix(in srgb, var(--cp-accent-text) 50%, transparent);
+  border-bottom-color: color-mix(in srgb, var(--cp-accent-text) 8%, transparent);
+  border-left-color: color-mix(in srgb, var(--cp-accent-text) 70%, transparent);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--cp-accent) 18%, transparent);
+  animation: contact-portal-spin-reverse 17s linear infinite;
+}
+
+/* Onda expansiva: solo visible durante el clic. */
+.contact-portal__wave {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--cp-accent-text) 60%, transparent);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.contact-portal--clicking .contact-portal__wave {
+  animation: contact-portal-wave 480ms ease-out;
+}
+
+/* Núcleo: profundidad con gradientes sobre las superficies del tema, nunca un botón plano. */
+.contact-portal__core {
+  position: absolute;
+  inset: 21%;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  isolation: isolate;
+
+  background:
+    radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--cp-accent) 16%, transparent), transparent 60%),
+    radial-gradient(circle, var(--surface-1) 0%, var(--bg) 100%);
+  border: 1px solid var(--line);
+  box-shadow:
+    inset 0 0 42px color-mix(in srgb, var(--text-strong) 14%, transparent),
+    inset 0 0 20px color-mix(in srgb, var(--cp-accent) 12%, transparent),
+    0 0 32px color-mix(in srgb, var(--cp-accent) 14%, transparent);
+
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-in-out-soft);
+}
+
+.contact-portal--entered .contact-portal__core {
+  opacity: 1;
+  transition-delay: 120ms;
+}
+
+.contact-portal--clicking .contact-portal__core {
+  animation: contact-portal-core-compress 480ms ease-out;
+}
+
+.contact-portal__core::after {
+  content: '';
+  position: absolute;
+  inset: 15%;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--bg) 90%, transparent), transparent 70%);
+  pointer-events: none;
+
+  opacity: calc(var(--cp-open, 0) * 0.85);
+  transition: opacity 0.45s ease;
+}
+
+/* Botón: contorno de acento en reposo; relleno lima cuando el portal se abre. */
+.contact-portal__button {
+  position: relative;
+  z-index: 2;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-width: 44px;
+  min-height: 44px;
+  padding: 14px 22px;
+
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--cp-accent-text) 55%, transparent);
+  background: color-mix(in srgb, var(--cp-accent) 14%, transparent);
+
+  color: var(--text-strong);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: clamp(12.5px, 2.4vw, 14.5px);
+
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.contact-portal__button[data-state='open'],
+.contact-portal__button:focus-visible {
+  border-color: var(--cp-accent);
+  background: var(--cp-accent);
+  color: var(--accent-ink);
+  box-shadow: 0 0 36px color-mix(in srgb, var(--cp-accent) 45%, transparent);
+}
+
+.contact-portal__button-label {
+  position: relative;
+  display: inline-grid;
+}
+
+.contact-portal__button-text {
+  grid-area: 1 / 1;
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.25s ease;
+}
+
+.contact-portal__button-text--idle {
+  opacity: 1;
+}
+
+.contact-portal__button[data-state='open'] .contact-portal__button-text--idle {
+  opacity: 0;
+}
+
+.contact-portal__button[data-state='open'] .contact-portal__button-text--open {
+  opacity: 1;
+}
+
+.contact-portal--clicking .contact-portal__button-text--idle,
+.contact-portal--clicking .contact-portal__button-text--open {
+  opacity: 0;
+}
+
+.contact-portal--clicking .contact-portal__button-text--clicking {
+  opacity: 1;
+}
+
+.contact-portal__button-icon {
+  opacity: 0.6;
+  transform: scale(0.9);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.contact-portal__button[data-state='open'] .contact-portal__button-icon {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+/* Accesibilidad: el foco por teclado abre el portal igual que la cercanía del puntero. */
+.contact-portal__portal:has(.contact-portal__button:focus-visible) .contact-portal__halo {
+  opacity: 0.82;
+}
+
+.contact-portal__portal:has(.contact-portal__button:focus-visible) {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.contact-portal__support {
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  margin: 18px auto 0;
+
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity var(--duration-slow) var(--ease-in-out-soft),
+    transform var(--duration-slow) var(--ease-out-expo);
+  transition-delay: 760ms;
+}
+
+.contact-portal--entered .contact-portal__support {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Animaciones ── */
+@keyframes contact-portal-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes contact-portal-spin-reverse {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+@keyframes contact-portal-wave {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+@keyframes contact-portal-core-compress {
+  0% {
+    transform: scale(1);
+  }
+  22% {
+    transform: scale(0.88);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes contact-portal-rings-expand {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  35% {
+    transform: translate(-50%, -50%) scale(1.22);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+@keyframes contact-portal-field-contract {
+  0% {
+    filter: brightness(1);
+  }
+  35% {
+    filter: brightness(1.2);
+  }
+  100% {
+    filter: brightness(1);
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .contact-portal__stage {
+    width: min(92vw, 420px);
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-portal__stage {
+    width: min(94vw, 300px);
+  }
+
+  .contact-portal__word {
+    font-size: 9px;
+  }
+}
+
+/* ── Movimiento reducido (sistema o interruptor manual → data-reduced): versión estática ── */
+.contact-portal[data-reduced] .contact-portal__ring--outer,
+.contact-portal[data-reduced] .contact-portal__ring--inner {
+  animation: none;
+}
+
+.contact-portal[data-reduced] .contact-portal__portal,
+.contact-portal[data-reduced] .contact-portal__halo,
+.contact-portal[data-reduced] .contact-portal__core::after {
+  transition: none;
+}
+
+.contact-portal[data-reduced] .contact-portal__words,
+.contact-portal[data-reduced] .contact-portal__ring,
+.contact-portal[data-reduced] .contact-portal__core,
+.contact-portal[data-reduced] .contact-portal__support {
+  opacity: 1;
+  transform: none;
+  transition: none;
+}
+
+.contact-portal[data-reduced].contact-portal--clicking .contact-portal__field,
+.contact-portal[data-reduced].contact-portal--clicking .contact-portal__portal,
+.contact-portal[data-reduced].contact-portal--clicking .contact-portal__core {
+  animation: none;
+}
+
+.contact-portal[data-reduced].contact-portal--clicking .contact-portal__wave {
+  animation: contact-portal-wave-reduced 300ms ease-out;
+}
+
+@keyframes contact-portal-wave-reduced {
+  0% {
+    opacity: 0.6;
+  }
+  100% {
+    opacity: 0;
+  }
+}

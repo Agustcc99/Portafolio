@@ -9,7 +9,3 @@ export const site = {
   github: 'https://github.com/Agustcc99?tab=repositories',
   linkedin: null as string | null,
 }
-
-export function emailUrl(subject: string, body: string) {
-  return `mailto:${site.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-}

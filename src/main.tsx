@@ -3,13 +3,13 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 import './styles/index.css'
 import './styles/effects.css'
-import './styles/legacy.css'
 import App from './App'
 import { initI18n } from './i18n'
 import { detectLocale, isLocale } from './i18n/paths'
 import { MotionPrefsProvider } from './providers/MotionPrefsProvider'
 import { SmoothScrollProvider } from './providers/SmoothScrollProvider'
 import { ThemeProvider } from './providers/ThemeProvider'
+import { ToastProvider } from './providers/ToastProvider'
 
 const root = document.getElementById('root')
 if (!root) throw new Error('No se encontró #root')
@@ -24,9 +24,11 @@ initI18n(initialLocale).then(() => {
       <ThemeProvider>
         <MotionPrefsProvider>
           <SmoothScrollProvider>
-            <BrowserRouter>
-              <App />
-            </BrowserRouter>
+            <ToastProvider>
+              <BrowserRouter>
+                <App />
+              </BrowserRouter>
+            </ToastProvider>
           </SmoothScrollProvider>
         </MotionPrefsProvider>
       </ThemeProvider>

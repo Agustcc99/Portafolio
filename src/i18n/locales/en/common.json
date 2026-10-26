@@ -80,7 +80,10 @@
     "usedFor": "Used for",
     "features": "Features built",
     "projects": "Projects",
-    "closeDetail": "Close technology details"
+    "closeDetail": "Close technology details",
+    "level": "Level",
+    "openDetail": "View {{name}} details",
+    "viewProject": "View case"
   },
   "motion": {
     "label": "Animations",

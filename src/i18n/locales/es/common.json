@@ -80,7 +80,10 @@
     "usedFor": "Utilizado para",
     "features": "Funcionalidades desarrolladas",
     "projects": "Proyectos",
-    "closeDetail": "Cerrar detalle de tecnología"
+    "closeDetail": "Cerrar detalle de tecnología",
+    "level": "Nivel",
+    "openDetail": "Ver detalle de {{name}}",
+    "viewProject": "Ver caso"
   },
   "motion": {
     "label": "Animaciones",
