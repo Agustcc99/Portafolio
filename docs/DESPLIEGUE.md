@@ -114,8 +114,8 @@ El repo también despliega en Cloudflare Pages (convive con Vercel; cada platafo
 
 | Qué | Vercel | Cloudflare Pages |
 |---|---|---|
-| Redirect de `/` por cookie / idioma | `vercel.json` | `functions/index.js` |
-| Fallback SPA | `rewrites` en `vercel.json` | `public/_redirects` |
+| Redirect de `/` por cookie / idioma | `vercel.json` | `worker/index.js` (Workers) o `functions/index.js` (Pages) |
+| Fallback SPA | `rewrites` en `vercel.json` | `not_found_handling` en `wrangler.jsonc` (Pages lo hace por defecto) |
 | Headers de seguridad y caché | `headers` en `vercel.json` | `public/_headers` |
 | Versión de Node | Settings → General | `.node-version` (22.22.0) |
 
@@ -126,3 +126,5 @@ El repo también despliega en Cloudflare Pages (convive con Vercel; cada platafo
 5. Para que un `*.pages.dev` tenga canonical propio: variable `SITE_URL` en el entorno de Preview.
 
 Diferencia conocida: las rutas inexistentes (`/es/nada`) devuelven 200 con la SPA en Cloudflare, no 404.
+
+Si Cloudflare te propone `Deploy command: npx wrangler deploy` (Workers Builds), se usa `wrangler.jsonc` + `worker/`; `functions/` es solo para Pages clásico.
