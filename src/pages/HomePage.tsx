@@ -14,7 +14,7 @@ const Projects = lazy(() => loadProjects().then((m) => ({ default: m.Projects })
 const Technologies = lazy(() => loadTechnologies().then((m) => ({ default: m.Technologies })))
 const Contact = lazy(() => loadContact().then((m) => ({ default: m.Contact })))
 
-const sectionSpacing = 'py-[clamp(5rem,12vw,10rem)]'
+const sectionSpacing = 'py-[clamp(2rem,3vw,2.5rem)]'
 
 /** Navbar, pie, fondo y scroll viven en `LocaleLayout`; acá solo las cinco secciones del home. */
 export default function HomePage() {

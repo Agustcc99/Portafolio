@@ -25,7 +25,7 @@ export function About() {
   const accent = { em: <em className="font-serif font-normal text-accent-text" /> }
 
   return (
-    <section id="about" className="py-[clamp(5rem,12vw,10rem)]">
+    <section id="about" className="py-[clamp(2rem,3vw,2.5rem)]">
       <Container>
         <SectionHeading
           index="01"

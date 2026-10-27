@@ -107,3 +107,22 @@ git push origin main
 ```
 
 Con eso Vercel despliega Production desde `main`.
+
+## 7. Alternativa: Cloudflare Pages
+
+El repo también despliega en Cloudflare Pages (convive con Vercel; cada plataforma ignora los archivos de la otra).
+
+| Qué | Vercel | Cloudflare Pages |
+|---|---|---|
+| Redirect de `/` por cookie / idioma | `vercel.json` | `functions/index.js` |
+| Fallback SPA | `rewrites` en `vercel.json` | `public/_redirects` |
+| Headers de seguridad y caché | `headers` en `vercel.json` | `public/_headers` |
+| Versión de Node | Settings → General | `.node-version` (22.22.0) |
+
+1. Workers & Pages → Create → Pages → Connect to Git → `Agustcc99/Portafolio`.
+2. Build command `npm run build`, output directory `dist`.
+3. Custom domains → agregar `agusdev.com.ar` (con DNS en Cloudflare el proxy naranja funciona).
+4. Si cambiás los headers o la CSP en `vercel.json`, replicalos en `public/_headers`.
+5. Para que un `*.pages.dev` tenga canonical propio: variable `SITE_URL` en el entorno de Preview.
+
+Diferencia conocida: las rutas inexistentes (`/es/nada`) devuelven 200 con la SPA en Cloudflare, no 404.

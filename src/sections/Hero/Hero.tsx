@@ -52,7 +52,7 @@ export function Hero() {
       id="home"
       ref={root}
       data-hero={reduced ? undefined : 'pending'}
-      className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden pt-32 pb-28"
+      className="relative isolate flex min-h-svh flex-col justify-center overflow-hidden pt-32 pb-12"
     >
       <InteractiveHeroGrid />
 
