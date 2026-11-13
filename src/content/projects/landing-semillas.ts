@@ -2,8 +2,8 @@ import type { ProjectData } from './types'
 
 const project: ProjectData = {
   slug: 'landing-semillas',
-  order: 9,
-  featured: true,
+  order: 10,
+  featured: false,
   category: 'frontend',
   techs: ['html', 'css'],
   links: { demo: null, code: 'https://github.com/Agustcc99/Semishop' },
