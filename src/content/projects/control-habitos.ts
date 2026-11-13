@@ -2,7 +2,7 @@ import type { ProjectData } from './types'
 
 const project: ProjectData = {
   slug: 'control-habitos',
-  order: 6,
+  order: 8,
   featured: true,
   category: 'fullstack',
   techs: ['react', 'javascript', 'bootstrap', 'nodejs', 'express', 'mongodb', 'mongoose', 'jwt', 'bcrypt'],

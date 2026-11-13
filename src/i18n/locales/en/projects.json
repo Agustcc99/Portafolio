@@ -179,6 +179,69 @@
         "Practicing design without frameworks"
       ],
       "demoLabel": "See mockup"
+    },
+    "rachagym": {
+      "title": "RachaGym – Workout Tracking App",
+      "short": "Web app to log the days you train each week and hit a weekly goal, with invite-only access, an admin panel and password recovery by email.",
+      "long": "Full stack web app to keep track of workouts week by week. Each user sets a goal of days (from 1 to 7) and marks the days they train; a progress ring shows how much is left, and marking a day triggers confetti, sound and animations that switch off if the user prefers reduced motion. Changes show up instantly and sync with the server, rolling back to the previous state if something fails. There is no public signup: an admin creates users from a panel and they receive an email invitation, with password recovery included. The backend is a REST API built with Node.js, Express and MongoDB, with one tracker per user per week starting on Monday, based on a configurable time zone. It went through a technical audit that fixed security issues (restricted CORS, rate limiting, helmet headers, ReDoS protection and errors that no longer leak internal details) and has 44 automated tests.",
+      "objective": "Build a complete, secure weekly tracking app, caring both for the user experience and the robustness of the backend: authentication, role-based access, security and testing.",
+      "features": [
+        "JWT login with bcrypt-hashed passwords",
+        "Users created only by admins, with email invitation",
+        "Password recovery by email",
+        "Weekly goal configurable from 1 to 7 days",
+        "Instant marking of trained days",
+        "Progress ring toward the week's goal",
+        "Confetti, sounds and animations, honoring the reduced-motion preference",
+        "Light and dark mode, mobile-friendly",
+        "History of past weeks",
+        "User administration panel",
+        "Rate limiting on login and password recovery",
+        "44 automated tests with Jest and Supertest"
+      ],
+      "learnings": [
+        "Designing a layered REST API with Express and Mongoose",
+        "Idempotent, atomic MongoDB operations to avoid duplicates",
+        "Handling weeks and time zones on the server",
+        "Optimistic updates on the frontend with rollback on errors",
+        "API security: CORS, rate limiting, helmet, ReDoS and error handling",
+        "Sending emails with SMTP and a test inbox",
+        "Endpoint testing and deploying frontend and backend separately"
+      ],
+      "demoLabel": "See app"
+    },
+    "rp-odontologia": {
+      "title": "RP Odontología – Dental Clinic Management System",
+      "short": "Web system to manage patients, treatments, payments, expenses and reports for a dental clinic, with configurable roles and permissions and a KPI dashboard.",
+      "long": "Full stack application to run the day-to-day of a dental clinic in one place. Each patient has a record and a treatment history; each treatment has an agreed price and moves through a lifecycle of states (in progress, finished, cancelled) with controlled transitions. Payments, with their payment method, and related expenses are recorded against the treatment, and the system works out on its own how much has been collected and how much is still pending. A dashboard and a reports module answer the business questions: how much is collected, how much each procedure and each payment method brings in, how much is spent, the net result for the period and the state of the treatment portfolio. Lists are paginated, with search and filters. Access is controlled with roles and permissions: an administrator creates roles, chooses what each one can do and registers users, and both the interface and the API enforce those permissions. Data is isolated per clinic, payments and expenses are never deleted but voided with a reason, and every change is logged in an audit table. The backend is a modular REST API built with Node.js, Express and MySQL, with JWT login, password recovery by email, rate limiting, restricted CORS and versioned SQL migrations on top of an existing database.",
+      "objective": "Replace the manual management of a dental clinic with a system that centralizes patients, treatments and finances, with role-based access control and reports that support decision making.",
+      "features": [
+        "JWT login with passwords hashed with bcrypt",
+        "Password recovery by email",
+        "Configurable roles and permissions, enforced in the API and the interface",
+        "Clinic user administration",
+        "Patient management with search by first name, last name or ID number, plus deactivation and reactivation",
+        "Treatments with an agreed price and states with valid transitions",
+        "Payments with payment method and automatic pending-balance calculation",
+        "Expenses linked to treatments",
+        "Voiding of payments and expenses with a reason, without deleting the record",
+        "Audit log of changes to treatments, payments and expenses",
+        "Dashboard with KPIs for the period",
+        "Reports on income, expenses, net result, income by treatment type and by payment method, pending collections and monthly evolution",
+        "Manageable catalogs: states, payment methods, expense types and treatment types",
+        "Paginated lists with filters and validated forms",
+        "Data isolated per clinic"
+      ],
+      "learnings": [
+        "Relational modeling in MySQL and incremental SQL migrations on a database with real data",
+        "Designing a layered, modular REST API with Express",
+        "End-to-end role and permission based access control (RBAC)",
+        "Business rules: states with transitions, balances and traceable voiding",
+        "SQL aggregation queries for reports and indicators",
+        "API security: JWT, rate limiting, restricted CORS and data validation",
+        "Organizing a React frontend by modules with protected routes"
+      ],
+      "demoLabel": "See how it works"
     }
   }
 }

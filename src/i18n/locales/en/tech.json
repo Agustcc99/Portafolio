@@ -68,8 +68,8 @@
       "features": ["User login", "Roles and permissions"]
     },
     "mysql": {
-      "usedFor": ["Relational databases (the basics)", "Currently used in a project in development"],
-      "features": []
+      "usedFor": ["Relational database for a clinic management system"],
+      "features": ["Table modeling, foreign keys and SQL migrations", "Join and aggregation queries for reports"]
     },
     "mongodb": {
       "usedFor": ["Non-relational data persistence"],

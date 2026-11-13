@@ -158,6 +158,125 @@
     ],
     "blur": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAAAwAwCdASoYAAkAPu1iqk2ppaQiMAgBMB2JaQAAidtAPo4YAP7wPL9Hactjspvdjf93MDZ7gJuAoAAA"
   },
+  "rachagym/r1": {
+    "width": 2200,
+    "height": 1674,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAgCdASoYABIAPu1ur1IppiQiqAgBMB2JZwAAQnjkAAD+8GV5uA8JoTv+4pbKrMYHp/RDP4sGbtvf69BYEAAA"
+  },
+  "rachagym/r2": {
+    "width": 2200,
+    "height": 1674,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAAAQAwCdASoYABIAPu1ur1IppiQiqAgBMB2JZwDN/BbIMQAA/vBOLHCaUwPu3QbVC891CCDbzULlamyACg2aGpBCLabQAA=="
+  },
+  "rachagym/r3": {
+    "width": 2560,
+    "height": 1720,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAABQAwCdASoYABAAPu1iqU2ppaQiMAgBMB2JZ2hwWeUQACFNgAD+8Jc1vbgPcrvMCntdYGuCAdPk2Jt23vVYdF/cKOUkJ9ibd2THmBAIAAA="
+  },
+  "rachagym/r4": {
+    "width": 860,
+    "height": 1400,
+    "widths": [
+      480,
+      860
+    ],
+    "blur": "data:image/webp;base64,UklGRtQAAABXRUJQVlA4IMgAAABwBgCdASoYACcAPulgp02pJaOiNVgIASAdCWMAzOH/4CgfNGJHKwhdY/Bv3AOT3PTwQz4Tb7nK6EsQTQAA/uOJ1gVgBnv7mfgxaa2nFZwMCWsWMhTnAl0fYAgcFmr56cAXY94QBLRzzl4IoSRm4ZYgj5mu+ytM5wZkaHsQK84EBwt9xOdVqe2XKJxWI+M6dkJ7CC0L7WI2RqbynPahzmivsRn2WxwycZsKFDHFw0WmXAPs0WuKU7BAMBXRWPOHR6xhmjHPboAAAA=="
+  },
+  "rachagym/r5": {
+    "width": 2200,
+    "height": 1094,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADwAgCdASoYAAwAPu1iqU2ppaQiMAgBMB2JZwDKAC1yAAD+8GUGa7wmghHed/kOscMeFluPdbkUAAAA"
+  },
+  "rachagym/r6": {
+    "width": 2200,
+    "height": 1226,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADwAgCdASoYAA0APu1iqU2ppaOiMAgBMB2JZQDImC1yAAD+8E5slPNPslbTN6CCa70BeL+t6M2fdRMAAAA="
+  },
+  "rpodontologia/r1": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAAAwBACdASoYAA8APu1iqU2ppaQiMAgBMB2JZwDG9CPtyDK/+sUSyZPcOAAA/vASxQCOk1AMlCwrZXxwH++Vn8Z4ElL7/AEmxKJJ7yIWaBrapOCdAAA="
+  },
+  "rpodontologia/r2": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAADwAgCdASoYAA8APu1iqU2ppaOiMAgBMB2JZ2i2ADdYAAD+8JciryEfRGNHeaNyTU/h3YHOMYfh94tltqb1NueKb3HC+aAUnb830AAA"
+  },
+  "rpodontologia/r3": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADwAgCdASoYAA8APu1iqU2ppaQiMAgBMB2JaWllADe2AAD+8Kt1ID+FAtZxS+NhMf0k18XCxweXhAAA"
+  },
+  "rpodontologia/r4": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAACwAwCdASoYAA8APu1kqk4ppaQiMAgBMB2JZwAu/8CAvcCA4mBNwAD+7+Qey15vTCrG3sDV13YWZTolqeAVFNWFAQX2sM8MZnhHlUdDfohMiBh6AAA="
+  },
+  "rpodontologia/r5": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAACwAgCdASoYAA8APu1iqU2ppaOiMAgBMB2JZwAAeyAA/vCRzODti8E+5W/iZJghICLC7+uyAAA="
+  },
+  "rpodontologia/r6": {
+    "width": 2880,
+    "height": 1800,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAADwAgCdASoYAA8APu1iqU2ppaQiMAgBMB2JZ2hwAD3wAAD+8JQNVFz6dcnWSWmGu4bdTekuvXkSF7BOmrv2XIPjwl9pkgCBQiuM7eFSByQAFQIAAAA="
+  },
   "ss/ss1": {
     "width": 1920,
     "height": 781,

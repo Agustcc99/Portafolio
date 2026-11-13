@@ -131,10 +131,12 @@
     },
     "mysql": {
       "usedFor": [
-        "Bases de datos relacionales (lo básico)",
-        "Actualmente en uso en un proyecto en desarrollo"
+        "Base de datos relacional de un sistema de gestión de consultorio"
       ],
-      "features": []
+      "features": [
+        "Modelado de tablas, claves foráneas y migraciones SQL",
+        "Consultas con joins y agregaciones para reportes"
+      ]
     },
     "mongodb": {
       "usedFor": [

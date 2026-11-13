@@ -179,6 +179,69 @@
         "Práctica de diseño sin frameworks"
       ],
       "demoLabel": "Ver maqueta"
+    },
+    "rachagym": {
+      "title": "RachaGym – App de Seguimiento de Entrenamientos",
+      "short": "App web para registrar los días de entrenamiento de cada semana y cumplir una meta semanal, con acceso por invitación, panel de administración y recuperación de contraseña por email.",
+      "long": "Aplicación web full stack para llevar el control de los entrenamientos semana a semana. Cada usuario define una meta de días (de 1 a 7) y va marcando los días que entrena; un anillo de progreso muestra cuánto falta, y al marcar un día la interfaz responde con confeti, sonido y animaciones que se desactivan si el usuario prefiere menos movimiento. Los cambios se reflejan al instante y se sincronizan con el servidor, volviendo al estado anterior si algo falla. No hay registro público: un administrador da de alta a los usuarios desde un panel y les llega una invitación por email, con recuperación de contraseña incluida. El backend es una API REST con Node.js, Express y MongoDB, con una semana por usuario que arranca el lunes según una zona horaria configurable. Pasó por una auditoría técnica en la que se corrigieron temas de seguridad (CORS restringido, rate limiting, cabeceras con helmet, protección contra ReDoS y errores sin datos internos) y cuenta con 44 tests automatizados.",
+      "objective": "Construir una app de seguimiento semanal completa y segura, cuidando tanto la experiencia de uso como la robustez del backend: autenticación, control de acceso por roles, seguridad y pruebas.",
+      "features": [
+        "Login con JWT y contraseñas encriptadas con bcrypt",
+        "Alta de usuarios solo por administradores, con invitación por email",
+        "Recuperación de contraseña por email",
+        "Meta semanal configurable de 1 a 7 días",
+        "Marcado de días entrenados con actualización inmediata",
+        "Anillo de progreso hacia la meta de la semana",
+        "Confeti, sonidos y animaciones, respetando la preferencia de movimiento reducido",
+        "Modo claro y oscuro, adaptado a móvil",
+        "Historial de semanas anteriores",
+        "Panel de administración de usuarios",
+        "Rate limiting en login y recuperación de contraseña",
+        "44 tests automatizados con Jest y Supertest"
+      ],
+      "learnings": [
+        "Diseño de una API REST por capas con Express y Mongoose",
+        "Operaciones idempotentes y atómicas en MongoDB para evitar duplicados",
+        "Manejo de semanas y zonas horarias en el servidor",
+        "Actualizaciones optimistas en el frontend con reversión ante errores",
+        "Seguridad de una API: CORS, rate limiting, helmet, ReDoS y manejo de errores",
+        "Envío de emails con SMTP y entorno de pruebas",
+        "Testing de endpoints y despliegue de frontend y backend por separado"
+      ],
+      "demoLabel": "Ver app"
+    },
+    "rp-odontologia": {
+      "title": "RP Odontología – Sistema de Gestión para Consultorios",
+      "short": "Sistema web para gestionar pacientes, tratamientos, pagos, gastos y reportes de un consultorio odontológico, con roles y permisos configurables y un panel de indicadores.",
+      "long": "Aplicación full stack para administrar el día a día de un consultorio odontológico en un solo lugar. Cada paciente tiene su ficha y su historial de tratamientos; cada tratamiento tiene un precio pactado y recorre un ciclo de estados (en curso, finalizado, cancelado) con transiciones controladas. Contra el tratamiento se registran los pagos, con su medio de pago, y los gastos asociados, y el sistema calcula solo cuánto se cobró y cuánto queda pendiente. Un dashboard y un módulo de reportes responden las preguntas del negocio: cuánto se cobra, cuánto ingresa por cada práctica y por cada medio de pago, cuánto se gasta, cuál es el resultado neto del período y cómo está la cartera de tratamientos. Los listados son paginados, con búsqueda y filtros. El acceso se controla con roles y permisos: un administrador crea roles, elige qué puede hacer cada uno y da de alta a los usuarios, y la interfaz y la API respetan esos permisos. Los datos se aíslan por consultorio, los pagos y gastos no se borran sino que se anulan con un motivo, y cada cambio queda registrado en una tabla de auditoría. El backend es una API REST modular con Node.js, Express y MySQL, con login con JWT, recuperación de contraseña por email, rate limiting, CORS restringido y migraciones SQL versionadas sobre una base ya existente.",
+      "objective": "Reemplazar la gestión manual de un consultorio por un sistema que centralice pacientes, tratamientos y finanzas, con control de acceso por roles y reportes que ayuden a tomar decisiones.",
+      "features": [
+        "Login con JWT y contraseñas encriptadas con bcrypt",
+        "Recuperación de contraseña por email",
+        "Roles y permisos configurables, aplicados en la API y en la interfaz",
+        "Administración de usuarios del consultorio",
+        "Gestión de pacientes con búsqueda por nombre, apellido o DNI, y baja y reactivación",
+        "Tratamientos con precio pactado y estados con transiciones válidas",
+        "Pagos con medio de pago y cálculo automático del saldo pendiente",
+        "Gastos asociados a tratamientos",
+        "Anulación de pagos y gastos con motivo, sin borrar el registro",
+        "Auditoría de cambios en tratamientos, pagos y gastos",
+        "Dashboard con indicadores (KPIs) del período",
+        "Reportes de ingresos, egresos, resultado neto, ingresos por tipo de tratamiento y por medio de pago, pendientes de cobro y evolución mensual",
+        "Catálogos administrables: estados, medios de pago, tipos de gasto y de tratamiento",
+        "Listados paginados con filtros y formularios con validación",
+        "Datos aislados por consultorio"
+      ],
+      "learnings": [
+        "Modelado relacional en MySQL y migraciones SQL incrementales sobre una base con datos reales",
+        "Diseño de una API REST modular en capas con Express",
+        "Control de acceso con roles y permisos (RBAC) de punta a punta",
+        "Reglas de negocio: estados con transiciones, saldos y anulaciones con trazabilidad",
+        "Consultas SQL de agregación para reportes e indicadores",
+        "Seguridad de la API: JWT, rate limiting, CORS restringido y validación de datos",
+        "Organización de un frontend React por módulos con rutas protegidas"
+      ],
+      "demoLabel": "Ver funcionamiento"
     }
   }
 }

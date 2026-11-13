@@ -54,19 +54,23 @@ export const levelMarkers: Record<TechLevel, string> = {
 
 const ALL_APPS = [
   'consultorio-odontologico',
+  'rp-odontologia',
   'presupuestos-vidrieria',
   'api-ecommerce',
   'turnos-psiquiatria',
   'landing-vidrieria',
   'control-habitos',
+  'rachagym',
 ] as const
 
 const FRONT_APPS = [
   'consultorio-odontologico',
+  'rp-odontologia',
   'presupuestos-vidrieria',
   'turnos-psiquiatria',
   'landing-vidrieria',
   'control-habitos',
+  'rachagym',
 ] as const
 
 /** `projects` referencia slugs de proyecto, o `'portfolio'` para este mismo sitio. */
@@ -78,7 +82,14 @@ export const techMeta: Record<string, { level: TechLevel; projects: readonly str
   vite: { level: 'main', projects: ['portfolio'] },
   bootstrap: {
     level: 'main',
-    projects: ['consultorio-odontologico', 'turnos-psiquiatria', 'landing-vidrieria', 'control-habitos'],
+    projects: [
+      'consultorio-odontologico',
+      'rp-odontologia',
+      'turnos-psiquiatria',
+      'landing-vidrieria',
+      'control-habitos',
+      'rachagym',
+    ],
   },
   nodejs: { level: 'main', projects: ALL_APPS },
   express: { level: 'main', projects: ALL_APPS },
@@ -86,14 +97,21 @@ export const techMeta: Record<string, { level: TechLevel; projects: readonly str
   springboot: { level: 'projects', projects: [] },
   jwt: {
     level: 'projects',
-    projects: ['presupuestos-vidrieria', 'api-ecommerce', 'turnos-psiquiatria', 'control-habitos'],
+    projects: [
+      'presupuestos-vidrieria',
+      'rp-odontologia',
+      'api-ecommerce',
+      'turnos-psiquiatria',
+      'control-habitos',
+      'rachagym',
+    ],
   },
-  mysql: { level: 'learning', projects: [] },
+  mysql: { level: 'projects', projects: ['rp-odontologia'] },
   mongodb: { level: 'main', projects: ALL_APPS },
   git: { level: 'main', projects: [...ALL_APPS, 'landing-semillas'] },
   github: { level: 'main', projects: [...ALL_APPS, 'landing-semillas'] },
   postman: { level: 'main', projects: ALL_APPS },
-  jest: { level: 'projects', projects: ['api-ecommerce'] },
+  jest: { level: 'projects', projects: ['api-ecommerce', 'rachagym'] },
   junit: { level: 'learning', projects: [] },
   docker: { level: 'learning', projects: [] },
   aws: { level: 'learning', projects: [] },

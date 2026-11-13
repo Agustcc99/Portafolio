@@ -2,7 +2,7 @@ import type { ProjectData } from './types'
 
 const project: ProjectData = {
   slug: 'api-ecommerce',
-  order: 3,
+  order: 4,
   featured: true,
   category: 'backend',
   techs: ['nodejs', 'express', 'mongodb', 'mongoose', 'jwt', 'bcrypt', 'jest', 'supertest', 'dotenv'],
