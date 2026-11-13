@@ -5,7 +5,7 @@ export interface ProjectData {
   slug: string
   /** Posición estable (1 = primero). Define el orden en el carrusel, el índice y "anterior/siguiente". */
   order: number
-  /** Aparece en el carrusel del home (máx. 7). */
+  /** Aparece en el carrusel del home (máx. 8). */
   featured: boolean
   category: ProjectCategory
   /** Slugs de `content/technologies.ts`. */

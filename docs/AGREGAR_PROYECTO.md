@@ -38,7 +38,7 @@ import type { ProjectData } from './types'
 const project: ProjectData = {
   slug: 'mi-proyecto', // = nombre del archivo; es la URL: /es/proyectos/mi-proyecto
   order: 8, // posición en carrusel, índice y "anterior/siguiente"
-  featured: false, // true → aparece en el carrusel del home (se muestran los primeros 7 por `order`)
+  featured: false, // true → aparece en el carrusel del home (se muestran los primeros 8 por `order`)
   category: 'fullstack', // 'fullstack' | 'backend' | 'frontend'
   techs: ['react', 'nodejs', 'mongodb'], // slugs de src/content/technologies.ts (techLabels)
   links: { demo: null, code: 'https://github.com/...' }, // null = el botón se oculta (si ambos son null, no aparece el bloque de enlaces)
