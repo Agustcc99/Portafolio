@@ -13,7 +13,7 @@ export const projects: readonly ProjectData[] = Object.values(modules)
   .sort((a, b) => a.order - b.order)
 
 /** Máximo de proyectos en el carrusel del home. */
-export const MAX_FEATURED = 8
+export const MAX_FEATURED = 9
 
 export const featuredProjects = projects.filter((p) => p.featured).slice(0, MAX_FEATURED)
 
