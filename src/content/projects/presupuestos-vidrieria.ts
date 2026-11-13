@@ -2,7 +2,7 @@ import type { ProjectData } from './types'
 
 const project: ProjectData = {
   slug: 'presupuestos-vidrieria',
-  order: 3,
+  order: 4,
   featured: true,
   category: 'fullstack',
   techs: ['react', 'javascript', 'nodejs', 'express', 'mongodb', 'mongoose', 'jwt', 'bcrypt'],

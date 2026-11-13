@@ -33,6 +33,12 @@ export const techLabels: Record<string, string> = {
   bcrypt: 'bcrypt',
   supertest: 'Supertest',
   dotenv: 'Dotenv',
+  tailwind: 'Tailwind CSS',
+  gsap: 'GSAP',
+  playwright: 'Playwright',
+  seo: 'SEO',
+  googleanalytics: 'Google Analytics',
+  googlebusiness: 'Google Business Profile',
 }
 
 export const techCategories: ReadonlyArray<{
@@ -64,6 +70,7 @@ const ALL_APPS = [
 ] as const
 
 const FRONT_APPS = [
+  'lugia',
   'consultorio-odontologico',
   'rp-odontologia',
   'presupuestos-vidrieria',
@@ -79,7 +86,7 @@ export const techMeta: Record<string, { level: TechLevel; projects: readonly str
   css: { level: 'main', projects: ['landing-semillas'] },
   javascript: { level: 'main', projects: FRONT_APPS },
   react: { level: 'main', projects: FRONT_APPS },
-  vite: { level: 'main', projects: ['portfolio'] },
+  vite: { level: 'main', projects: ['lugia', 'portfolio'] },
   bootstrap: {
     level: 'main',
     projects: [

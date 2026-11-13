@@ -5,6 +5,36 @@
     "frontend": "Maquetación"
   },
   "items": {
+    "lugia": {
+      "title": "Consultorio Odontológico LuGia – Sitio web con SEO local",
+      "short": "Sitio web real de un consultorio odontológico de Córdoba: 8 páginas, turnos por WhatsApp, SEO local, medición con Google Analytics y ficha de Google Business Profile configurada.",
+      "long": "Sitio web en producción (lugia.com.ar) del consultorio de una odontóloga de Córdoba, pensado para que los pacientes del barrio la encuentren en Google y pidan turno en un minuto. Tiene una página de inicio con tratamientos, la profesional, el consultorio, preguntas frecuentes y contacto, y siete páginas propias, una por tratamiento (endodoncia, odontopediatría, prótesis y coronas, implantes, placas de bruxismo, blanqueamiento y limpieza dental), cada una con su paleta, su ilustración y sus preguntas frecuentes. El turno se pide con un formulario de cuatro pasos que arma el mensaje y lo abre en WhatsApp, sin backend y sin guardar datos. Además del sitio, me ocupé de la presencia en Google: configuré Google Analytics para medir las visitas y armé la ficha de Google Business Profile del consultorio, con enlace directo para dejar reseñas y cómo llegar con Google Maps. Cada página se genera como HTML estático en el build, con título, descripción y datos estructurados propios, sitemap y robots.txt, y está escrita pensando en las búsquedas locales (\"en Córdoba\", \"Jardín Horizonte\").",
+      "objective": "Dar a un consultorio particular una presencia profesional en internet: que aparezca en las búsquedas de su zona, explique cada tratamiento con claridad y convierta visitas en turnos por WhatsApp.",
+      "features": [
+        "8 páginas: inicio y una por tratamiento, cada una con título, descripción y datos estructurados propios",
+        "Formulario de turno de 4 pasos que arma el mensaje y lo abre en WhatsApp, sin guardar datos",
+        "Botón flotante de WhatsApp en escritorio y barra fija en celular",
+        "Páginas generadas como HTML estático en el build (SSR), con sitemap.xml y robots.txt",
+        "SEO local orientado a Córdoba y al barrio",
+        "Google Analytics configurado para medir visitas, con aviso de cookies",
+        "Ficha de Google Business Profile armada, con enlace para dejar reseñas y cómo llegar",
+        "Cada tratamiento con su propia gama de color, forma de foto e ilustración SVG",
+        "Herramienta en la página de limpieza que calcula cuándo toca el próximo control",
+        "Cursor de tinta y animaciones con GSAP y Motion, respetando la preferencia de movimiento reducido",
+        "Pruebas automatizadas con Playwright en escritorio y celular: completan el formulario y recorren el sitemap",
+        "Diseño responsive y contenido informativo con tono cercano"
+      ],
+      "learnings": [
+        "Armar un sitio multipágina con React y Vite y generarlo como HTML estático para el SEO",
+        "SEO local: títulos y descripciones por página, datos estructurados, sitemap y contenido pensado para búsquedas de la zona",
+        "Configurar Google Analytics y Google Business Profile de un negocio real",
+        "Convertir visitas en turnos con un flujo simple por WhatsApp, sin backend",
+        "Animaciones con GSAP y Motion cuidando el rendimiento y la accesibilidad",
+        "Probar flujos de punta a punta con Playwright",
+        "Trabajar con un cliente real: contenido, tono, fotos y publicación en un dominio propio"
+      ],
+      "demoLabel": "Ver sitio en vivo"
+    },
     "consultorio-odontologico": {
       "title": "Sistema de Gestión para Consultorio Odontológico",
       "short": "Sistema web para administrar pacientes, tratamientos, pagos, gastos de laboratorio y reportes financieros de un consultorio odontológico.",

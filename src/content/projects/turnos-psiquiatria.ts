@@ -2,7 +2,7 @@ import type { ProjectData } from './types'
 
 const project: ProjectData = {
   slug: 'turnos-psiquiatria',
-  order: 6,
+  order: 7,
   featured: true,
   category: 'fullstack',
   techs: ['react', 'javascript', 'bootstrap', 'nodejs', 'express', 'mongodb', 'mongoose', 'jwt', 'bcrypt'],

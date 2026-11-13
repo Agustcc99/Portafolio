@@ -2,7 +2,7 @@ import type { ProjectData } from './types'
 
 const project: ProjectData = {
   slug: 'rp-odontologia',
-  order: 2,
+  order: 3,
   featured: true,
   category: 'fullstack',
   techs: ['react', 'vite', 'javascript', 'bootstrap', 'nodejs', 'express', 'mysql', 'jwt', 'bcrypt'],

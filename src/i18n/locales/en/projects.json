@@ -5,6 +5,36 @@
     "frontend": "Front-end markup"
   },
   "items": {
+    "lugia": {
+      "title": "LuGia Dental Practice – Website with Local SEO",
+      "short": "Live website for a dental practice in Córdoba: 8 pages, appointments via WhatsApp, local SEO, Google Analytics tracking and a configured Google Business Profile listing.",
+      "long": "Production website (lugia.com.ar) for a dentist's practice in Córdoba, built so that patients in the neighbourhood can find her on Google and request an appointment in a minute. It has a home page with treatments, the professional, the practice, FAQ and contact, plus seven dedicated pages, one per treatment (endodontics, paediatric dentistry, prosthetics and crowns, implants, bruxism splints, whitening and dental cleaning), each with its own palette, illustration and FAQ. Appointments are requested through a four-step form that builds the message and opens it in WhatsApp, with no backend and no data stored. Beyond the site, I also handled the Google presence: I set up Google Analytics to measure visits and built the practice's Google Business Profile listing, with a direct link to leave reviews and directions through Google Maps. Every page is generated as static HTML at build time, with its own title, description and structured data, a sitemap and robots.txt, and the copy is written for local searches (\"in Córdoba\", \"Jardín Horizonte\").",
+      "objective": "Give a private practice a professional web presence: show up in searches in its area, explain each treatment clearly and turn visits into WhatsApp appointments.",
+      "features": [
+        "8 pages: home plus one per treatment, each with its own title, description and structured data",
+        "4-step appointment form that builds the message and opens it in WhatsApp, storing no data",
+        "Floating WhatsApp button on desktop and fixed bar on mobile",
+        "Pages generated as static HTML at build time (SSR), with sitemap.xml and robots.txt",
+        "Local SEO focused on Córdoba and the neighbourhood",
+        "Google Analytics configured to measure visits, with a cookie notice",
+        "Google Business Profile listing set up, with a review link and directions",
+        "Each treatment with its own colour range, photo shape and SVG illustration",
+        "Tool on the cleaning page that works out when the next check-up is due",
+        "Ink cursor and animations with GSAP and Motion, honoring the reduced-motion preference",
+        "Automated Playwright tests on desktop and mobile: they fill in the form and walk the sitemap",
+        "Responsive design and informative copy in a friendly tone"
+      ],
+      "learnings": [
+        "Building a multi-page site with React and Vite and generating it as static HTML for SEO",
+        "Local SEO: per-page titles and descriptions, structured data, sitemap and content written for local searches",
+        "Setting up Google Analytics and Google Business Profile for a real business",
+        "Turning visits into appointments with a simple WhatsApp flow and no backend",
+        "Animations with GSAP and Motion, with attention to performance and accessibility",
+        "End-to-end flow testing with Playwright",
+        "Working with a real client: content, tone, photos and publishing on a custom domain"
+      ],
+      "demoLabel": "Visit live site"
+    },
     "consultorio-odontologico": {
       "title": "Management System for a Dental Practice",
       "short": "Web system to manage patients, treatments, payments, lab expenses and financial reports for a dental practice.",

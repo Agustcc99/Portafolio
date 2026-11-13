@@ -158,6 +158,66 @@
     ],
     "blur": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAAAwAwCdASoYAAkAPu1iqk2ppaQiMAgBMB2JaQAAidtAPo4YAP7wPL9Hactjspvdjf93MDZ7gJuAoAAA"
   },
+  "lugia/l1": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAADwAwCdASoYAA8APu1iqk2ppaQiMAgBMB2JZQAAW+tyhO9fqsTmKyYAAP7gC2LN3YZnzErJpzfnz6p+RRh6CYG0SZL944KJpsYY2PbDiB0Na9wvj4MQ1JYBbOE/hXic9+YuJiurkpSbbh39PS9Tfn72zZWsfbvBxvBgAAAA"
+  },
+  "lugia/l2": {
+    "width": 1585,
+    "height": 1000,
+    "widths": [
+      480,
+      960,
+      1585
+    ],
+    "blur": "data:image/webp;base64,UklGRogAAABXRUJQVlA4IHwAAADQAwCdASoYAA8APu1krU2ppaSiMAgBMB2JYwBTAAebkXosKyVH5EAA/rI/ozkTurHpxGT6fLSVqInOcMMQlTX14fb1D2LH0WvAVKXXv1/gMTihRFhXNweHQPtqjBvrNc13YebXVrYCnCXISstngRU7XzdrDIq0WfW/gAAA"
+  },
+  "lugia/l3": {
+    "width": 1585,
+    "height": 1000,
+    "widths": [
+      480,
+      960,
+      1585
+    ],
+    "blur": "data:image/webp;base64,UklGRpIAAABXRUJQVlA4IIYAAADwAwCdASoYAA8APu1iqk2ppaQiMAgBMB2JQBkTBC1z2t5Q9L5JDwYAAP7wZ5Y4r/lr4d9ymNOYurDZPdzsflciGI0TLiDXsYAw6btTXoE4+/Z3bALLvePmwBBirzweiM9KWm0lDFZEiKqu6MY397uqMdBMZwendtgqWlYtkMWLtytBIEAAAA=="
+  },
+  "lugia/l4": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRm4AAABXRUJQVlA4IGIAAAAQBACdASoYAA8APu1kqU2ppaOiMAgBMB2JQBOmUABqonHLABIAOTvvJAD+6nuBAUDm+7mip6kQdkH9zG+aiLwTI/1Ap25M5dVx2B41tnylskn98Tsi8SeITkSssVN0KOAAAA=="
+  },
+  "lugia/l5": {
+    "width": 1600,
+    "height": 1000,
+    "widths": [
+      480,
+      960,
+      1600
+    ],
+    "blur": "data:image/webp;base64,UklGRmIAAABXRUJQVlA4IFYAAADQAwCdASoYAA8APu1kqU2ppaQiMAgBMB2JZwAAW+wLszFzPgc3nQAA/u/Nk67yPyHUXimgU5VyOtpygjIZAIJkiXCsXHaxZRLjUeAcbQxqdOVWaQAAAA=="
+  },
+  "lugia/l7": {
+    "width": 1585,
+    "height": 1000,
+    "widths": [
+      480,
+      960,
+      1585
+    ],
+    "blur": "data:image/webp;base64,UklGRowAAABXRUJQVlA4IIAAAAAQBACdASoYAA8APu1iqU2ppaQiMAgBMB2JYwAAW+zEba4yLrpfewtCgAD+sj+iwxtXRTSGz7gttO3xpq/xGYtM6i4vU3/GVo4pRXSjlc05153pEXlnxX1Mn4R/PKKvfAOTe84bBXluYRwjexZzoHYyPff8fNCaVZTGDfP4lAAAAA=="
+  },
   "rachagym/r1": {
     "width": 2200,
     "height": 1674,
